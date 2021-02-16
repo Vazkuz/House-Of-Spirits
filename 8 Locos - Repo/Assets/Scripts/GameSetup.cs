@@ -41,9 +41,7 @@ public class GameSetup : MonoBehaviour
         PhotonNetwork.Disconnect();
         while(PhotonNetwork.IsConnected) yield return null;
         Destroy(RoomController.room.gameObject);
-        Debug.Log("Problema aquí 1.");
         SceneManager.LoadScene(MultiplayerSettings.multiplayerSettings.menuScene);
-        Debug.Log("Problema aquí 2.");
         hasStartedLeaving = false;
     }
 

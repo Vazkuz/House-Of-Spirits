@@ -62,7 +62,6 @@ public class RoomController : MonoBehaviourPunCallbacks
 
     void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("Problema aquí 3.");
         //called when multiplayer scene is loaded
         currentScene = scene.buildIndex;
         if(currentScene == MultiplayerSettings.multiplayerSettings.roomScene)
