@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerInfo : MonoBehaviour
 {   
     public static PlayerInfo PI;
+    public PhotonView PV;
 
     public int mySpaceInGrid;
 
@@ -13,6 +14,7 @@ public class PlayerInfo : MonoBehaviour
 
     void Start()
     {
+        PV = GetComponent<PhotonView>();
     }
     void OnEnable()
     {
@@ -48,13 +50,11 @@ public class PlayerInfo : MonoBehaviour
             {
                 Debug.Log("Moviendo el número " + gridPositions);
                 allSpacesInGrid[gridPositions].transform.GetChild(0).SetParent(allSpacesInGrid[gridPositions-1].transform, false);
+                if(allSpacesInGrid[gridPositions-1].transform.GetChild(0).GetComponent<PhotonPlayer>())
+                {
+                    allSpacesInGrid[gridPositions-1].transform.GetChild(0).GetComponent<PhotonPlayer>().myPositionInGrid = gridPositions-1;
+                }
             }
         }
     }
-
-    public void UpdateAllPositions()
-    {
-        
-    }
-
 }

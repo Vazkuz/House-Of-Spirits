@@ -12,6 +12,7 @@ public class PhotonPlayer : MonoBehaviour
     private PhotonView PV;
     public GameObject myAvatar;
     public int mySelectedCharacter;
+    public int myPositionInGrid;
     public string myNickName;
 
     void Start()
@@ -58,6 +59,7 @@ public class PhotonPlayer : MonoBehaviour
         myAvatar.transform.localScale = new Vector3(0.6f,0.7f,0f);
         myAvatar.transform.SetParent(transform, false);
         transform.SetParent(PlayerInfo.PI.allSpacesInGrid[positionOfAvatar].transform, false);
+        myPositionInGrid = positionOfAvatar;
         myAvatar.GetComponent<RectTransform>().localPosition = new Vector3(avatarOffsetX, avatarOffsetY, 0);
     }
 
@@ -112,5 +114,49 @@ public class PhotonPlayer : MonoBehaviour
             }
         }        
     }
+
+    public void ArrangePlayersInCorrectOrder()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonView internalPV = FindObjectOfType<PhotonPlayer>().GetComponent<PhotonView>();
+            Debug.Log("Starting the rearrangement of players in the grid");
+            internalPV.RPC("MoveEveryPlayerToPlayerInfo", RpcTarget.All);
+            // OrganizeAllPlayersParenting();
+        }
+    }
+
+    [PunRPC]
+    void MoveEveryPlayerToPlayerInfo()
+    {
+        foreach (GameObject spaceInGrid in PlayerInfo.PI.allSpacesInGrid)
+        {
+            for (int childIndex = 0; childIndex < spaceInGrid.transform.childCount; childIndex++)
+            {
+                spaceInGrid.transform.GetChild(childIndex).SetParent(PlayerInfo.PI.transform); //Changing parenting of players to PlayerInfo
+            }
+        }
+    }
+
+    private void OrganizeAllPlayersParenting()
+    {
+        int numberOfPlayersInPlayerInfo = PlayerInfo.PI.transform.childCount; //Calculating number of childs in PlayerInfo
+        for (int childIndex = 0; childIndex < numberOfPlayersInPlayerInfo; childIndex++)
+        {
+            int positionOfPlayerIndexed = PlayerInfo.PI.transform.GetChild(0).GetComponent<PhotonPlayer>().myPositionInGrid;
+            PhotonView internalPV = PlayerInfo.PI.transform.GetChild(0).GetComponent<PhotonView>();
+            internalPV.RPC("MovePlayerToRealPosition", RpcTarget.All, positionOfPlayerIndexed);
+        }
+    }
+
+    [PunRPC]
+    void MovePlayerToRealPosition(int realPlayerPosition)
+    {
+        if(PlayerInfo.PI.transform.childCount > 0)
+        {
+            PlayerInfo.PI.transform.GetChild(0).transform.SetParent(PlayerInfo.PI.allSpacesInGrid[realPlayerPosition].transform, true);
+        }
+    }
+
 
 }
