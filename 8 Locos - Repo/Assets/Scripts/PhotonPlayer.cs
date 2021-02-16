@@ -12,6 +12,7 @@ public class PhotonPlayer : MonoBehaviour
     private PhotonView PV;
     public GameObject myAvatar;
     public int mySelectedCharacter;
+    public int myPositionInGrid;
     public string myNickName;
 
     void Start()
@@ -58,6 +59,7 @@ public class PhotonPlayer : MonoBehaviour
         myAvatar.transform.localScale = new Vector3(0.6f,0.7f,0f);
         myAvatar.transform.SetParent(transform, false);
         transform.SetParent(PlayerInfo.PI.allSpacesInGrid[positionOfAvatar].transform, false);
+        myPositionInGrid = positionOfAvatar;
         myAvatar.GetComponent<RectTransform>().localPosition = new Vector3(avatarOffsetX, avatarOffsetY, 0);
     }
 
@@ -112,5 +114,55 @@ public class PhotonPlayer : MonoBehaviour
             }
         }        
     }
+
+    public void ArrangePlayersInCorrectOrder()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonView internalPV = FindObjectOfType<PhotonPlayer>().GetComponent<PhotonView>();
+            Debug.Log("Starting the rearrangement of players in the grid");
+            internalPV.RPC("DetachEveryPlayerFromParent", RpcTarget.All);
+            OrganizeAllPlayersParenting();
+        }
+    }
+
+    [PunRPC]
+    void DetachEveryPlayerFromParent()
+    {
+        foreach (GameObject spaceInGrid in PlayerInfo.PI.allSpacesInGrid)
+        {
+            Debug.Log(spaceInGrid.name + " tiene " + spaceInGrid.transform.childCount + " hijos.");
+            spaceInGrid.transform.DetachChildren(); //Detaching all players from their parent.
+        }
+    }
+
+    private void OrganizeAllPlayersParenting()
+    {
+        for(int networkPlayerIndex = 0; networkPlayerIndex < PhotonNetwork.PlayerList.Length; networkPlayerIndex++)
+        {
+            foreach(PhotonPlayer player in FindObjectsOfType<PhotonPlayer>())
+            {
+                if (player.PV.Owner == PhotonNetwork.PlayerList[networkPlayerIndex])
+                {
+                    player.PV.RPC("MovePlayerToRealPosition", RpcTarget.All, networkPlayerIndex, player.myPositionInGrid);
+                }
+            }
+        }
+    }
+
+    [PunRPC]
+    void MovePlayerToRealPosition(int whichPlayer, int realPlayerPosition)
+    {
+        foreach(PhotonPlayer player in FindObjectsOfType<PhotonPlayer>())
+        {
+            if (player.PV.Owner == PhotonNetwork.PlayerList[whichPlayer])
+            {
+                player.transform.SetParent(PlayerInfo.PI.allSpacesInGrid[realPlayerPosition].transform);
+                player.transform.localPosition = new Vector3 (0, 0, 0);
+                player.transform.localScale = new Vector3 (1, 1, 1);
+            }
+        }
+    }
+
 
 }
