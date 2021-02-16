@@ -121,40 +121,45 @@ public class PhotonPlayer : MonoBehaviour
         {
             PhotonView internalPV = FindObjectOfType<PhotonPlayer>().GetComponent<PhotonView>();
             Debug.Log("Starting the rearrangement of players in the grid");
-            internalPV.RPC("MoveEveryPlayerToPlayerInfo", RpcTarget.All);
-            // OrganizeAllPlayersParenting();
+            internalPV.RPC("DetachEveryPlayerFromParent", RpcTarget.All);
+            OrganizeAllPlayersParenting();
         }
     }
 
     [PunRPC]
-    void MoveEveryPlayerToPlayerInfo()
+    void DetachEveryPlayerFromParent()
     {
         foreach (GameObject spaceInGrid in PlayerInfo.PI.allSpacesInGrid)
         {
-            for (int childIndex = 0; childIndex < spaceInGrid.transform.childCount; childIndex++)
-            {
-                spaceInGrid.transform.GetChild(childIndex).SetParent(PlayerInfo.PI.transform); //Changing parenting of players to PlayerInfo
-            }
+            Debug.Log(spaceInGrid.name + " tiene " + spaceInGrid.transform.childCount + " hijos.");
+            spaceInGrid.transform.DetachChildren(); //Detaching all players from their parent.
         }
     }
 
     private void OrganizeAllPlayersParenting()
     {
-        int numberOfPlayersInPlayerInfo = PlayerInfo.PI.transform.childCount; //Calculating number of childs in PlayerInfo
-        for (int childIndex = 0; childIndex < numberOfPlayersInPlayerInfo; childIndex++)
+        for(int networkPlayerIndex = 0; networkPlayerIndex < PhotonNetwork.PlayerList.Length; networkPlayerIndex++)
         {
-            int positionOfPlayerIndexed = PlayerInfo.PI.transform.GetChild(0).GetComponent<PhotonPlayer>().myPositionInGrid;
-            PhotonView internalPV = PlayerInfo.PI.transform.GetChild(0).GetComponent<PhotonView>();
-            internalPV.RPC("MovePlayerToRealPosition", RpcTarget.All, positionOfPlayerIndexed);
+            foreach(PhotonPlayer player in FindObjectsOfType<PhotonPlayer>())
+            {
+                if (player.PV.Owner == PhotonNetwork.PlayerList[networkPlayerIndex])
+                {
+                    player.PV.RPC("MovePlayerToRealPosition", RpcTarget.All, networkPlayerIndex, player.myPositionInGrid);
+                }
+            }
         }
     }
 
     [PunRPC]
-    void MovePlayerToRealPosition(int realPlayerPosition)
+    void MovePlayerToRealPosition(int whichPlayer, int realPlayerPosition)
     {
-        if(PlayerInfo.PI.transform.childCount > 0)
+        foreach(PhotonPlayer player in FindObjectsOfType<PhotonPlayer>())
         {
-            PlayerInfo.PI.transform.GetChild(0).transform.SetParent(PlayerInfo.PI.allSpacesInGrid[realPlayerPosition].transform, true);
+            if (player.PV.Owner == PhotonNetwork.PlayerList[whichPlayer])
+            {
+                player.transform.SetParent(PlayerInfo.PI.allSpacesInGrid[realPlayerPosition].transform);
+                player.transform.localPosition = new Vector3 (0, player.transform.localPosition.y, 0);
+            }
         }
     }
 

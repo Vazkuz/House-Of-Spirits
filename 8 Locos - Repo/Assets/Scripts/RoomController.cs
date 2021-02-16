@@ -184,6 +184,7 @@ public class RoomController : MonoBehaviourPunCallbacks
     [PunRPC]
     void UpdatePositionsInNetwork(int whoLeft)
     {
+        Debug.Log("Quien se fue? Fue el número " + whoLeft);
         PlayerInfo.PI.UpdatePositionInGrid(whoLeft);
     }
 
