@@ -158,7 +158,8 @@ public class PhotonPlayer : MonoBehaviour
             if (player.PV.Owner == PhotonNetwork.PlayerList[whichPlayer])
             {
                 player.transform.SetParent(PlayerInfo.PI.allSpacesInGrid[realPlayerPosition].transform);
-                player.transform.localPosition = new Vector3 (0, player.transform.localPosition.y, 0);
+                player.transform.localPosition = new Vector3 (0, 0, 0);
+                player.transform.localScale = new Vector3 (1, 1, 1);
             }
         }
     }

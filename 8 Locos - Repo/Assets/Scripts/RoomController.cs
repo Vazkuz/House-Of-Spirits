@@ -149,8 +149,15 @@ public class RoomController : MonoBehaviourPunCallbacks
         {
             Debug.Log("Player has succesfully entered the room. Now there are " + PhotonNetwork.CurrentRoom.PlayerCount + " players on the room.");
             kickedWrongPassword = false;
+            StartCoroutine(WaitAndRearrange());
             // PhotonNetwork.LoadLevel(MultiplayerSettings.multiplayerSettings.roomScene);
         }
+    }
+
+    IEnumerator WaitAndRearrange()
+    {
+        yield return new WaitForSeconds(1.55f);
+        FindObjectOfType<PhotonPlayer>().ArrangePlayersInCorrectOrder();
     }
 
     //We let the master client know that one player has left the room. Maybe we will add something later.  //ROOMCONTROLLER
