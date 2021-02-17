@@ -107,7 +107,6 @@ public class PhotonPlayer : MonoBehaviour
                 myAvatar.transform.localScale = new Vector3(0.6f,0.7f,0f);
                 if(playerCustom.transform.childCount > 2) Destroy(playerCustom.transform.GetChild(1).gameObject);
                 myAvatar.transform.SetParent(playerCustom.gameObject.transform, false);
-                // player.myAvatar = myNewAvatar;
                 AvatarPreviewController avatarPreviewController = FindObjectOfType<AvatarPreviewController>();
                 if (avatarPreviewController!=null) avatarPreviewController.ChangePreviewColor(myAvatar.GetComponent<Image>().color);
                 Destroy(playerCustom.transform.GetChild(0).gameObject);
