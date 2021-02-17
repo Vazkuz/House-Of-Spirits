@@ -152,17 +152,19 @@ public class RoomController : MonoBehaviourPunCallbacks
             StartCoroutine(WaitAndRearrange());
             if(PhotonNetwork.IsMasterClient)
             {
-                PV.RPC("ShowPasswordToAll", RpcTarget.Others, RoomController.room.roomPassword);
+                PV.RPC("ShowPasswordToAll", RpcTarget.All, RoomController.room.roomPassword);
             }
-            // PhotonNetwork.LoadLevel(MultiplayerSettings.multiplayerSettings.roomScene);
         }
     }
 
     [PunRPC]
     void ShowPasswordToAll(string roomPassword)
     {
+        roomOptions = new RoomOptions();
+        roomOptions.CustomRoomProperties = new Hashtable();
         GameSetup.GS.roomPasswordTMP.text = "Room password: " + roomPassword;
         roomOptions.CustomRoomProperties.Add("pwd", roomPassword);
+        PhotonNetwork.CurrentRoom.SetCustomProperties(roomOptions.CustomRoomProperties);
     }
 
     IEnumerator WaitAndRearrange()
