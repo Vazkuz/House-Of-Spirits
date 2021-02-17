@@ -150,8 +150,19 @@ public class RoomController : MonoBehaviourPunCallbacks
             Debug.Log("Player has succesfully entered the room. Now there are " + PhotonNetwork.CurrentRoom.PlayerCount + " players on the room.");
             kickedWrongPassword = false;
             StartCoroutine(WaitAndRearrange());
+            if(PhotonNetwork.IsMasterClient)
+            {
+                PV.RPC("ShowPasswordToAll", RpcTarget.Others, RoomController.room.roomPassword);
+            }
             // PhotonNetwork.LoadLevel(MultiplayerSettings.multiplayerSettings.roomScene);
         }
+    }
+
+    [PunRPC]
+    void ShowPasswordToAll(string roomPassword)
+    {
+        GameSetup.GS.roomPasswordTMP.text = "Room password: " + roomPassword;
+        roomOptions.CustomRoomProperties.Add("pwd", roomPassword);
     }
 
     IEnumerator WaitAndRearrange()

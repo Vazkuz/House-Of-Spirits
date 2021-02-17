@@ -9,8 +9,8 @@ public class GameSetup : MonoBehaviour
     public static GameSetup GS;
     public bool hasStartedLeaving;
     PhotonView PV;
-    [SerializeField] TMP_Text roomNameTMP;
-    [SerializeField] TMP_Text roomPasswordTMP;
+    public TMP_Text roomNameTMP;
+    public TMP_Text roomPasswordTMP;
 
     public Transform[] spawnPoints;
 
