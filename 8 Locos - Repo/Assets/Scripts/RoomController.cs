@@ -150,6 +150,7 @@ public class RoomController : MonoBehaviourPunCallbacks
             Debug.Log("Player has succesfully entered the room. Now there are " + PhotonNetwork.CurrentRoom.PlayerCount + " players on the room.");
             kickedWrongPassword = false;
             StartCoroutine(WaitAndRearrange());
+            StartCoroutine(WaitAndUpdateColors());
             if(PhotonNetwork.IsMasterClient)
             {
                 PV.RPC("ShowPasswordToAll", RpcTarget.All, RoomController.room.roomPassword);
@@ -173,6 +174,14 @@ public class RoomController : MonoBehaviourPunCallbacks
         FindObjectOfType<PhotonPlayer>().ArrangePlayersInCorrectOrder();
     }
 
+    IEnumerator WaitAndUpdateColors()
+    {
+        yield return new WaitForSeconds(1.55f);
+        FindObjectOfType<PhotonPlayer>().UpdateColorsOfAllPlayers();
+    }
+
+
+
     //We let the master client know that one player has left the room. Maybe we will add something later.  //ROOMCONTROLLER
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
@@ -185,17 +194,12 @@ public class RoomController : MonoBehaviourPunCallbacks
     IEnumerator SearchForEmptySpaceInGrid()
     {
         yield return null;//new WaitForSeconds(1f);
-        Debug.Log("We will search who left the room");
         //Who left?
         for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount + 1; i++)
         {
-            Debug.Log("Buscando al que se fue: " + (i + 1).ToString());
-            Debug.Log("Número de hijos de Player (" + (i + 1).ToString() + "): " + PlayerInfo.PI.allSpacesInGrid[i].transform.childCount);
             if (PlayerInfo.PI.allSpacesInGrid[i].transform.childCount == 0)
             {
-                Debug.Log("Se fue el número " + (i + 1).ToString());
                 whoLeft = i;
-                Debug.Log(!kickedWrongPassword);
                 if (!kickedWrongPassword) PV.RPC("UpdatePositionsInNetwork", RpcTarget.AllBuffered, whoLeft);
             }
         }
@@ -204,7 +208,6 @@ public class RoomController : MonoBehaviourPunCallbacks
     [PunRPC]
     void UpdatePositionsInNetwork(int whoLeft)
     {
-        Debug.Log("Quien se fue? Fue el número " + whoLeft);
         PlayerInfo.PI.UpdatePositionInGrid(whoLeft);
     }
 

@@ -54,7 +54,6 @@ public class PhotonPlayer : MonoBehaviour
     IEnumerator InstantiateWithLag(int positionOfAvatar, int mySelectedCharacter)
     {
         yield return new WaitForSeconds(1.5f);
-        Debug.Log("Player's position in grid: " + positionOfAvatar);
         GameObject myAvatar = Instantiate(allCharacters[mySelectedCharacter], transform.position, Quaternion.identity) as GameObject;
         myAvatar.transform.localScale = new Vector3(0.6f,0.7f,0f);
         myAvatar.transform.SetParent(transform, false);
@@ -130,7 +129,6 @@ public class PhotonPlayer : MonoBehaviour
     {
         foreach (GameObject spaceInGrid in PlayerInfo.PI.allSpacesInGrid)
         {
-            Debug.Log(spaceInGrid.name + " tiene " + spaceInGrid.transform.childCount + " hijos.");
             spaceInGrid.transform.DetachChildren(); //Detaching all players from their parent.
         }
     }
@@ -163,5 +161,31 @@ public class PhotonPlayer : MonoBehaviour
         }
     }
 
+    public void UpdateColorsOfAllPlayers()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonView internalPV = FindObjectOfType<PhotonPlayer>().GetComponent<PhotonView>();
+            Debug.Log("Updating colors of all players");
+            CheckColorsOfPlayers();            
+        }
+    }
+
+    private void CheckColorsOfPlayers()
+    {
+        for(int networkPlayerIndex = 0; networkPlayerIndex < PhotonNetwork.PlayerList.Length; networkPlayerIndex++)
+        {
+            foreach(PhotonPlayer player in FindObjectsOfType<PhotonPlayer>())
+            {
+                if (player.PV.Owner == PhotonNetwork.PlayerList[networkPlayerIndex])
+                {
+                    if(player.PV.IsMine)
+                    {
+                        player.PV.RPC("SendNewColorToAllPlayers", RpcTarget.All, networkPlayerIndex, player.mySelectedCharacter);
+                    }
+                }
+            }
+        }
+    }
 
 }
