@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class LobbyController : MonoBehaviourPunCallbacks
 {
@@ -15,6 +16,8 @@ public class LobbyController : MonoBehaviourPunCallbacks
     [SerializeField] Button backButton;
     [SerializeField] Button quitButton;
     [SerializeField] TMP_Text connectingToServersText;
+    [SerializeField] TMP_Text failedToJoinRoom;
+    [SerializeField] float failedRoomConnectionTextTime = 2f;
     Button[] buttons;
 
     private void Awake() 
@@ -32,6 +35,7 @@ public class LobbyController : MonoBehaviourPunCallbacks
 
         //Just in case, we deactivate all non necessary buttons from the Menu
         connectingToServersText.gameObject.SetActive(true);
+        failedToJoinRoom.gameObject.SetActive(false);
         roomPasswordInputField.gameObject.SetActive(false);
         roomNameInputField.gameObject.SetActive(false);
 
@@ -127,5 +131,19 @@ public class LobbyController : MonoBehaviourPunCallbacks
     public void QuitGame()
     {
         Application.Quit();
+    }    
+    
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+        base.OnJoinRoomFailed(returnCode, message);
+        Debug.Log("Couldn't connect to the room with the given name.");
+        StartCoroutine(JoinRoomFailMessage());
+    }
+
+    IEnumerator JoinRoomFailMessage()
+    {
+        failedToJoinRoom.gameObject.SetActive(true);
+        yield return new WaitForSeconds(failedRoomConnectionTextTime);
+        failedToJoinRoom.gameObject.SetActive(false);
     }
 }
