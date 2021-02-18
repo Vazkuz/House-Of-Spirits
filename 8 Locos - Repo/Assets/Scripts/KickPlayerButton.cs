@@ -16,7 +16,7 @@ public class KickPlayerButton : MonoBehaviourPunCallbacks
             {
                 if(gridToKickPlayer.transform.childCount > 0)
                 {
-                    if(gridToKickPlayer.transform.GetChild(0).GetComponent<PhotonView>().Owner == player && !gridToKickPlayer.transform.GetChild(0).GetComponent<PhotonView>().IsMine)
+                    if(gridToKickPlayer.transform.GetChild(0).GetComponent<PhotonView>().Owner == player && !player.IsLocal)
                     {
                         PhotonNetwork.CloseConnection(player);
                     }
