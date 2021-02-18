@@ -103,6 +103,7 @@ public class PhotonPlayer : MonoBehaviour
         foreach(PhotonPlayer playerCustom in FindObjectsOfType<PhotonPlayer>())
         {
             //Cuando encontremos al owner, lo usamos para instanciar todo
+            
             if (PhotonNetwork.PlayerList[playerIndex] == playerCustom.PV.Owner)
             {
                 GameObject myAvatar = Instantiate(allCharacters[mySelectedCharacter], new Vector3(avatarOffsetX, avatarOffsetY, 0), Quaternion.identity);
