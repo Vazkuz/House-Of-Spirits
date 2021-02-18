@@ -23,14 +23,14 @@ public class PhotonPlayer : MonoBehaviour
             //Check if player has selected a color before. If not, default color will be white (identified with number 0)
             if (PlayerPrefs.HasKey("MY_CHARACTER"))
             {
-                mySelectedCharacter = PlayerPrefs.GetInt("MY_CHARACTER");
+                GetComponent<PhotonPlayer>().mySelectedCharacter = PlayerPrefs.GetInt("MY_CHARACTER");
             }
             else
             {
-                mySelectedCharacter = 0;
-                PlayerPrefs.SetInt("MY_CHARACTER", mySelectedCharacter);
+                GetComponent<PhotonPlayer>().mySelectedCharacter = 0;
+                PlayerPrefs.SetInt("MY_CHARACTER", GetComponent<PhotonPlayer>().mySelectedCharacter);
             }
-            PV.RPC("RPC_InstantiateAvatar", RpcTarget.AllBuffered, PlayerInfo.PI.mySpaceInGrid, mySelectedCharacter);
+            PV.RPC("RPC_InstantiateAvatar", RpcTarget.AllBuffered, PlayerInfo.PI.mySpaceInGrid, GetComponent<PhotonPlayer>().mySelectedCharacter);
 
             //Check if player has entered a nickname before. If not, default name will be "Player x", where x is the position of the player in grid
             if (PlayerPrefs.HasKey("MY_NICKNAME"))
@@ -66,7 +66,7 @@ public class PhotonPlayer : MonoBehaviour
     {        
         if (PlayerInfo.PI != null)
         {
-            mySelectedCharacter = whichCharacter;
+            GetComponent<PhotonPlayer>().mySelectedCharacter = whichCharacter;
             PlayerPrefs.SetInt("MY_CHARACTER", whichCharacter);
             Photon.Realtime.Player[] playersInRoom = PhotonNetwork.PlayerList;
             PhotonPlayer[] playersInRoomCustom = FindObjectsOfType<PhotonPlayer>();
@@ -83,7 +83,10 @@ public class PhotonPlayer : MonoBehaviour
                     for(int playerIndex = 0; playerIndex < playersInRoom.Length; playerIndex++)
                     {
                         if (playerInRoomCustom.PV.Owner == playersInRoom[playerIndex]) //Este es el índex! Con él podemos identificar unívocamente al jugador sin confusiones
-                        playerInRoomCustom.PV.RPC("SendNewColorToAllPlayers",RpcTarget.AllBuffered,playerIndex, mySelectedCharacter);
+                        {
+                            playerInRoomCustom.mySelectedCharacter = whichCharacter;
+                            playerInRoomCustom.PV.RPC("SendNewColorToAllPlayers",RpcTarget.AllBuffered,playerIndex, GetComponent<PhotonPlayer>().mySelectedCharacter);
+                        }                        
                     }
                     // playerInRoomCustom.PV.RPC("SendNewColorToAllPlayers",RpcTarget.AllBuffered,playerIndex, mySelectedCharacter);
                 }

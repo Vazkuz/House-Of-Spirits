@@ -176,7 +176,7 @@ public class RoomController : MonoBehaviourPunCallbacks
 
     IEnumerator WaitAndUpdateColors()
     {
-        yield return new WaitForSeconds(1.55f);
+        yield return new WaitForSeconds(1.95f);
         FindObjectOfType<PhotonPlayer>().UpdateColorsOfAllPlayers();
     }
 

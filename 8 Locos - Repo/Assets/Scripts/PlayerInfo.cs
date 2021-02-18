@@ -30,7 +30,7 @@ public class PlayerInfo : MonoBehaviour
                 PlayerInfo.PI = this;
             }
         }
-        DontDestroyOnLoad(gameObject);
+        // DontDestroyOnLoad(gameObject);
     }
     // Start is called before the first frame update
     void Awake()
