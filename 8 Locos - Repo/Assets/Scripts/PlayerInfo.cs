@@ -30,7 +30,7 @@ public class PlayerInfo : MonoBehaviour
                 PlayerInfo.PI = this;
             }
         }
-        DontDestroyOnLoad(gameObject);
+        // DontDestroyOnLoad(gameObject);
     }
     // Start is called before the first frame update
     void Awake()
@@ -42,13 +42,10 @@ public class PlayerInfo : MonoBehaviour
     public void UpdatePositionInGrid(int newPos)
     {
         PlayerPrefs.SetInt("MY_SPACE_IN_GRID", newPos);
-        Debug.Log("Empiezo a mover desde la posición " + (newPos+1).ToString());
-        Debug.Log("Hasta la posición " + allSpacesInGrid.Length);
         for(int gridPositions = newPos+1; gridPositions < allSpacesInGrid.Length; gridPositions++)
         {
             if(allSpacesInGrid[gridPositions].transform.childCount > 0)
             {
-                Debug.Log("Moviendo el número " + gridPositions);
                 allSpacesInGrid[gridPositions].transform.GetChild(0).SetParent(allSpacesInGrid[gridPositions-1].transform, false);
                 if(allSpacesInGrid[gridPositions-1].transform.GetChild(0).GetComponent<PhotonPlayer>())
                 {

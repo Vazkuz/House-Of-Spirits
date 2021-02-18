@@ -23,14 +23,14 @@ public class PhotonPlayer : MonoBehaviour
             //Check if player has selected a color before. If not, default color will be white (identified with number 0)
             if (PlayerPrefs.HasKey("MY_CHARACTER"))
             {
-                mySelectedCharacter = PlayerPrefs.GetInt("MY_CHARACTER");
+                GetComponent<PhotonPlayer>().mySelectedCharacter = PlayerPrefs.GetInt("MY_CHARACTER");
             }
             else
             {
-                mySelectedCharacter = 0;
-                PlayerPrefs.SetInt("MY_CHARACTER", mySelectedCharacter);
+                GetComponent<PhotonPlayer>().mySelectedCharacter = 0;
+                PlayerPrefs.SetInt("MY_CHARACTER", GetComponent<PhotonPlayer>().mySelectedCharacter);
             }
-            PV.RPC("RPC_InstantiateAvatar", RpcTarget.AllBuffered, PlayerInfo.PI.mySpaceInGrid, mySelectedCharacter);
+            PV.RPC("RPC_InstantiateAvatar", RpcTarget.AllBuffered, PlayerInfo.PI.mySpaceInGrid, GetComponent<PhotonPlayer>().mySelectedCharacter);
 
             //Check if player has entered a nickname before. If not, default name will be "Player x", where x is the position of the player in grid
             if (PlayerPrefs.HasKey("MY_NICKNAME"))
@@ -54,7 +54,6 @@ public class PhotonPlayer : MonoBehaviour
     IEnumerator InstantiateWithLag(int positionOfAvatar, int mySelectedCharacter)
     {
         yield return new WaitForSeconds(1.5f);
-        Debug.Log("Player's position in grid: " + positionOfAvatar);
         GameObject myAvatar = Instantiate(allCharacters[mySelectedCharacter], transform.position, Quaternion.identity) as GameObject;
         myAvatar.transform.localScale = new Vector3(0.6f,0.7f,0f);
         myAvatar.transform.SetParent(transform, false);
@@ -67,7 +66,7 @@ public class PhotonPlayer : MonoBehaviour
     {        
         if (PlayerInfo.PI != null)
         {
-            mySelectedCharacter = whichCharacter;
+            GetComponent<PhotonPlayer>().mySelectedCharacter = whichCharacter;
             PlayerPrefs.SetInt("MY_CHARACTER", whichCharacter);
             Photon.Realtime.Player[] playersInRoom = PhotonNetwork.PlayerList;
             PhotonPlayer[] playersInRoomCustom = FindObjectsOfType<PhotonPlayer>();
@@ -84,7 +83,10 @@ public class PhotonPlayer : MonoBehaviour
                     for(int playerIndex = 0; playerIndex < playersInRoom.Length; playerIndex++)
                     {
                         if (playerInRoomCustom.PV.Owner == playersInRoom[playerIndex]) //Este es el índex! Con él podemos identificar unívocamente al jugador sin confusiones
-                        playerInRoomCustom.PV.RPC("SendNewColorToAllPlayers",RpcTarget.AllBuffered,playerIndex, mySelectedCharacter);
+                        {
+                            playerInRoomCustom.mySelectedCharacter = whichCharacter;
+                            playerInRoomCustom.PV.RPC("SendNewColorToAllPlayers",RpcTarget.AllBuffered,playerIndex, GetComponent<PhotonPlayer>().mySelectedCharacter);
+                        }                        
                     }
                     // playerInRoomCustom.PV.RPC("SendNewColorToAllPlayers",RpcTarget.AllBuffered,playerIndex, mySelectedCharacter);
                 }
@@ -99,18 +101,20 @@ public class PhotonPlayer : MonoBehaviour
         Debug.Log("Changing avatar color");
         //Aquí tendremos que volver a buscar el PhotonNetwork Player del jugador D:
         foreach(PhotonPlayer playerCustom in FindObjectsOfType<PhotonPlayer>())
-        {
-            //Cuando encontremos al owner, lo usamos para instanciar todo
-            if (PhotonNetwork.PlayerList[playerIndex] == playerCustom.PV.Owner)
+        {            
+            if(playerCustom.PV != null)
             {
-                GameObject myAvatar = Instantiate(allCharacters[mySelectedCharacter], new Vector3(avatarOffsetX, avatarOffsetY, 0), Quaternion.identity);
-                myAvatar.transform.localScale = new Vector3(0.6f,0.7f,0f);
-                if(playerCustom.transform.childCount > 2) Destroy(playerCustom.transform.GetChild(1).gameObject);
-                myAvatar.transform.SetParent(playerCustom.gameObject.transform, false);
-                // player.myAvatar = myNewAvatar;
-                AvatarPreviewController avatarPreviewController = FindObjectOfType<AvatarPreviewController>();
-                if (avatarPreviewController!=null) avatarPreviewController.ChangePreviewColor(myAvatar.GetComponent<Image>().color);
-                Destroy(playerCustom.transform.GetChild(0).gameObject);
+                //Cuando encontremos al owner, lo usamos para instanciar todo
+                if (PhotonNetwork.PlayerList[playerIndex] == playerCustom.PV.Owner)
+                {
+                    GameObject myAvatar = Instantiate(allCharacters[mySelectedCharacter], new Vector3(avatarOffsetX, avatarOffsetY, 0), Quaternion.identity);
+                    myAvatar.transform.localScale = new Vector3(0.6f,0.7f,0f);
+                    if(playerCustom.transform.childCount > 2) Destroy(playerCustom.transform.GetChild(1).gameObject);
+                    myAvatar.transform.SetParent(playerCustom.gameObject.transform, false);
+                    AvatarPreviewController avatarPreviewController = FindObjectOfType<AvatarPreviewController>();
+                    if (avatarPreviewController!=null) avatarPreviewController.ChangePreviewColor(myAvatar.GetComponent<Image>().color);
+                    Destroy(playerCustom.transform.GetChild(0).gameObject);
+                }
             }
         }        
     }
@@ -131,7 +135,6 @@ public class PhotonPlayer : MonoBehaviour
     {
         foreach (GameObject spaceInGrid in PlayerInfo.PI.allSpacesInGrid)
         {
-            Debug.Log(spaceInGrid.name + " tiene " + spaceInGrid.transform.childCount + " hijos.");
             spaceInGrid.transform.DetachChildren(); //Detaching all players from their parent.
         }
     }
@@ -164,5 +167,31 @@ public class PhotonPlayer : MonoBehaviour
         }
     }
 
+    public void UpdateColorsOfAllPlayers()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonView internalPV = FindObjectOfType<PhotonPlayer>().GetComponent<PhotonView>();
+            Debug.Log("Updating colors of all players");
+            CheckColorsOfPlayers();            
+        }
+    }
+
+    private void CheckColorsOfPlayers()
+    {
+        for(int networkPlayerIndex = 0; networkPlayerIndex < PhotonNetwork.PlayerList.Length; networkPlayerIndex++)
+        {
+            foreach(PhotonPlayer player in FindObjectsOfType<PhotonPlayer>())
+            {
+                if (player.PV.Owner == PhotonNetwork.PlayerList[networkPlayerIndex])
+                {
+                    if(player.PV.IsMine)
+                    {
+                        player.PV.RPC("SendNewColorToAllPlayers", RpcTarget.All, networkPlayerIndex, player.mySelectedCharacter);
+                    }
+                }
+            }
+        }
+    }
 
 }
