@@ -101,18 +101,20 @@ public class PhotonPlayer : MonoBehaviour
         Debug.Log("Changing avatar color");
         //Aquí tendremos que volver a buscar el PhotonNetwork Player del jugador D:
         foreach(PhotonPlayer playerCustom in FindObjectsOfType<PhotonPlayer>())
-        {
-            //Cuando encontremos al owner, lo usamos para instanciar todo
-            
-            if (PhotonNetwork.PlayerList[playerIndex] == playerCustom.PV.Owner)
+        {            
+            if(playerCustom.PV != null)
             {
-                GameObject myAvatar = Instantiate(allCharacters[mySelectedCharacter], new Vector3(avatarOffsetX, avatarOffsetY, 0), Quaternion.identity);
-                myAvatar.transform.localScale = new Vector3(0.6f,0.7f,0f);
-                if(playerCustom.transform.childCount > 2) Destroy(playerCustom.transform.GetChild(1).gameObject);
-                myAvatar.transform.SetParent(playerCustom.gameObject.transform, false);
-                AvatarPreviewController avatarPreviewController = FindObjectOfType<AvatarPreviewController>();
-                if (avatarPreviewController!=null) avatarPreviewController.ChangePreviewColor(myAvatar.GetComponent<Image>().color);
-                Destroy(playerCustom.transform.GetChild(0).gameObject);
+                //Cuando encontremos al owner, lo usamos para instanciar todo
+                if (PhotonNetwork.PlayerList[playerIndex] == playerCustom.PV.Owner)
+                {
+                    GameObject myAvatar = Instantiate(allCharacters[mySelectedCharacter], new Vector3(avatarOffsetX, avatarOffsetY, 0), Quaternion.identity);
+                    myAvatar.transform.localScale = new Vector3(0.6f,0.7f,0f);
+                    if(playerCustom.transform.childCount > 2) Destroy(playerCustom.transform.GetChild(1).gameObject);
+                    myAvatar.transform.SetParent(playerCustom.gameObject.transform, false);
+                    AvatarPreviewController avatarPreviewController = FindObjectOfType<AvatarPreviewController>();
+                    if (avatarPreviewController!=null) avatarPreviewController.ChangePreviewColor(myAvatar.GetComponent<Image>().color);
+                    Destroy(playerCustom.transform.GetChild(0).gameObject);
+                }
             }
         }        
     }
