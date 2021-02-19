@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterType : MonoBehaviour
 {
@@ -25,5 +26,12 @@ public class CharacterType : MonoBehaviour
                 coinID.transform.localPosition = new Vector3(coinPosX, coinPosY, coinID.transform.localPosition.z);
             }
         }
+    }
+
+    public void ChangePreviewColor()
+    {
+        AvatarPreviewController avatarPreviewController = FindObjectOfType<AvatarPreviewController>();
+        if (avatarPreviewController!=null) avatarPreviewController.ChangePreviewColor(GetComponent<Image>().color);
+        
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +21,9 @@ public class AvatarPreviewController : MonoBehaviour
     // Update is called once per frame
     public void ChangePreviewColor(Color newPreviewColor)
     {
-        avatarPreviewImage.color = newPreviewColor;
+        if(PhotonNetwork.LocalPlayer.IsLocal)
+        {
+            avatarPreviewImage.color = newPreviewColor;
+        }
     }
 }
