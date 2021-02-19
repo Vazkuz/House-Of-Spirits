@@ -1,25 +1,42 @@
 ﻿using System.Collections;
 using System.IO;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PhotonPlayer : MonoBehaviour
 {
     [SerializeField] float avatarOffsetX;
     [SerializeField] float avatarOffsetY;
+    [SerializeField] float nicknameOffsetX;
+    [SerializeField] float nicknameOffsetY;
     public GameObject[] allCharacters;
     private PhotonView PV;
     public GameObject myAvatar;
     public int mySelectedCharacter;
     public int myPositionInGrid;
-    public string myNickName;
 
     void Start()
     {
         PV = GetComponent<PhotonView>();
         if(PV.IsMine)
         {        
+            //Check if player has a nickname. If not, default nickname will be "Player"
+            if (!PlayerPrefs.HasKey("MY_NICKNAME"))
+            {
+                PlayerPrefs.SetString("MY_NICKNAME", "Player");
+            }
+            foreach (Player player in PhotonNetwork.PlayerList)
+            {
+                if(player.IsLocal)
+                {
+                    player.NickName= PlayerPrefs.GetString("MY_NICKNAME");
+                }
+            }
+
+
             //Check if player has selected a color before. If not, default color will be white (identified with number 0)
             if (PlayerPrefs.HasKey("MY_CHARACTER"))
             {
@@ -30,19 +47,8 @@ public class PhotonPlayer : MonoBehaviour
                 GetComponent<PhotonPlayer>().mySelectedCharacter = 0;
                 PlayerPrefs.SetInt("MY_CHARACTER", GetComponent<PhotonPlayer>().mySelectedCharacter);
             }
-            PV.RPC("RPC_InstantiateAvatar", RpcTarget.AllBuffered, PlayerInfo.PI.mySpaceInGrid, GetComponent<PhotonPlayer>().mySelectedCharacter);
-
-            //Check if player has entered a nickname before. If not, default name will be "Player x", where x is the position of the player in grid
-            if (PlayerPrefs.HasKey("MY_NICKNAME"))
-            {
-                myNickName = PlayerPrefs.GetString("MY_NICKNAME");
-            }
-            else
-            {
-                myNickName = "Player " + (PlayerInfo.PI.mySpaceInGrid+1).ToString();
-            }
+            PV.RPC("RPC_InstantiateAvatar", RpcTarget.AllBuffered, PlayerInfo.PI.mySpaceInGrid, GetComponent<PhotonPlayer>().mySelectedCharacter);            
         }
-        
     }
 
     [PunRPC]

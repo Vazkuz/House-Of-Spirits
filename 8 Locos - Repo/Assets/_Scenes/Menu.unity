@@ -2540,6 +2540,7 @@ MonoBehaviour:
   maxPlayers: 6
   menuScene: 0
   roomScene: 1
+  gameScene: 2
 --- !u!1 &1475756406
 GameObject:
   m_ObjectHideFlags: 0
@@ -3046,7 +3047,7 @@ MonoBehaviour:
   m_CharacterValidation: 0
   m_RegexValue: 
   m_GlobalPointSize: 14
-  m_CharacterLimit: 0
+  m_CharacterLimit: 15
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
@@ -3468,7 +3469,7 @@ MonoBehaviour:
   m_CharacterValidation: 0
   m_RegexValue: 
   m_GlobalPointSize: 14
-  m_CharacterLimit: 0
+  m_CharacterLimit: 4
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:

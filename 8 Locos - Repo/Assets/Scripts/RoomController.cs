@@ -186,9 +186,12 @@ public class RoomController : MonoBehaviourPunCallbacks
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         base.OnPlayerLeftRoom(otherPlayer);
-        StartCoroutine(SearchForEmptySpaceInGrid());
-        Debug.Log(otherPlayer + " left the room. Number of players currently on the room: " + PhotonNetwork.CurrentRoom.PlayerCount);
-        playersInGame--;
+        if(currentScene == MultiplayerSettings.multiplayerSettings.roomScene)
+        {
+            StartCoroutine(SearchForEmptySpaceInGrid());
+            Debug.Log(otherPlayer + " left the room. Number of players currently on the room: " + PhotonNetwork.CurrentRoom.PlayerCount);
+            playersInGame--;
+        }
     }
 
     IEnumerator SearchForEmptySpaceInGrid()

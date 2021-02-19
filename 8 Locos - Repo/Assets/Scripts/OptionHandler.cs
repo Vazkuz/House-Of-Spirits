@@ -14,10 +14,18 @@ public class OptionHandler : MonoBehaviour
     public void OpenOptions()
     {
         optionCanvas.SetActive(true);
+        foreach(GameObject nicknameShow in GameObject.FindGameObjectsWithTag("NicknameInput"))
+        {
+            nicknameShow.GetComponent<NicknameInputController>().enabled = true;
+        }
     }
 
     public void CloseOptions()
     {
         optionCanvas.SetActive(false);
+        foreach(GameObject nicknameShow in GameObject.FindGameObjectsWithTag("NicknameInput"))
+        {
+            nicknameShow.GetComponent<NicknameInputController>().enabled = false;
+        }
     }
 }
