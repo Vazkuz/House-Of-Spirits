@@ -70,6 +70,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   avatarOffsetX: -25.40999
   avatarOffsetY: -48.93001
+  nicknameOffsetX: 5
+  nicknameOffsetY: 0
   allCharacters:
   - {fileID: 7186179102993685012, guid: 292bc26c0920ac244a9ee143c6149af0, type: 3}
   - {fileID: 5386746828063479939, guid: 0caed7c0b28377340ab9f57556a5aa9c, type: 3}
@@ -82,7 +84,6 @@ MonoBehaviour:
   myAvatar: {fileID: 0}
   mySelectedCharacter: 1
   myPositionInGrid: 0
-  myNickName: 
 --- !u!114 &5761233510948091652
 MonoBehaviour:
   m_ObjectHideFlags: 0

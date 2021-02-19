@@ -51,6 +51,7 @@ public class GameSetup : MonoBehaviour
         if(PhotonNetwork.IsMasterClient)
         {
             Debug.Log("Starting game");
+            SceneManager.LoadScene(MultiplayerSettings.multiplayerSettings.gameScene);
         }
     }
 }

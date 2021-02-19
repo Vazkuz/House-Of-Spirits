@@ -9,6 +9,7 @@ public class MultiplayerSettings : MonoBehaviour
     public int maxPlayers = 6;
     public int menuScene;
     public int roomScene;
+    public int gameScene;
 
     void Awake()
     {
