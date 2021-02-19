@@ -75,6 +75,7 @@ public class RoomController : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonNetworkPlayer"), transform.position, Quaternion.identity, 0);
         playersInGame++;
+        Debug.Log("Actualmente hay " + playersInGame + " jugadores en la sala.");
     }
 
     //Once the master client has created the room, the game will go to the Room Scene. //ROOMCONTROLLER
@@ -129,6 +130,10 @@ public class RoomController : MonoBehaviourPunCallbacks
         // We try using the password the client gave to "enter" the room. If the password is not the one chose by the master client, we kick the player.
         kickedWrongPassword = false;
         StartCoroutine(TryPasswordGivenByClient(newPlayer));
+        if(PhotonNetwork.CurrentRoom.PlayerCount >= 8)
+        {
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+        }
     }
 
     //Validation of passwords. //ROOMCONTROLLER
@@ -191,6 +196,11 @@ public class RoomController : MonoBehaviourPunCallbacks
             StartCoroutine(SearchForEmptySpaceInGrid());
             Debug.Log(otherPlayer + " left the room. Number of players currently on the room: " + PhotonNetwork.CurrentRoom.PlayerCount);
             playersInGame--;
+        }
+        
+        if(PhotonNetwork.CurrentRoom.PlayerCount < 8)
+        {
+            PhotonNetwork.CurrentRoom.IsOpen = true;
         }
     }
 

@@ -52,6 +52,7 @@ public class GameSetup : MonoBehaviour
         {
             Debug.Log("Starting game");
             SceneManager.LoadScene(MultiplayerSettings.multiplayerSettings.gameScene);
+            PhotonNetwork.CurrentRoom.IsOpen = false;
         }
     }
 }
