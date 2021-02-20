@@ -82,7 +82,7 @@ MonoBehaviour:
   - {fileID: 5741777295159132008, guid: cdce4d053313ff2469da10aa03356eff, type: 3}
   - {fileID: 1632753261633537094, guid: d466a00df5f0dfe42acb7867edea3380, type: 3}
   myAvatar: {fileID: 0}
-  mySelectedCharacter: 0
+  mySelectedCharacter: 5
   myPositionInGrid: 0
 --- !u!114 &5761233510948091652
 MonoBehaviour:

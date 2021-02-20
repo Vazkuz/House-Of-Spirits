@@ -54,5 +54,9 @@ public class GameSetup : MonoBehaviour
             SceneManager.LoadScene(MultiplayerSettings.multiplayerSettings.gameScene);
             PhotonNetwork.CurrentRoom.IsOpen = false;
         }
+        foreach (GameObject spaceInGrid in PlayerInfo.PI.allSpacesInGrid)
+        {
+            spaceInGrid.transform.DetachChildren(); //Detaching all players from their parent.
+        }
     }
 }
