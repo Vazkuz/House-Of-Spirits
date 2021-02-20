@@ -198,4 +198,27 @@ public class PhotonPlayer : MonoBehaviour
         }
     }
 
+    public void ChoseASeatAndSeat()
+    {
+        SeatsController seatsController = FindObjectOfType<SeatsController>();
+        foreach(PhotonPlayer player in FindObjectsOfType<PhotonPlayer>())
+        {
+            if(player.PV.IsMine)
+            {
+                int seatChosen = Random.Range(0, seatsController.seats.Length);
+                Debug.Log("¿El lugar está ocupado?: " + seatsController.seats[seatChosen].seatTaken);
+                while(seatsController.seats[seatChosen].seatTaken)
+                {
+                    Debug.Log("El sitio escogido era: " + seatChosen + ". Ya estaba ocupado");
+                    seatChosen = Random.Range(0, seatsController.seats.Length);
+                }
+                Debug.Log("El jugador ocupará el sitio " + seatChosen);
+                player.transform.SetParent(seatsController.seats[seatChosen].transform);
+                player.transform.localPosition = new Vector3(0,0,0);
+                seatsController.seats[seatChosen].seatTaken = true;
+            }
+        }
+    }
+
+
 }

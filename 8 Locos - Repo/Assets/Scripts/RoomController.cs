@@ -68,6 +68,16 @@ public class RoomController : MonoBehaviourPunCallbacks
         {
             RPC_CreatePlayer();
         }
+        if(currentScene == MultiplayerSettings.multiplayerSettings.gameScene)
+        {
+            foreach(PhotonPlayer player in FindObjectsOfType<PhotonPlayer>())
+            {
+                if(player.GetComponent<PhotonView>().Owner == PhotonNetwork.LocalPlayer)
+                {
+                    player.ChoseASeatAndSeat();
+                }
+            }
+        }
     }
 
     [PunRPC]

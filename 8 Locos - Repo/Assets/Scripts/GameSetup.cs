@@ -58,5 +58,10 @@ public class GameSetup : MonoBehaviour
         {
             spaceInGrid.transform.DetachChildren(); //Detaching all players from their parent.
         }
+
+        foreach (PhotonPlayer player in FindObjectsOfType<PhotonPlayer>())
+        {
+            DontDestroyOnLoad(player.gameObject);
+        }
     }
 }
