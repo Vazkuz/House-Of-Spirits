@@ -70,13 +70,7 @@ public class RoomController : MonoBehaviourPunCallbacks
         }
         if(currentScene == MultiplayerSettings.multiplayerSettings.gameScene)
         {
-            foreach(PhotonPlayer player in FindObjectsOfType<PhotonPlayer>())
-            {
-                if(player.GetComponent<PhotonView>().Owner == PhotonNetwork.LocalPlayer)
-                {
-                    player.ChoseASeatAndSeat();
-                }
-            }
+            FindObjectOfType<SeatsController>().ChoseASeatAndSeat();
         }
     }
 
