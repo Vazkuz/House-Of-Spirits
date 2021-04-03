@@ -139,7 +139,10 @@ public class PhotonPlayer : MonoBehaviour
     {
         foreach (GameObject spaceInGrid in PlayerInfo.PI.allSpacesInGrid)
         {
-            spaceInGrid.transform.DetachChildren(); //Detaching all players from their parent.
+            if (spaceInGrid)
+            {
+                spaceInGrid.transform.DetachChildren(); //Detaching all players from their parent.
+            }
         }
     }
 

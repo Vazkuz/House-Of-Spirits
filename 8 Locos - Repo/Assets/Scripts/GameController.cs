@@ -11,7 +11,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         deckCanvas.SetActive(false);
-        openDeckButton.SetActive(true);
+        
     }
     public void ViewDeck()
     {
