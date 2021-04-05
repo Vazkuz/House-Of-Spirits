@@ -12,15 +12,18 @@ public class PhotonPlayer : MonoBehaviour
     [SerializeField] float avatarOffsetY;
     [SerializeField] float nicknameOffsetX;
     [SerializeField] float nicknameOffsetY;
+    public int cardsIHave;
     public GameObject[] allCharacters;
     private PhotonView PV;
     public GameObject myAvatar;
     public int mySelectedCharacter;
     public int myPositionInGrid;
+    TMP_Text numberOfCardsText;
 
     void Start()
     {
         PV = GetComponent<PhotonView>();
+        numberOfCardsText = GetComponent<TMP_Text>();
         if(PV.IsMine)
         {        
             //Check if player has a nickname. If not, default nickname will be "Player"
@@ -197,6 +200,33 @@ public class PhotonPlayer : MonoBehaviour
                         player.PV.RPC("SendNewColorToAllPlayers", RpcTarget.All, networkPlayerIndex, player.mySelectedCharacter);
                     }
                 }
+            }
+        }
+    }
+
+    public void AddCardToHand()
+    {
+        cardsIHave++;
+    }
+
+    public int GetNumberOfCards()
+    {
+        return cardsIHave;
+    }
+
+    public void UpdateNumberOfCardsInDisplay(int playerIndex,string text)
+    {
+        PV.RPC("RPC_UpdateText", RpcTarget.All, playerIndex, text);
+    }
+
+    [PunRPC]
+    void RPC_UpdateText(int playerIndex, string text)
+    {
+        foreach(PhotonPlayer playerCustom in FindObjectsOfType<PhotonPlayer>())
+        {
+            if (PhotonNetwork.PlayerList[playerIndex] == playerCustom.GetComponent<PhotonView>().Owner)
+            {
+                playerCustom.GetComponent<TMP_Text>().text = text;
             }
         }
     }

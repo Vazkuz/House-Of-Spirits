@@ -291,7 +291,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -71.7, y: 59.9}
+  m_AnchoredPosition: {x: -74.2, y: 69.9}
   m_SizeDelta: {x: 97.45578, y: 89.10182}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &333439522
@@ -1762,7 +1762,6 @@ MonoBehaviour:
   distanceBetweenCardsX: 200
   distanceBetweenCardsY: 200
   maxCardsPerRow: 8
-  numberOfCardsIHave: 0
   cardsDrawnInitially: 8
 --- !u!114 &1194265084
 MonoBehaviour:
@@ -2046,14 +2045,14 @@ RectTransform:
   m_GameObject: {fileID: 1474464882}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.4, z: 1}
   m_Children: []
   m_Father: {fileID: 1603336464}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -32, y: -979}
+  m_AnchoredPosition: {x: -27.5, y: -953.7}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1474464884
@@ -2131,7 +2130,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 755b6f30ed822bc4da38adc981423e6c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 330327d579d55c84da5ec825b2065ef6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

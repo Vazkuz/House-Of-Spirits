@@ -14,7 +14,6 @@ public class CardDisplay : MonoBehaviour
     [SerializeField] float distanceBetweenCardsX = 200f;
     [SerializeField] float distanceBetweenCardsY = 300f;
     [SerializeField] int maxCardsPerRow = 8;
-    [SerializeField] int numberOfCardsIHave;
     [SerializeField] int cardsDrawnInitially = 8;
     List<Card> cardsAvailable;
     List<Card> myCards = new List<Card>();
@@ -24,7 +23,6 @@ public class CardDisplay : MonoBehaviour
     void Start()
     {
         PV = GetComponent<PhotonView>();
-        numberOfCardsIHave = 0;
         cardsAvailable = new List<Card>(Resources.LoadAll<Card>("Cards")); //OJO: "Cards" es el path de donde se cargan todos los ScriptableObjects tipo Card (Resources)
         if(PhotonNetwork.IsMasterClient)
         {
@@ -52,23 +50,23 @@ public class CardDisplay : MonoBehaviour
                 //Cuando encontremos al owner, lo usamos para instanciar todo
                 if (PhotonNetwork.PlayerList[playerIndex] == playerCustom.GetComponent<PhotonView>().Owner && playerCustom.GetComponent<PhotonView>().IsMine)
                 {
-                    DrawCards(cardsDrawnInitially);
+                    DrawCards(cardsDrawnInitially, playerCustom, playerIndex);
                     myDeckButton.SetActive(true);
                 }
             }
         }
     }
 
-    void DrawCards(int cardsToDrawn)
+    void DrawCards(int cardsToDrawn, PhotonPlayer photonPlayer, int playerIndex)
     {
         for (int drawIndex = 0; drawIndex < cardsToDrawn; drawIndex++)
         {
             int cardDrawnIndex = Random.Range(0, cardsAvailable.Count);
             myCards.Add(cardsAvailable[cardDrawnIndex]);
-
             PV.RPC("RPC_RemoveFromDeck",RpcTarget.All,cardDrawnIndex);
-            numberOfCardsIHave++;
-            SetupDrawnCard();
+            photonPlayer.AddCardToHand();
+            photonPlayer.UpdateNumberOfCardsInDisplay(playerIndex, photonPlayer.GetNumberOfCards().ToString());
+            SetupDrawnCard(photonPlayer);
         }
     }
 
@@ -78,7 +76,7 @@ public class CardDisplay : MonoBehaviour
         cardsAvailable.Remove(cardsAvailable[cardDrawnIndex]);
     }
 
-    void SetupDrawnCard()
+    void SetupDrawnCard(PhotonPlayer photonPlayer)
     {
         // Name and parenting of the card drawn. We parent it in a GO/folder to organize them easily. 
         // GameObject cardDrawn = new GameObject(myCards[drawIndex].cardNumber.ToString() + " " + myCards[drawIndex].cardSuit.ToString());
@@ -87,9 +85,9 @@ public class CardDisplay : MonoBehaviour
         cardDrawn.name = myCards[myCards.Count - 1].cardNumber.ToString() + " " + myCards[myCards.Count - 1].cardSuit.ToString();
 
         cardDrawn.transform.localScale = new Vector3(cardSpriteSize, cardSpriteSize, 0);
-        int multiplyBy = (numberOfCardsIHave-1)/maxCardsPerRow;
+        int multiplyBy = (photonPlayer.GetNumberOfCards()-1)/maxCardsPerRow;
         cardDrawn.transform.localPosition = cardLocalPosition + 
-                            new Vector3(distanceBetweenCardsX * (numberOfCardsIHave - 1 - multiplyBy * maxCardsPerRow), - distanceBetweenCardsY * multiplyBy, 0);
+                            new Vector3(distanceBetweenCardsX * (photonPlayer.GetNumberOfCards() - 1 - multiplyBy * maxCardsPerRow), - distanceBetweenCardsY * multiplyBy, 0);
 
         // We configure it's number and suit. We'll use that info later for the game mechanics.
         cardDrawn.GetComponent<CardController>().SetCardSuit(myCards[myCards.Count - 1].cardSuit);
