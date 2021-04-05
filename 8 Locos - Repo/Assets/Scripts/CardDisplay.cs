@@ -15,15 +15,31 @@ public class CardDisplay : MonoBehaviour
     [SerializeField] float distanceBetweenCardsY = 300f;
     [SerializeField] int maxCardsPerRow = 8;
     [SerializeField] int cardsDrawnInitially = 8;
-    List<Card> cardsAvailable;
-    List<Card> myCards = new List<Card>();
+    public List<Card> cardsAvailable;
+    // List<Card> myCards = new List<Card>();
     private PhotonView PV;
+
+    // Instance
+    public static CardDisplay instance;
+
+    void Awake()
+    {
+        if(instance != null && instance != this)
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            // Set the instance
+            instance = this;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         PV = GetComponent<PhotonView>();
-        cardsAvailable = new List<Card>(Resources.LoadAll<Card>("Cards")); //OJO: "Cards" es el path de donde se cargan todos los ScriptableObjects tipo Card (Resources)
+        instance.cardsAvailable = new List<Card>(Resources.LoadAll<Card>("Cards")); //OJO: "Cards" es el path de donde se cargan todos los ScriptableObjects tipo Card (Resources)
         if(PhotonNetwork.IsMasterClient)
         {
             StartCoroutine(DealCards());
@@ -61,19 +77,32 @@ public class CardDisplay : MonoBehaviour
     {
         for (int drawIndex = 0; drawIndex < cardsToDrawn; drawIndex++)
         {
-            int cardDrawnIndex = Random.Range(0, cardsAvailable.Count);
-            myCards.Add(cardsAvailable[cardDrawnIndex]);
+            int cardDrawnIndex = Random.Range(0, instance.cardsAvailable.Count);
+            PV.RPC("RPC_AddToHand",RpcTarget.All,cardDrawnIndex, playerIndex);
             PV.RPC("RPC_RemoveFromDeck",RpcTarget.All,cardDrawnIndex);
-            photonPlayer.AddCardToHand();
+            // photonPlayer.AddCardToHand();
             photonPlayer.UpdateNumberOfCardsInDisplay(playerIndex, photonPlayer.GetNumberOfCards().ToString());
             SetupDrawnCard(photonPlayer);
         }
     }
 
     [PunRPC]
+    void RPC_AddToHand(int cardDrawnIndex, int playerIndex)
+    {
+        foreach(PhotonPlayer playerCustom in FindObjectsOfType<PhotonPlayer>())
+        {
+            if (PhotonNetwork.PlayerList[playerIndex] == playerCustom.GetComponent<PhotonView>().Owner)
+            {
+                playerCustom.myCards.Add(instance.cardsAvailable[cardDrawnIndex]);
+            }
+        }
+    }
+
+    [PunRPC]
     void RPC_RemoveFromDeck(int cardDrawnIndex)
     {
-        cardsAvailable.Remove(cardsAvailable[cardDrawnIndex]);
+        Debug.Log("Card to remove: " + instance.cardsAvailable[cardDrawnIndex]);
+        instance.cardsAvailable.Remove(instance.cardsAvailable[cardDrawnIndex]);
     }
 
     void SetupDrawnCard(PhotonPlayer photonPlayer)
@@ -82,7 +111,8 @@ public class CardDisplay : MonoBehaviour
         // GameObject cardDrawn = new GameObject(myCards[drawIndex].cardNumber.ToString() + " " + myCards[drawIndex].cardSuit.ToString());
         GameObject cardDrawn = Instantiate(cardPrefab, new Vector3(0,0,0), Quaternion.identity);
         cardDrawn.transform.SetParent(myCardsFolder.transform, false);
-        cardDrawn.name = myCards[myCards.Count - 1].cardNumber.ToString() + " " + myCards[myCards.Count - 1].cardSuit.ToString();
+        cardDrawn.name = photonPlayer.myCards[photonPlayer.myCards.Count - 1].cardNumber.ToString() + " " 
+                            + photonPlayer.myCards[photonPlayer.myCards.Count - 1].cardSuit.ToString();
 
         cardDrawn.transform.localScale = new Vector3(cardSpriteSize, cardSpriteSize, 0);
         int multiplyBy = (photonPlayer.GetNumberOfCards()-1)/maxCardsPerRow;
@@ -90,11 +120,11 @@ public class CardDisplay : MonoBehaviour
                             new Vector3(distanceBetweenCardsX * (photonPlayer.GetNumberOfCards() - 1 - multiplyBy * maxCardsPerRow), - distanceBetweenCardsY * multiplyBy, 0);
 
         // We configure it's number and suit. We'll use that info later for the game mechanics.
-        cardDrawn.GetComponent<CardController>().SetCardSuit(myCards[myCards.Count - 1].cardSuit);
-        cardDrawn.GetComponent<CardController>().SetCardNumber(myCards[myCards.Count - 1].cardNumber);
+        cardDrawn.GetComponent<CardController>().SetCardSuit(photonPlayer.myCards[photonPlayer.myCards.Count - 1].cardSuit);
+        cardDrawn.GetComponent<CardController>().SetCardNumber(photonPlayer.myCards[photonPlayer.myCards.Count - 1].cardNumber);
 
         // Setup the visuals
-        cardDrawn.GetComponent<Image>().overrideSprite = myCards[myCards.Count - 1].artwork;
+        cardDrawn.GetComponent<Image>().overrideSprite = photonPlayer.myCards[photonPlayer.myCards.Count - 1].artwork;
 
     }
 }

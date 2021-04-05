@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using Photon.Pun;
 using Photon.Realtime;
@@ -18,6 +19,7 @@ public class PhotonPlayer : MonoBehaviour
     public GameObject myAvatar;
     public int mySelectedCharacter;
     public int myPositionInGrid;
+    public List<Card> myCards = new List<Card>();
     TMP_Text numberOfCardsText;
 
     void Start()

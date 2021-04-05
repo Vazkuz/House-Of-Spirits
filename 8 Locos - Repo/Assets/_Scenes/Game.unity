@@ -502,7 +502,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &503217053
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1762,7 +1762,7 @@ MonoBehaviour:
   distanceBetweenCardsX: 200
   distanceBetweenCardsY: 200
   maxCardsPerRow: 8
-  cardsDrawnInitially: 8
+  cardsDrawnInitially: 17
 --- !u!114 &1194265084
 MonoBehaviour:
   m_ObjectHideFlags: 0

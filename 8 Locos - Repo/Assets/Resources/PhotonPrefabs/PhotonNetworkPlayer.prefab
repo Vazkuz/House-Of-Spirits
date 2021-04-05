@@ -93,6 +93,7 @@ MonoBehaviour:
   myAvatar: {fileID: 0}
   mySelectedCharacter: 5
   myPositionInGrid: 0
+  myCards: []
 --- !u!114 &5761233510948091652
 MonoBehaviour:
   m_ObjectHideFlags: 0
