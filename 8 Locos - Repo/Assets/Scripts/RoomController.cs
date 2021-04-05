@@ -68,6 +68,10 @@ public class RoomController : MonoBehaviourPunCallbacks
         {
             RPC_CreatePlayer();
         }
+        if(currentScene == MultiplayerSettings.multiplayerSettings.gameScene)
+        {
+            FindObjectOfType<SeatsController>().ChoseASeatAndSeat();
+        }
     }
 
     [PunRPC]
@@ -175,8 +179,11 @@ public class RoomController : MonoBehaviourPunCallbacks
 
     IEnumerator WaitAndRearrange()
     {
-        yield return new WaitForSeconds(1.55f);
-        FindObjectOfType<PhotonPlayer>().ArrangePlayersInCorrectOrder();
+        if(currentScene == MultiplayerSettings.multiplayerSettings.roomScene)
+        {
+            yield return new WaitForSeconds(1.55f);
+            FindObjectOfType<PhotonPlayer>().ArrangePlayersInCorrectOrder();
+        }
     }
 
     IEnumerator WaitAndUpdateColors()

@@ -8,6 +8,7 @@ TagManager:
   - NicknameInput
   - NicknameShow
   - PlayerGrid
+  - Seats
   layers:
   - Default
   - TransparentFX
