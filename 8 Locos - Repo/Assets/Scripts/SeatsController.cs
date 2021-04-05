@@ -15,17 +15,23 @@ public class SeatsController : MonoBehaviour
     }
     public void ChoseASeatAndSeat()
     {
-        foreach(PhotonPlayer player in FindObjectsOfType<PhotonPlayer>())
+        foreach (PhotonPlayer player in FindObjectsOfType<PhotonPlayer>())
         {
             player.transform.GetChild(0).gameObject.SetActive(false);
         }
-        if(PhotonNetwork.IsMasterClient)
+        StartCoroutine(HandleSeatsCoroutine());
+    }
+
+    IEnumerator HandleSeatsCoroutine()
+    {
+        yield return new WaitForSeconds(1f);        
+        if (PhotonNetwork.IsMasterClient)
         {
-            foreach(PhotonPlayer player in FindObjectsOfType<PhotonPlayer>())
+            foreach (PhotonPlayer player in FindObjectsOfType<PhotonPlayer>())
             {
-                for(int playerIndex = 0; playerIndex < PhotonNetwork.PlayerList.Length; playerIndex++)
+                for (int playerIndex = 0; playerIndex < PhotonNetwork.PlayerList.Length; playerIndex++)
                 {
-                    if(player.GetComponent<PhotonView>().Owner == PhotonNetwork.PlayerList[playerIndex])
+                    if (player.GetComponent<PhotonView>().Owner == PhotonNetwork.PlayerList[playerIndex])
                     {
                         int seatChosen = Random.Range(0, seats.Length);
                         while (seats[seatChosen].seatTaken)
@@ -39,12 +45,11 @@ public class SeatsController : MonoBehaviour
                 }
             }
         }
-        foreach(PhotonPlayer player in FindObjectsOfType<PhotonPlayer>())
+        foreach (PhotonPlayer player in FindObjectsOfType<PhotonPlayer>())
         {
             player.transform.GetChild(0).gameObject.SetActive(true);
         }
     }
-    
 
     [PunRPC]
     void SendSeatPosition(int seatChosenSent, int playerOwner)
