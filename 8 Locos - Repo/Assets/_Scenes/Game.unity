@@ -1762,7 +1762,8 @@ MonoBehaviour:
   distanceBetweenCardsX: 200
   distanceBetweenCardsY: 200
   maxCardsPerRow: 8
-  cardsDrawnInitially: 17
+  cardsDrawnInitially: 8
+  cardsAvailable: []
 --- !u!114 &1194265084
 MonoBehaviour:
   m_ObjectHideFlags: 0
