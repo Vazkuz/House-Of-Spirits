@@ -105,7 +105,7 @@ public class CardDisplay : MonoBehaviour
         foreach(PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
         {
             //Cuando encontremos al owner, lo usamos para instanciar todo
-            if (PhotonNetwork.PlayerList[playerIndex] == photonPlayer.GetComponent<PhotonView>().Owner)
+            if (PhotonNetwork.PlayerList[playerIndex] == photonPlayer.GetComponent<PhotonView>().Owner && photonPlayer.GetComponent<PhotonView>().IsMine)
             {
                 // Name and parenting of the card drawn. We parent it in a GO/folder to organize them easily. 
                 // GameObject cardDrawn = new GameObject(myCards[drawIndex].cardNumber.ToString() + " " + myCards[drawIndex].cardSuit.ToString());
