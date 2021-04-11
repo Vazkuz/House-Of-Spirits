@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
     public GameObject myCards;
     public GameObject cardsInGame;
     public GameObject cardChosen;
+    [SerializeField] int cardChosenIndex;
 
     void Awake()
     {
@@ -31,6 +32,15 @@ public class GameController : MonoBehaviour
     public void SetCardChosen(GameObject cardClicked)
     {
         cardChosen = cardClicked;
+        cardChosenIndex = 0;
+        foreach(Transform child in myCards.transform)
+        {
+            if (cardChosen != child.gameObject)
+            {
+                cardChosenIndex++;
+            }
+            else break;
+        }
     }
 
     public void ViewDeck()
@@ -73,26 +83,35 @@ public class GameController : MonoBehaviour
             {
                 child.gameObject.GetComponent<Image>().color = new Color(1,1,1);
             }
+            cardChosenIndex = 0;
         }
     }
 
     public void PlayCardFromHand()
     {
-        gameController.cardChosen.transform.SetParent(cardsInGame.transform);
-        cardChosen.transform.localPosition = new Vector3(0f,0f,0f);
-        cardChosen.GetComponent<Button>().enabled = false;
+        // gameController.cardChosen.transform.SetParent(cardsInGame.transform);
+        // cardChosen.transform.localPosition = new Vector3(0f,0f,0f);
+        // cardChosen.GetComponent<Button>().enabled = false;
         foreach(Transform child in myCards.transform)
         {
             child.gameObject.GetComponent<Image>().color = new Color(1,1,1);
         }
-        deckCanvas.SetActive(false);
+        CloseDeckOptions();
         cardOptions.SetActive(false);
 
         foreach(PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
         {
             if(photonPlayer.GetComponent<PhotonView>().IsMine)
             {
-                photonPlayer.LoseCardsFromHand();
+                for(int lookForPlayerIndex = 0; lookForPlayerIndex < PhotonNetwork.PlayerList.Length; lookForPlayerIndex++)
+                {
+                    if(photonPlayer.GetComponent<PhotonView>().Owner == PhotonNetwork.PlayerList[lookForPlayerIndex])
+                    {
+                        photonPlayer.LoseCardsFromHand();
+                        photonPlayer.SendCardFromHandToTable(cardChosenIndex, lookForPlayerIndex);
+
+                    }
+                }
             }
         }
 

@@ -13,6 +13,7 @@ public class PhotonPlayer : MonoBehaviour
     [SerializeField] float avatarOffsetY;
     [SerializeField] float nicknameOffsetX;
     [SerializeField] float nicknameOffsetY;
+    [SerializeField] GameObject cardPrefab;
     public int cardsIHave;
     public GameObject[] allCharacters;
     private PhotonView PV;
@@ -238,4 +239,43 @@ public class PhotonPlayer : MonoBehaviour
         }
     }
 
+    public void SendCardFromHandToTable(int cardChosenIndex, int playerIndex)
+    {
+        PV.RPC("SendCardPlayedToAllPlayers", RpcTarget.All, cardChosenIndex, playerIndex);
+    }
+
+    [PunRPC]
+    void SendCardPlayedToAllPlayers(int cardChosenIndex, int playerIndex)
+    {
+        foreach(PhotonPlayer playerCustom in FindObjectsOfType<PhotonPlayer>())
+        {
+            if (PhotonNetwork.PlayerList[playerIndex] == playerCustom.GetComponent<PhotonView>().Owner)
+            {
+                Debug.Log("El jugador lanzó la carta " + myCards[cardChosenIndex]);
+                GameObject cardPlayed = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                cardPlayed.transform.SetParent(GameController.gameController.cardsInGame.transform, false);
+                cardPlayed.GetComponent<Image>().overrideSprite = playerCustom.myCards[cardChosenIndex].artwork;
+                cardPlayed.transform.localScale = new Vector3(1.5f, 1.5f, 0);
+                cardPlayed.GetComponent<Button>().enabled = false;
+                cardPlayed.name = playerCustom.myCards[cardChosenIndex].cardNumber.ToString() + " " + playerCustom.myCards[cardChosenIndex].cardSuit.ToString();
+                StartCoroutine(ReorganizeCards(cardChosenIndex, playerCustom));
+            }
+        }
+    }
+
+    IEnumerator ReorganizeCards(int cardChosenIndex, PhotonPlayer playerCustom)
+    {
+        playerCustom.myCards.RemoveAt(cardChosenIndex);
+        Destroy(GameController.gameController.myCards.transform.GetChild(cardChosenIndex).gameObject);
+        yield return new WaitForEndOfFrame();
+        int childIndex = 0;
+        foreach (Transform child in GameController.gameController.myCards.transform)
+        {
+            int multiplyBy = (childIndex) / CardDisplay.cardDisplayInstance.maxCardsPerRow;
+            child.localPosition = CardDisplay.cardDisplayInstance.cardLocalPosition +
+                    new Vector3(CardDisplay.cardDisplayInstance.distanceBetweenCardsX * (childIndex - multiplyBy * CardDisplay.cardDisplayInstance.maxCardsPerRow),
+                    -CardDisplay.cardDisplayInstance.distanceBetweenCardsY * multiplyBy, 0);
+            childIndex++;
+        }
+    }
 }

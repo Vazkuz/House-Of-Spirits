@@ -80,6 +80,7 @@ MonoBehaviour:
   avatarOffsetY: -48.93001
   nicknameOffsetX: 5
   nicknameOffsetY: 0
+  cardPrefab: {fileID: 5329566201207041873, guid: 1601d44a1e09ab6498f3559276ea8d9e, type: 3}
   cardsIHave: 0
   allCharacters:
   - {fileID: 7186179102993685012, guid: 292bc26c0920ac244a9ee143c6149af0, type: 3}

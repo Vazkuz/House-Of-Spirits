@@ -10,28 +10,28 @@ public class CardDisplay : MonoBehaviour
     [SerializeField] GameObject cardPrefab;
     [SerializeField] GameObject myCardsFolder;
     [SerializeField] float cardSpriteSize = 1.5f;
-    [SerializeField] Vector3 cardLocalPosition;
-    [SerializeField] float distanceBetweenCardsX = 200f;
-    [SerializeField] float distanceBetweenCardsY = 300f;
-    [SerializeField] int maxCardsPerRow = 8;
+    public Vector3 cardLocalPosition;
+    public float distanceBetweenCardsX = 200f;
+    public float distanceBetweenCardsY = 300f;
+    public int maxCardsPerRow = 8;
     [SerializeField] int cardsDrawnInitially = 8;
     public List<Card> cardsAvailable;
     // List<Card> myCards = new List<Card>();
     private PhotonView PV;
 
     // Instance
-    public static CardDisplay instance;
+    public static CardDisplay cardDisplayInstance;
 
     void Awake()
     {
-        if(instance != null && instance != this)
+        if(cardDisplayInstance != null && cardDisplayInstance != this)
         {
             gameObject.SetActive(false);
         }
         else
         {
             // Set the instance
-            instance = this;
+            cardDisplayInstance = this;
         }
     }
 
@@ -39,7 +39,7 @@ public class CardDisplay : MonoBehaviour
     void Start()
     {
         PV = GetComponent<PhotonView>();
-        instance.cardsAvailable = new List<Card>(Resources.LoadAll<Card>("Cards")); //OJO: "Cards" es el path de donde se cargan todos los ScriptableObjects tipo Card (Resources)
+        cardDisplayInstance.cardsAvailable = new List<Card>(Resources.LoadAll<Card>("Cards")); //OJO: "Cards" es el path de donde se cargan todos los ScriptableObjects tipo Card (Resources)
         if(PhotonNetwork.IsMasterClient)
         {
             StartCoroutine(DealCards());
@@ -67,7 +67,7 @@ public class CardDisplay : MonoBehaviour
     {
         for (int drawIndex = 0; drawIndex < cardsToDrawn; drawIndex++)
         {
-            int cardDrawnIndex = Random.Range(0, instance.cardsAvailable.Count);
+            int cardDrawnIndex = Random.Range(0, cardDisplayInstance.cardsAvailable.Count);
             PV.RPC("RPC_AddToHand",RpcTarget.All,cardDrawnIndex, playerIndex);
             PV.RPC("SetupDrawnCard", RpcTarget.All,playerIndex);
             PV.RPC("RPC_RemoveFromDeck",RpcTarget.All,cardDrawnIndex);
@@ -82,7 +82,7 @@ public class CardDisplay : MonoBehaviour
         {
             if (PhotonNetwork.PlayerList[playerIndex] == playerCustom.GetComponent<PhotonView>().Owner)
             {
-                playerCustom.myCards.Add(instance.cardsAvailable[cardDrawnIndex]);
+                playerCustom.myCards.Add(cardDisplayInstance.cardsAvailable[cardDrawnIndex]);
                 if(playerCustom.GetComponent<PhotonView>().IsMine)
                 {
                     playerCustom.AddCardToHand();
@@ -96,7 +96,7 @@ public class CardDisplay : MonoBehaviour
     void RPC_RemoveFromDeck(int cardDrawnIndex)
     {
         // Debug.Log("Card to remove: " + instance.cardsAvailable[cardDrawnIndex]);
-        instance.cardsAvailable.Remove(instance.cardsAvailable[cardDrawnIndex]);
+        cardDisplayInstance.cardsAvailable.Remove(cardDisplayInstance.cardsAvailable[cardDrawnIndex]);
     }
 
     [PunRPC]
@@ -131,13 +131,13 @@ public class CardDisplay : MonoBehaviour
 
     public void ReorganizeCards()
     {      
-        int childIndex = 0;
-        foreach(Transform child in myCardsFolder.transform)
-        {                    
-            int multiplyBy = (childIndex)/maxCardsPerRow;
-            child.localPosition = cardLocalPosition + new Vector3(distanceBetweenCardsX * (childIndex - multiplyBy * maxCardsPerRow), - distanceBetweenCardsY * multiplyBy, 0);
-            childIndex++;
-        }
+        // int childIndex = 0;
+        // foreach(Transform child in myCardsFolder.transform)
+        // {                    
+        //     int multiplyBy = (childIndex)/maxCardsPerRow;
+        //     child.localPosition = cardLocalPosition + new Vector3(distanceBetweenCardsX * (childIndex - multiplyBy * maxCardsPerRow), - distanceBetweenCardsY * multiplyBy, 0);
+        //     childIndex++;
+        // }
     }
 
 }
