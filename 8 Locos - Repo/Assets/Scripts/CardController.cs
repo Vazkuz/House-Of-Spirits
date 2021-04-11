@@ -1,12 +1,23 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardController : MonoBehaviour
 {
 
     [SerializeField] int cardNumber;
     [SerializeField] Card.CardSuit cardSuit;
+    Button thisCardButton;
+    GameController gameController;
+
+    void Start()
+    {
+        gameController = FindObjectOfType<GameController>();
+        thisCardButton = GetComponent<Button>();
+        thisCardButton.onClick.AddListener(TaskOnClick);
+    }
 
     public void SetCardNumber(int newCardNumber)
     {
@@ -15,6 +26,19 @@ public class CardController : MonoBehaviour
     public void SetCardSuit(Card.CardSuit newCardSuit)
     {
         cardSuit = newCardSuit;
+    }
+
+    void TaskOnClick()
+    {
+        foreach(Transform child in gameController.myCards.transform)
+        {
+            if (child.GetComponent<CardController>() != this)
+            {
+                child.gameObject.GetComponent<Image>().color = new Color(0,0,0);
+            }
+        }
+
+        gameController.SetCardChosen(this.gameObject);
     }
 
 }

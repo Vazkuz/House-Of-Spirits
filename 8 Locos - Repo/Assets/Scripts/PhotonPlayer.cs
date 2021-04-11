@@ -211,6 +211,11 @@ public class PhotonPlayer : MonoBehaviour
         cardsIHave++;
     }
 
+    public void LoseCardsFromHand()
+    {
+        cardsIHave--;
+    }
+
     public int GetNumberOfCards()
     {
         return cardsIHave;

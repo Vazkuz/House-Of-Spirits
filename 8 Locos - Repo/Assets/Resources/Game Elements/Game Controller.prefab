@@ -45,3 +45,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deckCanvas: {fileID: 0}
   openDeckButton: {fileID: 0}
+  cardOptions: {fileID: 0}

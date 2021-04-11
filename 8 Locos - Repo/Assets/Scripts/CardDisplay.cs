@@ -95,7 +95,7 @@ public class CardDisplay : MonoBehaviour
     [PunRPC]
     void RPC_RemoveFromDeck(int cardDrawnIndex)
     {
-        Debug.Log("Card to remove: " + instance.cardsAvailable[cardDrawnIndex]);
+        // Debug.Log("Card to remove: " + instance.cardsAvailable[cardDrawnIndex]);
         instance.cardsAvailable.Remove(instance.cardsAvailable[cardDrawnIndex]);
     }
 
