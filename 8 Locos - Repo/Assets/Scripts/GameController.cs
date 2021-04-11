@@ -85,6 +85,17 @@ public class GameController : MonoBehaviour
         {
             child.gameObject.GetComponent<Image>().color = new Color(1,1,1);
         }
+        deckCanvas.SetActive(false);
+        cardOptions.SetActive(false);
+
+        foreach(PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
+        {
+            if(photonPlayer.GetComponent<PhotonView>().IsMine)
+            {
+                photonPlayer.LoseCardsFromHand();
+            }
+        }
+
     }
 
 }

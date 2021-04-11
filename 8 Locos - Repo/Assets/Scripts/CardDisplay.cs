@@ -128,4 +128,16 @@ public class CardDisplay : MonoBehaviour
             }
         }
     }
+
+    public void ReorganizeCards()
+    {      
+        int childIndex = 0;
+        foreach(Transform child in myCardsFolder.transform)
+        {                    
+            int multiplyBy = (childIndex)/maxCardsPerRow;
+            child.localPosition = cardLocalPosition + new Vector3(distanceBetweenCardsX * (childIndex - multiplyBy * maxCardsPerRow), - distanceBetweenCardsY * multiplyBy, 0);
+            childIndex++;
+        }
+    }
+
 }
