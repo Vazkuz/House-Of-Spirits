@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
     public GameObject myCards;
     public GameObject cardsInGame;
     public GameObject cardChosen;
+    public int currentTurn = 0;
     [SerializeField] int cardChosenIndex;
 
     void Awake()
@@ -96,20 +97,28 @@ public class GameController : MonoBehaviour
         {
             child.gameObject.GetComponent<Image>().color = new Color(1,1,1);
         }
-        CloseDeckOptions();
-        cardOptions.SetActive(false);
 
         foreach(PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
         {
-            if(photonPlayer.GetComponent<PhotonView>().IsMine)
-            {
+            if(photonPlayer.GetComponent<PhotonView>().IsMine 
+                    && photonPlayer.GetComponent<PhotonView>().Owner == PhotonNetwork.PlayerList[currentTurn])
+            {                
+                CloseDeckOptions();
+                cardOptions.SetActive(false);
                 for(int lookForPlayerIndex = 0; lookForPlayerIndex < PhotonNetwork.PlayerList.Length; lookForPlayerIndex++)
                 {
                     if(photonPlayer.GetComponent<PhotonView>().Owner == PhotonNetwork.PlayerList[lookForPlayerIndex])
                     {
                         photonPlayer.LoseCardsFromHand();
                         photonPlayer.SendCardFromHandToTable(cardChosenIndex, lookForPlayerIndex);
-
+                        GameController.gameController.currentTurn++;
+                        Debug.Log("Current player: " + GameController.gameController.currentTurn);
+                        if (GameController.gameController.currentTurn >= PhotonNetwork.PlayerList.Length)
+                        {
+                            GameController.gameController.currentTurn = 0;
+                            Debug.Log("Updated current player to 0");
+                        }
+                        RoomController.room.PrepareSendingFirstPlayerSequence(true);
                     }
                 }
             }

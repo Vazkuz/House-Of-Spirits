@@ -251,7 +251,6 @@ public class PhotonPlayer : MonoBehaviour
         {
             if (PhotonNetwork.PlayerList[playerIndex] == playerCustom.GetComponent<PhotonView>().Owner)
             {
-                Debug.Log("El jugador lanzó la carta " + myCards[cardChosenIndex]);
                 GameObject cardPlayed = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 cardPlayed.transform.SetParent(GameController.gameController.cardsInGame.transform, false);
                 cardPlayed.GetComponent<Image>().overrideSprite = playerCustom.myCards[cardChosenIndex].artwork;

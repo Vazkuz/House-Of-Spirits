@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.IO;
 using Photon.Pun;
 using Photon.Realtime;
@@ -71,6 +70,22 @@ public class RoomController : MonoBehaviourPunCallbacks
         if(currentScene == MultiplayerSettings.multiplayerSettings.gameScene)
         {
             FindObjectOfType<SeatsController>().ChoseASeatAndSeat();
+        }
+    }
+
+    public void PrepareSendingFirstPlayerSequence(bool isUpdate)
+    {
+        if(!isUpdate)
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                GameController.gameController.currentTurn = Random.Range(0, PhotonNetwork.CurrentRoom.PlayerCount);
+                PV.RPC("SendFirstPlayerToAllPlayers", RpcTarget.All, GameController.gameController.currentTurn);
+            }
+        }
+        else
+        {            
+            PV.RPC("SendFirstPlayerToAllPlayers", RpcTarget.All, GameController.gameController.currentTurn);
         }
     }
 
@@ -244,5 +259,11 @@ public class RoomController : MonoBehaviourPunCallbacks
         {
             StartCoroutine(GameSetup.GS.DisconnectAndLoad());
         }
+    }
+
+    [PunRPC]
+    void SendFirstPlayerToAllPlayers(int currentTurn)
+    {
+        GameController.gameController.currentTurn = currentTurn;
     }
 }

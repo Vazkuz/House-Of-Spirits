@@ -49,6 +49,7 @@ public class CardDisplay : MonoBehaviour
     IEnumerator DealCards()
     {
         yield return new WaitForSeconds(4);
+        RoomController.room.PrepareSendingFirstPlayerSequence(false);
         for(int playerIndex = 0; playerIndex < PhotonNetwork.PlayerList.Length; playerIndex++)
         {
             Debug.Log("Starting the draws: Player number " + playerIndex + ", player: " + PhotonNetwork.PlayerList[playerIndex]);
