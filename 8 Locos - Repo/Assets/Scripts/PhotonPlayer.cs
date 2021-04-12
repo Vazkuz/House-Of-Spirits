@@ -241,11 +241,11 @@ public class PhotonPlayer : MonoBehaviour
 
     public void SendCardFromHandToTable(int cardChosenIndex, int playerIndex)
     {
-        PV.RPC("SendCardPlayedToAllPlayers", RpcTarget.All, cardChosenIndex, playerIndex);
+        PV.RPC("SendCardPlayedToAllPlayers", RpcTarget.All, cardChosenIndex, playerIndex, cardsIHave);
     }
 
     [PunRPC]
-    void SendCardPlayedToAllPlayers(int cardChosenIndex, int playerIndex)
+    void SendCardPlayedToAllPlayers(int cardChosenIndex, int playerIndex, int cardsPlayerHas)
     {
         foreach(PhotonPlayer playerCustom in FindObjectsOfType<PhotonPlayer>())
         {
@@ -262,6 +262,7 @@ public class PhotonPlayer : MonoBehaviour
                 {
                     StartCoroutine(ReorganizeCards(cardChosenIndex, playerCustom));
                 }
+                playerCustom.UpdateNumberOfCardsInDisplay(playerIndex, cardsPlayerHas.ToString());
             }
         }
     }
