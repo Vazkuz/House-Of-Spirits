@@ -258,7 +258,10 @@ public class PhotonPlayer : MonoBehaviour
                 cardPlayed.transform.localScale = new Vector3(1.5f, 1.5f, 0);
                 cardPlayed.GetComponent<Button>().enabled = false;
                 cardPlayed.name = playerCustom.myCards[cardChosenIndex].cardNumber.ToString() + " " + playerCustom.myCards[cardChosenIndex].cardSuit.ToString();
-                StartCoroutine(ReorganizeCards(cardChosenIndex, playerCustom));
+                if(playerCustom.GetComponent<PhotonView>().IsMine)
+                {
+                    StartCoroutine(ReorganizeCards(cardChosenIndex, playerCustom));
+                }
             }
         }
     }
