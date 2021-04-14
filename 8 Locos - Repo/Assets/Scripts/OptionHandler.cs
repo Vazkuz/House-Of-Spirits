@@ -6,6 +6,7 @@ public class OptionHandler : MonoBehaviour
 {
     public GameObject optionCanvas;
     [SerializeField] GameObject optionOpener;
+    [SerializeField] GameObject turnOptions;
     
     void Start()
     {
@@ -17,6 +18,10 @@ public class OptionHandler : MonoBehaviour
     {
         optionCanvas.SetActive(true);
         optionOpener.SetActive(false);
+        if (turnOptions)
+        {
+            turnOptions.SetActive(false);
+        }
         foreach(GameObject nicknameShow in GameObject.FindGameObjectsWithTag("NicknameInput"))
         {
             nicknameShow.GetComponent<NicknameInputController>().enabled = true;
@@ -27,6 +32,10 @@ public class OptionHandler : MonoBehaviour
     {
         optionCanvas.SetActive(false);
         optionOpener.SetActive(true);
+        if (turnOptions)
+        {
+            turnOptions.SetActive(true);
+        }
         foreach(GameObject nicknameShow in GameObject.FindGameObjectsWithTag("NicknameInput"))
         {
             nicknameShow.GetComponent<NicknameInputController>().enabled = false;

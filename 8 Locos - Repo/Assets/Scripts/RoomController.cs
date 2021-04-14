@@ -73,7 +73,7 @@ public class RoomController : MonoBehaviourPunCallbacks
         }
     }
 
-    public void PrepareSendingFirstPlayerSequence(bool isUpdate)
+    public void PrepareSendingPlayerSequence(bool isUpdate)
     {
         if(!isUpdate)
         {

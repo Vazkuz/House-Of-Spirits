@@ -49,7 +49,7 @@ public class CardDisplay : MonoBehaviour
     IEnumerator DealCards()
     {
         yield return new WaitForSeconds(4);
-        RoomController.room.PrepareSendingFirstPlayerSequence(false);
+        RoomController.room.PrepareSendingPlayerSequence(false);
         for(int playerIndex = 0; playerIndex < PhotonNetwork.PlayerList.Length; playerIndex++)
         {
             Debug.Log("Starting the draws: Player number " + playerIndex + ", player: " + PhotonNetwork.PlayerList[playerIndex]);
@@ -62,9 +62,38 @@ public class CardDisplay : MonoBehaviour
                 }
             }
         }
+        FirstHandInTable();
     }
 
-    void DrawCards(int cardsToDrawn, PhotonPlayer photonPlayer, int playerIndex)
+    void FirstHandInTable()
+    {
+        int cardDrawnIndex = Random.Range(0, cardDisplayInstance.cardsAvailable.Count);
+        PV.RPC("SendFirstHandInTableAllPlayers",RpcTarget.All,cardDrawnIndex);
+        PV.RPC("RPC_RemoveFromDeck",RpcTarget.All,cardDrawnIndex);
+    }
+
+    
+
+    [PunRPC]
+    void SendFirstHandInTableAllPlayers(int cardChosenIndex)
+    {
+        GameObject cardPlayed = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        cardPlayed.transform.SetParent(GameController.gameController.cardsInGame.transform, false);
+        cardPlayed.name = cardDisplayInstance.cardsAvailable[cardChosenIndex].cardNumber.ToString() + " " 
+                            + cardDisplayInstance.cardsAvailable[cardChosenIndex].cardSuit.ToString();
+
+        cardPlayed.transform.localScale = new Vector3(cardSpriteSize, cardSpriteSize, 0);
+        cardPlayed.transform.localScale = new Vector3(1.5f, 1.5f, 0);
+        cardPlayed.GetComponent<Button>().enabled = false;
+                    
+        // We configure it's number and suit. We'll use that info later for the game mechanics.
+        cardPlayed.GetComponent<CardController>().SetCardSuit(cardDisplayInstance.cardsAvailable[cardChosenIndex].cardSuit);
+        cardPlayed.GetComponent<CardController>().SetCardNumber(cardDisplayInstance.cardsAvailable[cardChosenIndex].cardNumber);
+
+        cardPlayed.GetComponent<Image>().overrideSprite = cardDisplayInstance.cardsAvailable[cardChosenIndex].artwork;
+    }
+
+    public void DrawCards(int cardsToDrawn, PhotonPlayer photonPlayer, int playerIndex)
     {
         for (int drawIndex = 0; drawIndex < cardsToDrawn; drawIndex++)
         {

@@ -9,12 +9,14 @@ public class GameController : MonoBehaviour
     public static GameController gameController;
     public GameObject deckCanvas;
     [SerializeField] GameObject openDeckButton;
+    [SerializeField] GameObject turnOptions;
     [SerializeField] GameObject cardOptions;
     public GameObject myCards;
     public GameObject cardsInGame;
     public GameObject cardChosen;
     public int currentTurn = 0;
     [SerializeField] int cardChosenIndex;
+    public bool IveDrawnACard = false;
 
     void Awake()
     {
@@ -48,12 +50,14 @@ public class GameController : MonoBehaviour
     {
         deckCanvas.SetActive(true);
         openDeckButton.SetActive(false);
+        turnOptions.SetActive(false);
     }
 
     public void CloseDeckOptions()
     {
         deckCanvas.SetActive(false);
         openDeckButton.SetActive(true);
+        turnOptions.SetActive(true);
     }
 
     public void QuitGame()
@@ -90,9 +94,7 @@ public class GameController : MonoBehaviour
 
     public void PlayCardFromHand()
     {
-        // gameController.cardChosen.transform.SetParent(cardsInGame.transform);
-        // cardChosen.transform.localPosition = new Vector3(0f,0f,0f);
-        // cardChosen.GetComponent<Button>().enabled = false;
+
         foreach(Transform child in myCards.transform)
         {
             child.gameObject.GetComponent<Image>().color = new Color(1,1,1);
@@ -112,18 +114,46 @@ public class GameController : MonoBehaviour
                         photonPlayer.LoseCardsFromHand();
                         photonPlayer.SendCardFromHandToTable(cardChosenIndex, lookForPlayerIndex);
                         GameController.gameController.currentTurn++;
-                        Debug.Log("Current player: " + GameController.gameController.currentTurn);
                         if (GameController.gameController.currentTurn >= PhotonNetwork.PlayerList.Length)
                         {
                             GameController.gameController.currentTurn = 0;
                             Debug.Log("Updated current player to 0");
                         }
-                        RoomController.room.PrepareSendingFirstPlayerSequence(true);
+                        RoomController.room.PrepareSendingPlayerSequence(true);
                     }
                 }
             }
         }
 
     }
+
+    public void PassTurn()
+    {
+        if(GameController.gameController.IveDrawnACard)
+        {    
+            GameController.gameController.currentTurn++;
+            if (GameController.gameController.currentTurn >= PhotonNetwork.PlayerList.Length)
+            {
+                GameController.gameController.currentTurn = 0;
+                Debug.Log("Updated current player to 0");
+            }
+            RoomController.room.PrepareSendingPlayerSequence(true);
+            DrawSingleCard();
+            GameController.gameController.IveDrawnACard = false;
+        }
+    }
+
+    public void DrawSingleCard()
+    {
+        foreach(PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
+        {
+            if (PhotonNetwork.PlayerList[GameController.gameController.currentTurn] == photonPlayer.GetComponent<PhotonView>().Owner)
+            {
+                CardDisplay.cardDisplayInstance.DrawCards(1, photonPlayer, GameController.gameController.currentTurn);
+            }
+        }
+        GameController.gameController.IveDrawnACard = true;
+    }
+
 
 }
