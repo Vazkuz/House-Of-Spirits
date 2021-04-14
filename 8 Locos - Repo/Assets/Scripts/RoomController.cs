@@ -260,10 +260,20 @@ public class RoomController : MonoBehaviourPunCallbacks
             StartCoroutine(GameSetup.GS.DisconnectAndLoad());
         }
     }
-
+    
+    //turnOptions.SetActive(false);
     [PunRPC]
     void SendFirstPlayerToAllPlayers(int currentTurn)
     {
+        GameController.gameController.turnOptions.SetActive(false);
         GameController.gameController.currentTurn = currentTurn;
+        foreach(PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
+        {
+            if (PhotonNetwork.PlayerList[GameController.gameController.currentTurn] == photonPlayer.GetComponent<PhotonView>().Owner &&
+                    photonPlayer.GetComponent<PhotonView>().IsMine)
+            {
+                GameController.gameController.turnOptions.SetActive(true);
+            }
+        }
     }
 }

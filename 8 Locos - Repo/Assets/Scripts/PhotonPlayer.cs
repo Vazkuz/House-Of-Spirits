@@ -259,6 +259,7 @@ public class PhotonPlayer : MonoBehaviour
                 cardPlayed.name = playerCustom.myCards[cardChosenIndex].cardNumber.ToString() + " " + playerCustom.myCards[cardChosenIndex].cardSuit.ToString();
                 if(playerCustom.GetComponent<PhotonView>().IsMine)
                 {
+                    PV.RPC("SendRemoveCardOrder", RpcTarget.All, cardChosenIndex, playerIndex);
                     StartCoroutine(ReorganizeCards(cardChosenIndex, playerCustom));
                 }
                 playerCustom.UpdateNumberOfCardsInDisplay(playerIndex, cardsPlayerHas.ToString());
@@ -266,9 +267,20 @@ public class PhotonPlayer : MonoBehaviour
         }
     }
 
+    [PunRPC]
+    void SendRemoveCardOrder(int cardChosenIndex, int playerIndex)
+    {
+        foreach(PhotonPlayer playerCustom in FindObjectsOfType<PhotonPlayer>())
+        {
+            if (PhotonNetwork.PlayerList[playerIndex] == playerCustom.GetComponent<PhotonView>().Owner)
+            {
+                playerCustom.myCards.RemoveAt(cardChosenIndex);
+            }
+        }
+    }
+
     IEnumerator ReorganizeCards(int cardChosenIndex, PhotonPlayer playerCustom)
     {
-        playerCustom.myCards.RemoveAt(cardChosenIndex);
         Destroy(GameController.gameController.myCards.transform.GetChild(cardChosenIndex).gameObject);
         yield return new WaitForEndOfFrame();
         int childIndex = 0;

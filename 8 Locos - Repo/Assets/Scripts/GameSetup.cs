@@ -47,10 +47,10 @@ public class GameSetup : MonoBehaviour
 
     public void StartGame()
     {
-        PV.RPC("InstantiatePlayersInGame", RpcTarget.All);
         //Only the master client can start the game
         if (PhotonNetwork.IsMasterClient)
         {
+            PV.RPC("InstantiatePlayersInGame", RpcTarget.All);
             Debug.Log("Starting game");
             SceneManager.LoadScene(MultiplayerSettings.multiplayerSettings.gameScene);
             PhotonNetwork.CurrentRoom.IsOpen = false;

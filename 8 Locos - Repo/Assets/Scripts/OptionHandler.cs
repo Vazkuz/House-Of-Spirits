@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class OptionHandler : MonoBehaviour
@@ -34,7 +35,14 @@ public class OptionHandler : MonoBehaviour
         optionOpener.SetActive(true);
         if (turnOptions)
         {
-            turnOptions.SetActive(true);
+            foreach(PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
+            {
+                if (PhotonNetwork.PlayerList[GameController.gameController.currentTurn] == photonPlayer.GetComponent<PhotonView>().Owner &&
+                        photonPlayer.GetComponent<PhotonView>().IsMine)
+                {
+                    turnOptions.SetActive(true);
+                }
+            }
         }
         foreach(GameObject nicknameShow in GameObject.FindGameObjectsWithTag("NicknameInput"))
         {

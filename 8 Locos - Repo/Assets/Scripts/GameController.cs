@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour
     public static GameController gameController;
     public GameObject deckCanvas;
     [SerializeField] GameObject openDeckButton;
-    [SerializeField] GameObject turnOptions;
+    public GameObject turnOptions;
     [SerializeField] GameObject cardOptions;
     public GameObject myCards;
     public GameObject cardsInGame;
@@ -30,6 +30,7 @@ public class GameController : MonoBehaviour
         deckCanvas.SetActive(false);
         cardOptions.SetActive(false);
         openDeckButton.SetActive(false);
+        turnOptions.SetActive(false);
     }
 
     public void SetCardChosen(GameObject cardClicked)
@@ -50,14 +51,21 @@ public class GameController : MonoBehaviour
     {
         deckCanvas.SetActive(true);
         openDeckButton.SetActive(false);
-        turnOptions.SetActive(false);
+        //turnOptions.SetActive(false);
     }
 
     public void CloseDeckOptions()
     {
         deckCanvas.SetActive(false);
         openDeckButton.SetActive(true);
-        turnOptions.SetActive(true);
+        // foreach(PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
+        // {
+        //     if (PhotonNetwork.PlayerList[GameController.gameController.currentTurn] == photonPlayer.GetComponent<PhotonView>().Owner &&
+        //             photonPlayer.GetComponent<PhotonView>().IsMine)
+        //     {
+        //         turnOptions.SetActive(true);
+        //     }
+        // }
     }
 
     public void QuitGame()
@@ -129,17 +137,24 @@ public class GameController : MonoBehaviour
 
     public void PassTurn()
     {
-        if(GameController.gameController.IveDrawnACard)
-        {    
-            GameController.gameController.currentTurn++;
-            if (GameController.gameController.currentTurn >= PhotonNetwork.PlayerList.Length)
+        foreach(PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
+        {
+            if (PhotonNetwork.PlayerList[GameController.gameController.currentTurn] == photonPlayer.GetComponent<PhotonView>().Owner &&
+                    photonPlayer.GetComponent<PhotonView>().IsMine)
             {
-                GameController.gameController.currentTurn = 0;
-                Debug.Log("Updated current player to 0");
+                if(GameController.gameController.IveDrawnACard)
+                {    
+                    GameController.gameController.currentTurn++;
+                    if (GameController.gameController.currentTurn >= PhotonNetwork.PlayerList.Length)
+                    {
+                        GameController.gameController.currentTurn = 0;
+                        Debug.Log("Updated current player to 0");
+                    }
+                    RoomController.room.PrepareSendingPlayerSequence(true);
+                    DrawSingleCard();
+                    GameController.gameController.IveDrawnACard = false;
+                }
             }
-            RoomController.room.PrepareSendingPlayerSequence(true);
-            DrawSingleCard();
-            GameController.gameController.IveDrawnACard = false;
         }
     }
 
@@ -147,7 +162,8 @@ public class GameController : MonoBehaviour
     {
         foreach(PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
         {
-            if (PhotonNetwork.PlayerList[GameController.gameController.currentTurn] == photonPlayer.GetComponent<PhotonView>().Owner)
+            if (PhotonNetwork.PlayerList[GameController.gameController.currentTurn] == photonPlayer.GetComponent<PhotonView>().Owner &&
+                    photonPlayer.GetComponent<PhotonView>().IsMine)
             {
                 CardDisplay.cardDisplayInstance.DrawCards(1, photonPlayer, GameController.gameController.currentTurn);
             }
