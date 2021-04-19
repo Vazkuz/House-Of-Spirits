@@ -259,10 +259,23 @@ public class PhotonPlayer : MonoBehaviour
                 cardPlayed.name = playerCustom.myCards[cardChosenIndex].cardNumber.ToString() + " " + playerCustom.myCards[cardChosenIndex].cardSuit.ToString();
                 if(playerCustom.GetComponent<PhotonView>().IsMine)
                 {
+                    PV.RPC("UpdateCardsInGameList", RpcTarget.All, cardChosenIndex, playerIndex);
                     PV.RPC("SendRemoveCardOrder", RpcTarget.All, cardChosenIndex, playerIndex);
                     StartCoroutine(ReorganizeCards(cardChosenIndex, playerCustom));
                 }
                 playerCustom.UpdateNumberOfCardsInDisplay(playerIndex, cardsPlayerHas.ToString());
+            }
+        }
+    }
+
+    [PunRPC]
+    void UpdateCardsInGameList(int cardChosenIndex, int playerIndex)
+    {
+        foreach(PhotonPlayer playerCustom in FindObjectsOfType<PhotonPlayer>())
+        {
+            if (PhotonNetwork.PlayerList[playerIndex] == playerCustom.GetComponent<PhotonView>().Owner)
+            {
+                GameController.gameController.cardsInGameList.Add(playerCustom.myCards[cardChosenIndex]);
             }
         }
     }

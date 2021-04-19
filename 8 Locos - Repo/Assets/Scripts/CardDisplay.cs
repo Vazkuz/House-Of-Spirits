@@ -62,20 +62,20 @@ public class CardDisplay : MonoBehaviour
                 }
             }
         }
-        FirstHandInTable();
+        FirstCardInTable();
     }
 
-    void FirstHandInTable()
+    void FirstCardInTable()
     {
         int cardDrawnIndex = Random.Range(0, cardDisplayInstance.cardsAvailable.Count);
-        PV.RPC("SendFirstHandInTableAllPlayers",RpcTarget.All,cardDrawnIndex);
+        PV.RPC("SendFirstCardInTableAllPlayers",RpcTarget.All,cardDrawnIndex);
         PV.RPC("RPC_RemoveFromDeck",RpcTarget.All,cardDrawnIndex);
     }
 
     
 
     [PunRPC]
-    void SendFirstHandInTableAllPlayers(int cardChosenIndex)
+    void SendFirstCardInTableAllPlayers(int cardChosenIndex)
     {
         GameObject cardPlayed = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         cardPlayed.transform.SetParent(GameController.gameController.cardsInGame.transform, false);
@@ -91,16 +91,39 @@ public class CardDisplay : MonoBehaviour
         cardPlayed.GetComponent<CardController>().SetCardNumber(cardDisplayInstance.cardsAvailable[cardChosenIndex].cardNumber);
 
         cardPlayed.GetComponent<Image>().overrideSprite = cardDisplayInstance.cardsAvailable[cardChosenIndex].artwork;
+
+        GameController.gameController.cardsInGameList.Add(cardDisplayInstance.cardsAvailable[cardChosenIndex]);
     }
 
     public void DrawCards(int cardsToDrawn, PhotonPlayer photonPlayer, int playerIndex)
     {
+        if(cardDisplayInstance.cardsAvailable.Count == 0)
+        {
+            PV.RPC("MixCardsInGame",RpcTarget.All);
+        }
+
         for (int drawIndex = 0; drawIndex < cardsToDrawn; drawIndex++)
         {
             int cardDrawnIndex = Random.Range(0, cardDisplayInstance.cardsAvailable.Count);
             PV.RPC("RPC_AddToHand",RpcTarget.All,cardDrawnIndex, playerIndex);
             PV.RPC("SetupDrawnCard", RpcTarget.All,playerIndex);
             PV.RPC("RPC_RemoveFromDeck",RpcTarget.All,cardDrawnIndex);
+        }
+    }
+
+    [PunRPC]
+    void MixCardsInGame()
+    {
+        int cardsInGameAtMomentOfDraw = GameController.gameController.cardsInGameList.Count;
+        for (int cardInGameIndex = 0; cardInGameIndex < cardsInGameAtMomentOfDraw - 1; cardInGameIndex++)
+        {
+            cardDisplayInstance.cardsAvailable.Add(GameController.gameController.cardsInGameList[cardInGameIndex]);
+        }
+
+        for (int cardInGameIndex = 0; cardInGameIndex < cardsInGameAtMomentOfDraw - 1; cardInGameIndex++)
+        {
+            GameController.gameController.cardsInGameList.RemoveAt(0);
+            Destroy(GameController.gameController.cardsInGame.transform.GetChild(0).gameObject);
         }
     }
 

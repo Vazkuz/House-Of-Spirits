@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour
     public int currentTurn = 0;
     [SerializeField] int cardChosenIndex;
     public bool IveDrawnACard = false;
+    public List<Card> cardsInGameList;
 
     void Awake()
     {
