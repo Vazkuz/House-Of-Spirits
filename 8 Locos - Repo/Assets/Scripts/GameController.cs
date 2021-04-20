@@ -153,6 +153,10 @@ public class GameController : MonoBehaviour
                         cardOptions.SetActive(false);
                         if(photonPlayer.myCards[cardChosenIndex].cardNumber != 2)
                         {
+                            if(photonPlayer.myCards[cardChosenIndex].cardNumber == 11)
+                            {
+                                GameController.gameController.currentTurn++;
+                            }
                             GoToNextPlayerTurn();
                         }
                         GameController.gameController.IveDrawnACard = false;
