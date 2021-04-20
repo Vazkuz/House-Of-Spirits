@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
@@ -19,6 +20,11 @@ public class GameController : MonoBehaviour
     public bool IveDrawnACard = false;
     public List<Card> cardsInGameList;
 
+    [Header("Messages")]
+    [SerializeField] GameObject alreadyDrawnCardMessage;
+    [SerializeField] GameObject cantPlayCardMessage;
+    [SerializeField] GameObject cantPassTurnMessage;
+
     void Awake()
     {
         if(gameController == null)
@@ -32,6 +38,9 @@ public class GameController : MonoBehaviour
         cardOptions.SetActive(false);
         openDeckButton.SetActive(false);
         turnOptions.SetActive(false);
+        alreadyDrawnCardMessage.SetActive(false);
+        cantPlayCardMessage.SetActive(false);
+        cantPassTurnMessage.SetActive(false);
     }
 
     public void SetCardChosen(GameObject cardClicked)
@@ -101,24 +110,45 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void PlayCardFromHand()
+    public void AttemptToPlayCard()
     {
-
-        foreach(Transform child in myCards.transform)
+        int lastCardIndex = GameController.gameController.cardsInGameList.Count - 1;
+        foreach (PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
         {
-            child.gameObject.GetComponent<Image>().color = new Color(1,1,1);
+            if (photonPlayer.GetComponent<PhotonView>().IsMine
+                    && photonPlayer.GetComponent<PhotonView>().Owner == PhotonNetwork.PlayerList[currentTurn])
+            {
+                if (photonPlayer.myCards[cardChosenIndex].cardNumber == GameController.gameController.cardsInGameList[lastCardIndex].cardNumber
+                    || photonPlayer.myCards[cardChosenIndex].cardSuit == GameController.gameController.cardsInGameList[lastCardIndex].cardSuit)
+                {
+                    PlayCardFromHand();
+                }
+                else
+                {
+                    StartCoroutine(ShowInfoMessage(cantPlayCardMessage, 4f));
+                }
+            }
         }
 
-        foreach(PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
+    }
+
+    void PlayCardFromHand()
+    {
+        foreach (Transform child in myCards.transform)
         {
-            if(photonPlayer.GetComponent<PhotonView>().IsMine 
+            child.gameObject.GetComponent<Image>().color = new Color(1, 1, 1);
+        }
+
+        foreach (PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
+        {
+            if (photonPlayer.GetComponent<PhotonView>().IsMine
                     && photonPlayer.GetComponent<PhotonView>().Owner == PhotonNetwork.PlayerList[currentTurn])
-            {                
+            {
                 CloseDeckOptions();
                 cardOptions.SetActive(false);
-                for(int lookForPlayerIndex = 0; lookForPlayerIndex < PhotonNetwork.PlayerList.Length; lookForPlayerIndex++)
+                for (int lookForPlayerIndex = 0; lookForPlayerIndex < PhotonNetwork.PlayerList.Length; lookForPlayerIndex++)
                 {
-                    if(photonPlayer.GetComponent<PhotonView>().Owner == PhotonNetwork.PlayerList[lookForPlayerIndex])
+                    if (photonPlayer.GetComponent<PhotonView>().Owner == PhotonNetwork.PlayerList[lookForPlayerIndex])
                     {
                         photonPlayer.LoseCardsFromHand();
                         photonPlayer.SendCardFromHandToTable(cardChosenIndex, lookForPlayerIndex);
@@ -129,11 +159,11 @@ public class GameController : MonoBehaviour
                             Debug.Log("Updated current player to 0");
                         }
                         RoomController.room.PrepareSendingPlayerSequence(true);
+                        GameController.gameController.IveDrawnACard = false;
                     }
                 }
             }
         }
-
     }
 
     public void PassTurn()
@@ -143,7 +173,11 @@ public class GameController : MonoBehaviour
             if (PhotonNetwork.PlayerList[GameController.gameController.currentTurn] == photonPlayer.GetComponent<PhotonView>().Owner &&
                     photonPlayer.GetComponent<PhotonView>().IsMine)
             {
-                if(GameController.gameController.IveDrawnACard)
+                if(!GameController.gameController.IveDrawnACard)
+                {
+                    StartCoroutine(ShowInfoMessage(cantPassTurnMessage, 3.5f));
+                }
+                else
                 {    
                     GameController.gameController.currentTurn++;
                     if (GameController.gameController.currentTurn >= PhotonNetwork.PlayerList.Length)
@@ -152,7 +186,7 @@ public class GameController : MonoBehaviour
                         Debug.Log("Updated current player to 0");
                     }
                     RoomController.room.PrepareSendingPlayerSequence(true);
-                    DrawSingleCard();
+                    // DrawSingleCard();
                     GameController.gameController.IveDrawnACard = false;
                 }
             }
@@ -161,16 +195,28 @@ public class GameController : MonoBehaviour
 
     public void DrawSingleCard()
     {
-        foreach(PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
+        if (!GameController.gameController.IveDrawnACard)
         {
-            if (PhotonNetwork.PlayerList[GameController.gameController.currentTurn] == photonPlayer.GetComponent<PhotonView>().Owner &&
-                    photonPlayer.GetComponent<PhotonView>().IsMine)
+            foreach(PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
             {
-                CardDisplay.cardDisplayInstance.DrawCards(1, photonPlayer, GameController.gameController.currentTurn);
+                if (PhotonNetwork.PlayerList[GameController.gameController.currentTurn] == photonPlayer.GetComponent<PhotonView>().Owner &&
+                        photonPlayer.GetComponent<PhotonView>().IsMine)
+                {
+                    CardDisplay.cardDisplayInstance.DrawCards(1, photonPlayer, GameController.gameController.currentTurn);
+                }
             }
+            GameController.gameController.IveDrawnACard = true;
         }
-        GameController.gameController.IveDrawnACard = true;
+        else
+        {
+            StartCoroutine(ShowInfoMessage(alreadyDrawnCardMessage, 3f));
+        }
     }
 
-
+    IEnumerator ShowInfoMessage(GameObject message, float time)
+    {
+        message.SetActive(true);
+        yield return new WaitForSeconds(time);
+        message.SetActive(false);
+    }
 }
