@@ -144,26 +144,34 @@ public class GameController : MonoBehaviour
             if (photonPlayer.GetComponent<PhotonView>().IsMine
                     && photonPlayer.GetComponent<PhotonView>().Owner == PhotonNetwork.PlayerList[currentTurn])
             {
-                CloseDeckOptions();
-                cardOptions.SetActive(false);
+
                 for (int lookForPlayerIndex = 0; lookForPlayerIndex < PhotonNetwork.PlayerList.Length; lookForPlayerIndex++)
                 {
                     if (photonPlayer.GetComponent<PhotonView>().Owner == PhotonNetwork.PlayerList[lookForPlayerIndex])
                     {
                         photonPlayer.LoseCardsFromHand();
-                        photonPlayer.SendCardFromHandToTable(cardChosenIndex, lookForPlayerIndex);
-                        GameController.gameController.currentTurn++;
-                        if (GameController.gameController.currentTurn >= PhotonNetwork.PlayerList.Length)
+                        cardOptions.SetActive(false);
+                        if(photonPlayer.myCards[cardChosenIndex].cardNumber != 2)
                         {
-                            GameController.gameController.currentTurn = 0;
-                            Debug.Log("Updated current player to 0");
+                            GoToNextPlayerTurn();
                         }
-                        RoomController.room.PrepareSendingPlayerSequence(true);
                         GameController.gameController.IveDrawnACard = false;
+                        photonPlayer.SendCardFromHandToTable(cardChosenIndex, lookForPlayerIndex);
                     }
                 }
             }
         }
+    }
+
+    void GoToNextPlayerTurn()
+    {
+        GameController.gameController.currentTurn++;
+        if (GameController.gameController.currentTurn >= PhotonNetwork.PlayerList.Length)
+        {
+            GameController.gameController.currentTurn = 0;
+        }
+        CloseDeckOptions();
+        RoomController.room.PrepareSendingPlayerSequence(true);
     }
 
     public void PassTurn()
