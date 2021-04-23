@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameController : MonoBehaviour
 {
@@ -12,18 +13,22 @@ public class GameController : MonoBehaviour
     [SerializeField] GameObject openDeckButton;
     public GameObject turnOptions;
     [SerializeField] GameObject cardOptions;
+    [SerializeField] GameObject K13Options;
     public GameObject myCards;
     public GameObject cardsInGame;
     public GameObject cardChosen;
     public int currentTurn = 0;
     [SerializeField] int cardChosenIndex;
     public bool IveDrawnACard = false;
+    public bool youNeedToPlay13 = false;
+    public int cardsToDraw = 0;
     public List<Card> cardsInGameList;
 
     [Header("Messages")]
     [SerializeField] GameObject alreadyDrawnCardMessage;
     [SerializeField] GameObject cantPlayCardMessage;
     [SerializeField] GameObject cantPassTurnMessage;
+    [SerializeField] TMP_Text kingPlayedAgainstYouMessage;
 
     void Awake()
     {
@@ -35,12 +40,15 @@ public class GameController : MonoBehaviour
     void Start()
     {
         deckCanvas.SetActive(false);
-        cardOptions.SetActive(false);
         openDeckButton.SetActive(false);
+        cardOptions.SetActive(false);
         turnOptions.SetActive(false);
+        K13Options.SetActive(false);
+
         alreadyDrawnCardMessage.SetActive(false);
         cantPlayCardMessage.SetActive(false);
         cantPassTurnMessage.SetActive(false);
+        kingPlayedAgainstYouMessage.gameObject.SetActive(false);
     }
 
     public void SetCardChosen(GameObject cardClicked)
@@ -157,7 +165,7 @@ public class GameController : MonoBehaviour
                             {
                                 GameController.gameController.currentTurn++;
                             }
-                            GoToNextPlayerTurn();
+                            GoToNextPlayerTurn(photonPlayer, lookForPlayerIndex);
                         }
                         GameController.gameController.IveDrawnACard = false;
                         photonPlayer.SendCardFromHandToTable(cardChosenIndex, lookForPlayerIndex);
@@ -167,7 +175,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    void GoToNextPlayerTurn()
+    void GoToNextPlayerTurn(PhotonPlayer photonPlayer, int playerIndex)
     {
         GameController.gameController.currentTurn++;
         if (GameController.gameController.currentTurn >= PhotonNetwork.PlayerList.Length)
@@ -175,7 +183,29 @@ public class GameController : MonoBehaviour
             GameController.gameController.currentTurn = 0;
         }
         CloseDeckOptions();
-        RoomController.room.PrepareSendingPlayerSequence(true);
+        if(youNeedToPlay13)
+        {
+            if(photonPlayer.myCards[cardChosenIndex].cardNumber != 13)
+            {
+                InstantlyDraw13();
+            }
+            else
+            {
+                RoomController.room.PrepareSendingPlayerSequence(true, true, cardsToDraw, photonPlayer, playerIndex);
+            }
+            youNeedToPlay13 = false;
+        }
+        else
+        {
+            if(photonPlayer.myCards[cardChosenIndex].cardNumber != 13)
+            {
+                RoomController.room.PrepareSendingPlayerSequence(true, false, 0, photonPlayer, playerIndex);
+            }
+            else
+            {
+                RoomController.room.PrepareSendingPlayerSequence(true, true, 3, photonPlayer, playerIndex);
+            }
+        }
     }
 
     public void PassTurn()
@@ -197,7 +227,7 @@ public class GameController : MonoBehaviour
                         GameController.gameController.currentTurn = 0;
                         Debug.Log("Updated current player to 0");
                     }
-                    RoomController.room.PrepareSendingPlayerSequence(true);
+                    RoomController.room.PrepareSendingPlayerSequence(true, false, 0, photonPlayer, GameController.gameController.currentTurn);
                     // DrawSingleCard();
                     GameController.gameController.IveDrawnACard = false;
                 }
@@ -231,4 +261,34 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(time);
         message.SetActive(false);
     }
+
+    public void SomeoneWantsMeToDraw(bool makeNextPlayerDraw, int cardsToDraw, PhotonPlayer playerCustom, int playerIndex)
+    {
+        deckCanvas.SetActive(true);
+        openDeckButton.SetActive(true);
+        kingPlayedAgainstYouMessage.text = "Someone played King against you. You have to either play another King or draw " 
+                                            + GameController.gameController.cardsToDraw + " cards.";
+        K13Options.SetActive(true);
+        StartCoroutine(ShowInfoMessage(kingPlayedAgainstYouMessage.gameObject, 5f));
+    }
+
+    public void PlayAfter13()
+    {
+        K13Options.SetActive(false);
+        youNeedToPlay13 = true;
+    }
+
+    public void InstantlyDraw13()
+    {
+        foreach(PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
+        {
+            if (PhotonNetwork.PlayerList[GameController.gameController.currentTurn] == photonPlayer.GetComponent<PhotonView>().Owner &&
+                    photonPlayer.GetComponent<PhotonView>().IsMine)
+            {
+                CardDisplay.cardDisplayInstance.DrawCards(cardsToDraw, photonPlayer, GameController.gameController.currentTurn); 
+            }
+        }
+        K13Options.SetActive(false); 
+    }
+
 }

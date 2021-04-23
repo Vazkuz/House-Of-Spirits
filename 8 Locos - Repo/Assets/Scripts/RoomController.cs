@@ -73,19 +73,46 @@ public class RoomController : MonoBehaviourPunCallbacks
         }
     }
 
-    public void PrepareSendingPlayerSequence(bool isUpdate)
+    public void PrepareSendingPlayerSequence(bool isUpdate, bool makeNextPlayerDraw, int cardsToDraw, PhotonPlayer photonPlayer, int playerIndex)
     {
         if(!isUpdate)
         {
             if (PhotonNetwork.IsMasterClient)
             {
                 GameController.gameController.currentTurn = Random.Range(0, PhotonNetwork.CurrentRoom.PlayerCount);
-                PV.RPC("SendFirstPlayerToAllPlayers", RpcTarget.All, GameController.gameController.currentTurn);
+                PV.RPC("SendFirstPlayerToAllPlayers", RpcTarget.All, GameController.gameController.currentTurn, false, 0);
             }
         }
         else
         {            
-            PV.RPC("SendFirstPlayerToAllPlayers", RpcTarget.All, GameController.gameController.currentTurn);
+            PV.RPC("SendFirstPlayerToAllPlayers", RpcTarget.All, GameController.gameController.currentTurn, makeNextPlayerDraw, cardsToDraw);
+        }
+    }
+    
+    [PunRPC]
+    void SendFirstPlayerToAllPlayers(int currentTurn, bool makeNextPlayerDraw, int cardsToDraw)
+    {
+        GameController.gameController.turnOptions.SetActive(false);
+        GameController.gameController.currentTurn = currentTurn;
+        if(makeNextPlayerDraw)
+        {
+            GameController.gameController.cardsToDraw += cardsToDraw;
+        }
+        else
+        {
+            GameController.gameController.cardsToDraw = 0;
+        }
+        foreach(PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
+        {
+            if (PhotonNetwork.PlayerList[GameController.gameController.currentTurn] == photonPlayer.GetComponent<PhotonView>().Owner &&
+                    photonPlayer.GetComponent<PhotonView>().IsMine)
+            {
+                GameController.gameController.turnOptions.SetActive(true);
+                if(makeNextPlayerDraw)
+                {
+                    GameController.gameController.SomeoneWantsMeToDraw(makeNextPlayerDraw, cardsToDraw, photonPlayer, GameController.gameController.currentTurn);
+                }
+            }
         }
     }
 
@@ -258,22 +285,6 @@ public class RoomController : MonoBehaviourPunCallbacks
         if (!GameSetup.GS.hasStartedLeaving)
         {
             StartCoroutine(GameSetup.GS.DisconnectAndLoad());
-        }
-    }
-    
-    //turnOptions.SetActive(false);
-    [PunRPC]
-    void SendFirstPlayerToAllPlayers(int currentTurn)
-    {
-        GameController.gameController.turnOptions.SetActive(false);
-        GameController.gameController.currentTurn = currentTurn;
-        foreach(PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
-        {
-            if (PhotonNetwork.PlayerList[GameController.gameController.currentTurn] == photonPlayer.GetComponent<PhotonView>().Owner &&
-                    photonPlayer.GetComponent<PhotonView>().IsMine)
-            {
-                GameController.gameController.turnOptions.SetActive(true);
-            }
         }
     }
 }
