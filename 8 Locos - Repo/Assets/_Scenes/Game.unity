@@ -3249,7 +3249,7 @@ MonoBehaviour:
   distanceBetweenCardsX: 200
   distanceBetweenCardsY: 200
   maxCardsPerRow: 8
-  cardsDrawnInitially: 15
+  cardsDrawnInitially: 8
   cardsAvailable: []
 --- !u!114 &1194265084
 MonoBehaviour:

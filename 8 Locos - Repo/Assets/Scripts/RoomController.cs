@@ -94,19 +94,19 @@ public class RoomController : MonoBehaviourPunCallbacks
     {
         GameController.gameController.turnOptions.SetActive(false);
         GameController.gameController.currentTurn = currentTurn;
-        if(makeNextPlayerDraw)
-        {
-            GameController.gameController.cardsToDraw += cardsToDraw;
-        }
-        else
-        {
-            GameController.gameController.cardsToDraw = 0;
-        }
         foreach(PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
         {
             if (PhotonNetwork.PlayerList[GameController.gameController.currentTurn] == photonPlayer.GetComponent<PhotonView>().Owner &&
                     photonPlayer.GetComponent<PhotonView>().IsMine)
             {
+                if(makeNextPlayerDraw)
+                {
+                    GameController.gameController.cardsToDraw = cardsToDraw;
+                }
+                else
+                {
+                    GameController.gameController.cardsToDraw = 0;
+                }
                 GameController.gameController.turnOptions.SetActive(true);
                 if(makeNextPlayerDraw)
                 {
@@ -287,4 +287,16 @@ public class RoomController : MonoBehaviourPunCallbacks
             StartCoroutine(GameSetup.GS.DisconnectAndLoad());
         }
     }
+
+    public void SendSequenceOrder(bool order)
+    {
+        PV.RPC("RPC_SendSequenceOrder", RpcTarget.All, order);
+    }
+
+    [PunRPC]
+    void RPC_SendSequenceOrder(bool order)
+    {
+        GameController.gameController.sequencePositive = order;
+    }
+
 }
