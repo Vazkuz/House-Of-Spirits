@@ -264,7 +264,7 @@ public class RoomController : MonoBehaviourPunCallbacks
                         GameController.gameController.currentTurn--;
                         if(GameController.gameController.currentTurn < 0)
                         {
-                            GameController.gameController.currentTurn = 0;
+                            GameController.gameController.currentTurn = PhotonNetwork.PlayerList.Length;
                         }
                         RoomController.room.PrepareSendingPlayerSequence(true, false, 0, GameController.gameController.currentTurn);
                     }
