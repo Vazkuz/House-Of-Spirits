@@ -29,6 +29,7 @@ public class GameController : MonoBehaviour
     public Card.CardSuit cardSuitChosen = 0;
     public int cardsToDraw = 0;
     public List<Card> cardsInGameList;
+    public bool isMyTurn = false;
     [SerializeField] GameObject[] options8G0;
     public GameObject directionChanged;
     public int mySeat;
@@ -228,7 +229,7 @@ public class GameController : MonoBehaviour
                             }
                             else
                             {
-                                RoomController.room.PrepareSendingPlayerSequence(true, true, 3, photonPlayer, lookForPlayerIndex);
+                                RoomController.room.PrepareSendingPlayerSequence(true, true, 3, lookForPlayerIndex);
                             }
                             youNeedToPlay13 = false;
                         }
@@ -297,11 +298,11 @@ public class GameController : MonoBehaviour
         CloseDeckOptions();
         if(photonPlayer.myCards[cardChosenIndex].cardNumber != 13)
         {
-            RoomController.room.PrepareSendingPlayerSequence(true, false, 0, photonPlayer, playerIndex);
+            RoomController.room.PrepareSendingPlayerSequence(true, false, 0, playerIndex);
         }
         else
         {
-            RoomController.room.PrepareSendingPlayerSequence(true, true, GameController.gameController.cardsToDraw+3, photonPlayer, playerIndex);
+            RoomController.room.PrepareSendingPlayerSequence(true, true, GameController.gameController.cardsToDraw + 3, playerIndex);
         }
         youNeedToPlay13 = false;
     }
@@ -335,7 +336,7 @@ public class GameController : MonoBehaviour
                     {
                         GameController.gameController.currentTurn = PhotonNetwork.PlayerList.Length - 1;
                     }
-                    RoomController.room.PrepareSendingPlayerSequence(true, false, 0, photonPlayer, GameController.gameController.currentTurn);
+                    RoomController.room.PrepareSendingPlayerSequence(true, false, 0, GameController.gameController.currentTurn);
                     // DrawSingleCard();
                     GameController.gameController.IveDrawnACard = false;
                 }

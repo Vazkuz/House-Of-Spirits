@@ -18,6 +18,7 @@ public class RoomController : MonoBehaviourPunCallbacks
     public int currentScene;
     public int playersInGame;
     public string roomPassword;
+    public bool isSomeonePlayingNow = false;
     string passwordAttemptFromClient;
     bool kickedWrongPassword = false;
     int whoLeft;
@@ -73,7 +74,7 @@ public class RoomController : MonoBehaviourPunCallbacks
         }
     }
 
-    public void PrepareSendingPlayerSequence(bool isUpdate, bool makeNextPlayerDraw, int cardsToDraw, PhotonPlayer photonPlayer, int playerIndex)
+    public void PrepareSendingPlayerSequence(bool isUpdate, bool makeNextPlayerDraw, int cardsToDraw, int playerIndex)
     {
         if(!isUpdate)
         {
@@ -246,11 +247,50 @@ public class RoomController : MonoBehaviourPunCallbacks
             Debug.Log(otherPlayer + " left the room. Number of players currently on the room: " + PhotonNetwork.CurrentRoom.PlayerCount);
             playersInGame--;
         }
+
+        if(currentScene == MultiplayerSettings.multiplayerSettings.gameScene)
+        {
+            if(PhotonNetwork.IsMasterClient)
+            {
+                PV.RPC("RPC_CheckIfLefterWasPlaying", RpcTarget.All);
+                if(!RoomController.room.isSomeonePlayingNow)
+                {
+                    if(GameController.gameController.sequencePositive)
+                    {
+                        RoomController.room.PrepareSendingPlayerSequence(true, false, 0, GameController.gameController.currentTurn);
+                    }
+                    else
+                    {
+                        GameController.gameController.currentTurn--;
+                        if(GameController.gameController.currentTurn < 0)
+                        {
+                            GameController.gameController.currentTurn = 0;
+                        }
+                        RoomController.room.PrepareSendingPlayerSequence(true, false, 0, GameController.gameController.currentTurn);
+                    }
+                }
+            }
+        }
         
         if(PhotonNetwork.CurrentRoom.PlayerCount < 8)
         {
             PhotonNetwork.CurrentRoom.IsOpen = true;
         }
+    }
+
+    [PunRPC]
+    void RPC_CheckIfLefterWasPlaying()
+    {
+        if(GameController.gameController.isMyTurn)
+        {
+            PV.RPC("RPC_IsSomeonesTurnRightNow", RpcTarget.MasterClient);
+        }
+    }
+
+    [PunRPC]
+    void RPC_IsSomeonesTurnRightNow()
+    {
+        RoomController.room.isSomeonePlayingNow = true;
     }
 
     IEnumerator SearchForEmptySpaceInGrid()
