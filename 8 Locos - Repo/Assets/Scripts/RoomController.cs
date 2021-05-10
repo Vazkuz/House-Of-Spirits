@@ -297,6 +297,53 @@ public class RoomController : MonoBehaviourPunCallbacks
     void RPC_SendSequenceOrder(bool order)
     {
         GameController.gameController.sequencePositive = order;
+        if(GameController.gameController.sequencePositive)
+        {
+            GameController.gameController.directionChanged.SetActive(false);
+        }
+        else
+        {
+            GameController.gameController.directionChanged.SetActive(true);
+        }
+    }
+
+    public void SendCardChosen8(bool ivePlayed8, int suitChosen)
+    {
+        PV.RPC("RPC_SendCardChosen8", RpcTarget.All, ivePlayed8, suitChosen);
+    }
+
+    [PunRPC]
+    void RPC_SendCardChosen8(bool ivePlayed8, int suitChosen)
+    {
+        if(ivePlayed8)
+        {
+            GameController.gameController.ivePlayed8 = true;
+            if (suitChosen == 1)
+            {
+                GameController.gameController.cardSuitChosen = Card.CardSuit.Hearts;
+            }
+            else if (suitChosen == 2)
+            {
+                GameController.gameController.cardSuitChosen = Card.CardSuit.Clovers;
+            }
+            else if (suitChosen == 3)
+            {
+                GameController.gameController.cardSuitChosen = Card.CardSuit.Tiles;
+            }
+            else if (suitChosen == 4)
+            {
+                GameController.gameController.cardSuitChosen = Card.CardSuit.Pikes;
+            }
+            GameController.gameController.suitChosenGo[suitChosen-1].SetActive(true);
+        }
+        else
+        {
+            GameController.gameController.ivePlayed8 = false;
+            foreach(GameObject suitChosenGoElement in GameController.gameController.suitChosenGo)
+            {
+                suitChosenGoElement.SetActive(false);
+            }
+        }
     }
 
 }

@@ -38,6 +38,11 @@ public class CardController : MonoBehaviour
             }
         }
 
+        if(cardNumber == 8)
+        {
+            GameController.gameController.card8Options.SetActive(true);
+        }
+
         gameController.SetCardChosen(this.gameObject);
     }
 

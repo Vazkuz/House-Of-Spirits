@@ -14,20 +14,30 @@ public class GameController : MonoBehaviour
     public GameObject turnOptions;
     [SerializeField] GameObject cardOptions;
     [SerializeField] GameObject K13Options;
+    public GameObject card8Options;
     public GameObject myCards;
     public GameObject cardsInGame;
     public GameObject cardChosen;
+    public GameObject[] suitChosenGo;
+    public int SuitChosen;
     public int currentTurn = 0;
     public bool sequencePositive = true;
     [SerializeField] int cardChosenIndex;
     public bool IveDrawnACard = false;
     public bool youNeedToPlay13 = false;
+    public bool ivePlayed8 = false;
+    public Card.CardSuit cardSuitChosen = 0;
     public int cardsToDraw = 0;
     public List<Card> cardsInGameList;
+    [SerializeField] GameObject[] options8G0;
+    public GameObject directionChanged;
+    public int mySeat;
 
     [Header("Messages")]
     [SerializeField] GameObject alreadyDrawnCardMessage;
     [SerializeField] GameObject cantPlayCardMessage;
+    [SerializeField] GameObject cantPlayCardBecause8Message;
+    [SerializeField] GameObject youNeedToChooseSuitMessage;
     [SerializeField] GameObject cantPassTurnMessage;
     [SerializeField] TMP_Text kingPlayedAgainstYouMessage;
 
@@ -45,9 +55,18 @@ public class GameController : MonoBehaviour
         cardOptions.SetActive(false);
         turnOptions.SetActive(false);
         K13Options.SetActive(false);
+        card8Options.SetActive(false);
+        youNeedToChooseSuitMessage.SetActive(false);
+        directionChanged.SetActive(false);
+
+        foreach(GameObject suitChosenGoElement in suitChosenGo)
+        {
+            suitChosenGoElement.SetActive(false);
+        }
 
         alreadyDrawnCardMessage.SetActive(false);
         cantPlayCardMessage.SetActive(false);
+        cantPlayCardBecause8Message.SetActive(false);
         cantPassTurnMessage.SetActive(false);
         kingPlayedAgainstYouMessage.gameObject.SetActive(false);
     }
@@ -70,21 +89,12 @@ public class GameController : MonoBehaviour
     {
         deckCanvas.SetActive(true);
         openDeckButton.SetActive(false);
-        //turnOptions.SetActive(false);
     }
 
     public void CloseDeckOptions()
     {
         deckCanvas.SetActive(false);
         openDeckButton.SetActive(true);
-        // foreach(PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
-        // {
-        //     if (PhotonNetwork.PlayerList[GameController.gameController.currentTurn] == photonPlayer.GetComponent<PhotonView>().Owner &&
-        //             photonPlayer.GetComponent<PhotonView>().IsMine)
-        //     {
-        //         turnOptions.SetActive(true);
-        //     }
-        // }
     }
 
     public void QuitGame()
@@ -108,6 +118,18 @@ public class GameController : MonoBehaviour
             FindObjectOfType<GameController>().cardOptions.SetActive(toogleValue);
         }
 
+        if (card8Options && !toogleValue)
+        {
+            card8Options.SetActive(toogleValue);
+        }
+        else
+        {
+            if(!toogleValue)
+            {
+                FindObjectOfType<GameController>().card8Options.SetActive(toogleValue);
+            }
+        }
+
         // Cuando apago las opciones de las cartas debo volver a "pintar" las cartas
         if(!toogleValue)
         {
@@ -117,6 +139,8 @@ public class GameController : MonoBehaviour
             }
             cardChosenIndex = 0;
         }
+
+        
     }
 
     public void AttemptToPlayCard()
@@ -127,14 +151,50 @@ public class GameController : MonoBehaviour
             if (photonPlayer.GetComponent<PhotonView>().IsMine
                     && photonPlayer.GetComponent<PhotonView>().Owner == PhotonNetwork.PlayerList[currentTurn])
             {
-                if (photonPlayer.myCards[cardChosenIndex].cardNumber == GameController.gameController.cardsInGameList[lastCardIndex].cardNumber
-                    || photonPlayer.myCards[cardChosenIndex].cardSuit == GameController.gameController.cardsInGameList[lastCardIndex].cardSuit)
+                if(ivePlayed8)
                 {
-                    PlayCardFromHand();
+                    if (photonPlayer.myCards[cardChosenIndex].cardSuit == cardSuitChosen
+                        || photonPlayer.myCards[cardChosenIndex].cardNumber == 8)
+                    {
+                        if(photonPlayer.myCards[cardChosenIndex].cardNumber == 8 && SuitChosen == 0)
+                        {
+                            StartCoroutine(ShowInfoMessage(youNeedToChooseSuitMessage, 4f));
+                        }
+                        else
+                        {
+                            PlayCardFromHand();
+                            RoomController.room.SendCardChosen8(false, 0);
+                            ivePlayed8 = false;
+                            foreach(GameObject suitChosenGoElement in suitChosenGo)
+                            {
+                                suitChosenGoElement.SetActive(false);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        StartCoroutine(ShowInfoMessage(cantPlayCardBecause8Message, 4f));
+                    }
                 }
                 else
                 {
-                    StartCoroutine(ShowInfoMessage(cantPlayCardMessage, 4f));
+                    if (photonPlayer.myCards[cardChosenIndex].cardNumber == GameController.gameController.cardsInGameList[lastCardIndex].cardNumber
+                        || photonPlayer.myCards[cardChosenIndex].cardSuit == GameController.gameController.cardsInGameList[lastCardIndex].cardSuit
+                        || photonPlayer.myCards[cardChosenIndex].cardNumber == 8)
+                    {
+                        if(photonPlayer.myCards[cardChosenIndex].cardNumber == 8 && SuitChosen == 0)
+                        {
+                            StartCoroutine(ShowInfoMessage(youNeedToChooseSuitMessage, 4f));
+                        }
+                        else
+                        {
+                            PlayCardFromHand();
+                        }
+                    }
+                    else
+                    {
+                        StartCoroutine(ShowInfoMessage(cantPlayCardMessage, 4f));
+                    }
                 }
             }
         }
@@ -162,7 +222,6 @@ public class GameController : MonoBehaviour
                         cardOptions.SetActive(false);
                         if(youNeedToPlay13)
                         {
-                            Debug.Log("Sí llega a aquí.");
                             if(photonPlayer.myCards[cardChosenIndex].cardNumber != 13)
                             {
                                 InstantlyDraw13();
@@ -176,6 +235,15 @@ public class GameController : MonoBehaviour
                         if(photonPlayer.myCards[cardChosenIndex].cardNumber == 12)
                         {
                             TogglePositivenessOfSequence();
+                        }
+                        if(photonPlayer.myCards[cardChosenIndex].cardNumber == 8)
+                        {
+                            foreach(GameObject options8GOElement in GameController.gameController.options8G0)
+                            {
+                                options8GOElement.GetComponent<Image>().color = new Color(1,1,1);
+                            }
+                            GameController.gameController.card8Options.SetActive(false);
+                            RoomController.room.SendCardChosen8(true, SuitChosen);
                         }
                         if(photonPlayer.myCards[cardChosenIndex].cardNumber != 2)
                         {
@@ -192,6 +260,10 @@ public class GameController : MonoBehaviour
                                 if (GameController.gameController.currentTurn >= PhotonNetwork.PlayerList.Length)
                                 {
                                     GameController.gameController.currentTurn = 0;
+                                }
+                                else if (GameController.gameController.currentTurn < 0)
+                                {
+                                    GameController.gameController.currentTurn = PhotonNetwork.PlayerList.Length - 1;
                                 }
                             }
                             GoToNextPlayerTurn(photonPlayer, lookForPlayerIndex);
@@ -217,6 +289,10 @@ public class GameController : MonoBehaviour
         if (GameController.gameController.currentTurn >= PhotonNetwork.PlayerList.Length)
         {
             GameController.gameController.currentTurn = 0;
+        }
+        else if (GameController.gameController.currentTurn < 0)
+        {
+            GameController.gameController.currentTurn = PhotonNetwork.PlayerList.Length - 1;
         }
         CloseDeckOptions();
         if(photonPlayer.myCards[cardChosenIndex].cardNumber != 13)
@@ -254,7 +330,10 @@ public class GameController : MonoBehaviour
                     if (GameController.gameController.currentTurn >= PhotonNetwork.PlayerList.Length)
                     {
                         GameController.gameController.currentTurn = 0;
-                        Debug.Log("Updated current player to 0");
+                    }
+                    else if (GameController.gameController.currentTurn < 0)
+                    {
+                        GameController.gameController.currentTurn = PhotonNetwork.PlayerList.Length - 1;
                     }
                     RoomController.room.PrepareSendingPlayerSequence(true, false, 0, photonPlayer, GameController.gameController.currentTurn);
                     // DrawSingleCard();
@@ -273,7 +352,16 @@ public class GameController : MonoBehaviour
                 if (PhotonNetwork.PlayerList[GameController.gameController.currentTurn] == photonPlayer.GetComponent<PhotonView>().Owner &&
                         photonPlayer.GetComponent<PhotonView>().IsMine)
                 {
-                    CardDisplay.cardDisplayInstance.DrawCards(1, photonPlayer, GameController.gameController.currentTurn);
+                    if(youNeedToPlay13)
+                    {
+                        CardDisplay.cardDisplayInstance.DrawCards(GameController.gameController.cardsToDraw, photonPlayer, GameController.gameController.currentTurn);
+                        GameController.gameController.cardsToDraw = 0;
+                        youNeedToPlay13 = false;
+                    }
+                    else
+                    {
+                        CardDisplay.cardDisplayInstance.DrawCards(1, photonPlayer, GameController.gameController.currentTurn);
+                    }
                 }
             }
             GameController.gameController.IveDrawnACard = true;
@@ -329,6 +417,34 @@ public class GameController : MonoBehaviour
     {
         GameController.gameController.sequencePositive = !GameController.gameController.sequencePositive;
         RoomController.room.SendSequenceOrder(GameController.gameController.sequencePositive);
+    }
+
+    public void IvePlayed8(int suitChosen)
+    {
+        foreach(GameObject options8GOElement in GameController.gameController.options8G0)
+        {
+            options8GOElement.GetComponent<Image>().color = new Color(0,0,0);
+        }
+        options8G0[suitChosen-1].GetComponent<Image>().color = new Color(1,1,1);
+
+        if (suitChosen == 1)
+        {
+            cardSuitChosen = Card.CardSuit.Hearts;
+        }
+        else if (suitChosen == 2)
+        {
+            cardSuitChosen = Card.CardSuit.Clovers;
+        }
+        else if (suitChosen == 3)
+        {
+            cardSuitChosen = Card.CardSuit.Tiles;
+        }
+        else if (suitChosen == 4)
+        {
+            cardSuitChosen = Card.CardSuit.Pikes;
+        }
+
+        SuitChosen = suitChosen;
     }
 
 }

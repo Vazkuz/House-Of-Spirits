@@ -7,11 +7,21 @@ using UnityEngine;
 public class SeatsController : MonoBehaviour
 {
     public Seat[] seats;
+    public static SeatsController currentSC;
     PhotonView PV;
 
     void Awake()
     {
         PV = GetComponent<PhotonView>();
+        currentSC = this;
+    }
+
+    void Start()
+    {
+        foreach(Seat seat in seats)
+        {
+            seat.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        }
     }
     public void ChoseASeatAndSeat()
     {
@@ -27,16 +37,20 @@ public class SeatsController : MonoBehaviour
         yield return new WaitForSeconds(1f);        
         if (PhotonNetwork.IsMasterClient)
         {
-            foreach (PhotonPlayer player in FindObjectsOfType<PhotonPlayer>())
-            {
-                for (int playerIndex = 0; playerIndex < PhotonNetwork.PlayerList.Length; playerIndex++)
+            int seatChosen = Random.Range(0, seats.Length);
+            for (int playerIndex = 0; playerIndex < PhotonNetwork.PlayerList.Length; playerIndex++)
+            {                    
+                foreach (PhotonPlayer player in FindObjectsOfType<PhotonPlayer>())
                 {
                     if (player.GetComponent<PhotonView>().Owner == PhotonNetwork.PlayerList[playerIndex])
                     {
-                        int seatChosen = Random.Range(0, seats.Length);
-                        while (seats[seatChosen].seatTaken)
+                        if(playerIndex > 0)
                         {
-                            seatChosen = Random.Range(0, seats.Length);
+                            seatChosen++;
+                            if(seatChosen >= seats.Length)
+                            {
+                                seatChosen = 0;
+                            }
                         }
                         Debug.Log("El jugador " + PhotonNetwork.PlayerList[playerIndex].NickName + " ocupará el sitio " + seatChosen);
                         PV.RPC("SendSeatPosition", RpcTarget.All, seatChosen, playerIndex);
@@ -61,7 +75,28 @@ public class SeatsController : MonoBehaviour
                 SeatsController seatsController = FindObjectOfType<SeatsController>();
                 player.transform.SetParent(seatsController.seats[seatChosenSent].transform);
                 player.transform.localPosition = new Vector3(0, 0, 0);
+                if(player.GetComponent<PhotonView>().IsMine)
+                {
+                    GameController.gameController.mySeat = seatChosenSent;
+                }
             }
         }
     }
+
+    public void ShowEveryoneWhosTurnItIs(int seatPosition)
+    {
+        PV.RPC("ToggleTurnIndicator", RpcTarget.All, seatPosition);
+    }
+
+    [PunRPC]
+    void ToggleTurnIndicator(int seatPosition)
+    {
+        Debug.Log("seatPosition = " + seatPosition);
+        foreach(Seat seat in seats)
+        {
+            seat.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        }
+        seats[seatPosition].transform.GetChild(0).gameObject.SetActive(true);
+    }
+
 }
