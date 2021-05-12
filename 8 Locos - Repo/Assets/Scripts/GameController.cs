@@ -5,6 +5,7 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -42,6 +43,8 @@ public class GameController : MonoBehaviour
     [SerializeField] GameObject cantPassTurnMessage;
     [SerializeField] TMP_Text kingPlayedAgainstYouMessage;
 
+    public List<GameObject> allMessages;
+
     void Awake()
     {
         if(gameController == null)
@@ -51,25 +54,37 @@ public class GameController : MonoBehaviour
     }
     void Start()
     {
-        deckCanvas.SetActive(false);
-        openDeckButton.SetActive(false);
-        cardOptions.SetActive(false);
-        turnOptions.SetActive(false);
-        K13Options.SetActive(false);
-        card8Options.SetActive(false);
-        youNeedToChooseSuitMessage.SetActive(false);
-        directionChanged.SetActive(false);
-
-        foreach(GameObject suitChosenGoElement in suitChosenGo)
+        Scene scene = SceneManager.GetActiveScene();
+        int currentScene = scene.buildIndex;
+        if(currentScene == MultiplayerSettings.multiplayerSettings.gameScene)
         {
-            suitChosenGoElement.SetActive(false);
-        }
+            deckCanvas.SetActive(false);
+            openDeckButton.SetActive(false);
+            cardOptions.SetActive(false);
+            turnOptions.SetActive(false);
+            K13Options.SetActive(false);
+            card8Options.SetActive(false);
+            youNeedToChooseSuitMessage.SetActive(false);
+            directionChanged.SetActive(false);
 
-        alreadyDrawnCardMessage.SetActive(false);
-        cantPlayCardMessage.SetActive(false);
-        cantPlayCardBecause8Message.SetActive(false);
-        cantPassTurnMessage.SetActive(false);
-        kingPlayedAgainstYouMessage.gameObject.SetActive(false);
+            GameController.gameController.allMessages.Add(alreadyDrawnCardMessage);
+            GameController.gameController.allMessages.Add(cantPlayCardBecause8Message);
+            GameController.gameController.allMessages.Add(cantPlayCardMessage);
+            GameController.gameController.allMessages.Add(youNeedToChooseSuitMessage);
+            GameController.gameController.allMessages.Add(cantPassTurnMessage);
+            GameController.gameController.allMessages.Add(kingPlayedAgainstYouMessage.gameObject);
+
+            foreach(GameObject suitChosenGoElement in suitChosenGo)
+            {
+                suitChosenGoElement.SetActive(false);
+            }
+
+            alreadyDrawnCardMessage.SetActive(false);
+            cantPlayCardMessage.SetActive(false);
+            cantPlayCardBecause8Message.SetActive(false);
+            cantPassTurnMessage.SetActive(false);
+            kingPlayedAgainstYouMessage.gameObject.SetActive(false);
+        }
     }
 
     public void SetCardChosen(GameObject cardClicked)
@@ -337,7 +352,7 @@ public class GameController : MonoBehaviour
                         GameController.gameController.currentTurn = PhotonNetwork.PlayerList.Length - 1;
                     }
                     RoomController.room.PrepareSendingPlayerSequence(true, false, 0, GameController.gameController.currentTurn);
-                    // DrawSingleCard();
+                    
                     GameController.gameController.IveDrawnACard = false;
                 }
             }
@@ -357,6 +372,7 @@ public class GameController : MonoBehaviour
                     {
                         CardDisplay.cardDisplayInstance.DrawCards(GameController.gameController.cardsToDraw, photonPlayer, GameController.gameController.currentTurn);
                         GameController.gameController.cardsToDraw = 0;
+                        GameController.gameController.IveDrawnACard = false;
                         youNeedToPlay13 = false;
                     }
                     else
@@ -375,6 +391,10 @@ public class GameController : MonoBehaviour
 
     IEnumerator ShowInfoMessage(GameObject message, float time)
     {
+        foreach(GameObject messageGO in GameController.gameController.allMessages)
+        {
+            messageGO.SetActive(false);
+        }
         message.SetActive(true);
         yield return new WaitForSeconds(time);
         message.SetActive(false);
@@ -411,6 +431,7 @@ public class GameController : MonoBehaviour
             }
         }
         GameController.gameController.cardsToDraw = 0;
+        GameController.gameController.IveDrawnACard = false;
         youNeedToPlay13 = false;
     }
 

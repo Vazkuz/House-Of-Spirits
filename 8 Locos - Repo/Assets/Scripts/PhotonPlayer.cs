@@ -20,6 +20,7 @@ public class PhotonPlayer : MonoBehaviour
     public GameObject myAvatar;
     public int mySelectedCharacter;
     public int myPositionInGrid;
+    public bool IWon = false;
     public List<Card> myCards = new List<Card>();
     TMP_Text numberOfCardsText;
 
@@ -264,8 +265,20 @@ public class PhotonPlayer : MonoBehaviour
                     StartCoroutine(ReorganizeCards(cardChosenIndex, playerCustom));
                 }
                 playerCustom.UpdateNumberOfCardsInDisplay(playerIndex, cardsPlayerHas.ToString());
+                if(cardsPlayerHas <= 0)
+                {
+                    playerCustom.IWon = true;
+                    RoomController.room.ShowWhoWon();
+                    PV.RPC("UpdateGameWinnerNickName", RpcTarget.All, PhotonNetwork.PlayerList[playerIndex].NickName);
+                }
             }
         }
+    }
+
+    [PunRPC]
+    void UpdateGameWinnerNickName(string nickName)
+    {
+        RoomController.room.nickNameOfWinner = nickName;
     }
 
     [PunRPC]

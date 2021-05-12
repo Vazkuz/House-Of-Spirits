@@ -19,6 +19,8 @@ public class RoomController : MonoBehaviourPunCallbacks
     public int playersInGame;
     public string roomPassword;
     public bool isSomeonePlayingNow = false;
+    public string nickNameOfWinner;
+    public TMP_Text PlayerWon;
     string passwordAttemptFromClient;
     bool kickedWrongPassword = false;
     int whoLeft;
@@ -71,6 +73,10 @@ public class RoomController : MonoBehaviourPunCallbacks
         if(currentScene == MultiplayerSettings.multiplayerSettings.gameScene)
         {
             FindObjectOfType<SeatsController>().ChoseASeatAndSeat();
+        }
+        if(currentScene == MultiplayerSettings.multiplayerSettings.gameEndedScene)
+        {
+            PV.RPC("RPC_ShowWhoWon", RpcTarget.All, RoomController.room.nickNameOfWinner);
         }
     }
 
@@ -384,6 +390,18 @@ public class RoomController : MonoBehaviourPunCallbacks
                 suitChosenGoElement.SetActive(false);
             }
         }
+    }
+
+    public void ShowWhoWon()
+    {
+        GameSetup.GS.GoToGameEndedScene();
+    }
+    
+    [PunRPC]
+    void RPC_ShowWhoWon(string nickName)
+    {
+        RoomController.room.PlayerWon = FindObjectOfType<TMP_Text>();
+        PlayerWon.text = nickName + "\nWins!";
     }
 
 }

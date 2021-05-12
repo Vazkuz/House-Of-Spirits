@@ -54,7 +54,17 @@ public class GameSetup : MonoBehaviour
             Debug.Log("Starting game");
             SceneManager.LoadScene(MultiplayerSettings.multiplayerSettings.gameScene);
             PhotonNetwork.CurrentRoom.IsOpen = false;
+            PhotonNetwork.CurrentRoom.PlayerTtl = 0;
         }
+    }
+
+    public void GoToGameEndedScene()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            SceneManager.LoadScene(MultiplayerSettings.multiplayerSettings.gameEndedScene);
+        }
+        
     }
 
     [PunRPC]

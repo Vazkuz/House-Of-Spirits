@@ -102,7 +102,7 @@ public class PUN2_Chat : MonoBehaviourPun
         ChatMessage m = new ChatMessage();
         m.sender = "<b>"+sender.NickName+"</b>";
         m.message = "<b>"+message+"</b>";
-        m.timer = 8.0f;
+        m.timer = 10.0f;
 
         chatMessages.Insert(0, m);
         if(chatMessages.Count > 8)

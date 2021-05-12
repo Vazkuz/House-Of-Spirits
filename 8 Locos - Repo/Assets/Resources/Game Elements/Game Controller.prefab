@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8263503189350133061}
   - component: {fileID: 8263503189350133060}
+  - component: {fileID: 8263503189007961913}
   m_Layer: 0
   m_Name: Game Controller
   m_TagString: Untagged
@@ -45,4 +46,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deckCanvas: {fileID: 0}
   openDeckButton: {fileID: 0}
+  turnOptions: {fileID: 0}
   cardOptions: {fileID: 0}
+  K13Options: {fileID: 0}
+  card8Options: {fileID: 0}
+  myCards: {fileID: 0}
+  cardsInGame: {fileID: 0}
+  cardChosen: {fileID: 0}
+  suitChosenGo:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  SuitChosen: 0
+  currentTurn: 0
+  sequencePositive: 1
+  cardChosenIndex: 0
+  IveDrawnACard: 0
+  youNeedToPlay13: 0
+  ivePlayed8: 0
+  cardSuitChosen: 0
+  cardsToDraw: 0
+  cardsInGameList: []
+  isMyTurn: 0
+  options8G0:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  directionChanged: {fileID: 0}
+  mySeat: 0
+  alreadyDrawnCardMessage: {fileID: 0}
+  cantPlayCardMessage: {fileID: 0}
+  cantPlayCardBecause8Message: {fileID: 0}
+  youNeedToChooseSuitMessage: {fileID: 0}
+  cantPassTurnMessage: {fileID: 0}
+  kingPlayedAgainstYouMessage: {fileID: 0}
+  allMessages: []
+--- !u!114 &8263503189007961913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8263503189350133062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: decab0b977ee0e0468c9ba3ab7b44730, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
