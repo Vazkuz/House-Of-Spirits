@@ -48,11 +48,36 @@ public class GameSetup : MonoBehaviour
     public void StartGame()
     {
         //Only the master client can start the game
-        if(PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient)
         {
+            PV.RPC("InstantiatePlayersInGame", RpcTarget.All);
             Debug.Log("Starting game");
             SceneManager.LoadScene(MultiplayerSettings.multiplayerSettings.gameScene);
             PhotonNetwork.CurrentRoom.IsOpen = false;
+            PhotonNetwork.CurrentRoom.PlayerTtl = 0;
+        }
+    }
+
+    public void GoToGameEndedScene()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            SceneManager.LoadScene(MultiplayerSettings.multiplayerSettings.gameEndedScene);
+        }
+        
+    }
+
+    [PunRPC]
+    void InstantiatePlayersInGame()
+    {
+        foreach (GameObject spaceInGrid in PlayerInfo.PI.allSpacesInGrid)
+        {
+            spaceInGrid.transform.DetachChildren(); //Detaching all players from their parent.
+        }
+
+        foreach (PhotonPlayer player in FindObjectsOfType<PhotonPlayer>())
+        {
+            DontDestroyOnLoad(player.gameObject);
         }
     }
 }

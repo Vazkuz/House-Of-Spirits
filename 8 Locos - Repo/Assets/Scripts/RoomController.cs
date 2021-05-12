@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.IO;
 using Photon.Pun;
 using Photon.Realtime;
@@ -19,6 +18,9 @@ public class RoomController : MonoBehaviourPunCallbacks
     public int currentScene;
     public int playersInGame;
     public string roomPassword;
+    public bool isSomeonePlayingNow = false;
+    public string nickNameOfWinner;
+    public TMP_Text PlayerWon;
     string passwordAttemptFromClient;
     bool kickedWrongPassword = false;
     int whoLeft;
@@ -67,6 +69,57 @@ public class RoomController : MonoBehaviourPunCallbacks
         if(currentScene == MultiplayerSettings.multiplayerSettings.roomScene)
         {
             RPC_CreatePlayer();
+        }
+        if(currentScene == MultiplayerSettings.multiplayerSettings.gameScene)
+        {
+            FindObjectOfType<SeatsController>().ChoseASeatAndSeat();
+        }
+        if(currentScene == MultiplayerSettings.multiplayerSettings.gameEndedScene)
+        {
+            PV.RPC("RPC_ShowWhoWon", RpcTarget.All, RoomController.room.nickNameOfWinner);
+        }
+    }
+
+    public void PrepareSendingPlayerSequence(bool isUpdate, bool makeNextPlayerDraw, int cardsToDraw, int playerIndex)
+    {
+        if(!isUpdate)
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                GameController.gameController.currentTurn = Random.Range(0, PhotonNetwork.CurrentRoom.PlayerCount);
+                PV.RPC("SendFirstPlayerToAllPlayers", RpcTarget.All, GameController.gameController.currentTurn, false, 0);
+            }
+        }
+        else
+        {            
+            PV.RPC("SendFirstPlayerToAllPlayers", RpcTarget.All, GameController.gameController.currentTurn, makeNextPlayerDraw, cardsToDraw);
+        }
+    }
+    
+    [PunRPC]
+    void SendFirstPlayerToAllPlayers(int currentTurn, bool makeNextPlayerDraw, int cardsToDraw)
+    {
+        GameController.gameController.turnOptions.SetActive(false);
+        GameController.gameController.currentTurn = currentTurn;
+        foreach(PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
+        {
+            if (PhotonNetwork.PlayerList[GameController.gameController.currentTurn] == photonPlayer.GetComponent<PhotonView>().Owner &&
+                    photonPlayer.GetComponent<PhotonView>().IsMine)
+            {
+                if(makeNextPlayerDraw)
+                {
+                    GameController.gameController.cardsToDraw = cardsToDraw;
+                }
+                else
+                {
+                    GameController.gameController.cardsToDraw = 0;
+                }
+                GameController.gameController.turnOptions.SetActive(true);
+                if(makeNextPlayerDraw)
+                {
+                    GameController.gameController.SomeoneWantsMeToDraw(makeNextPlayerDraw, cardsToDraw, photonPlayer, GameController.gameController.currentTurn);
+                }
+            }
         }
     }
 
@@ -175,8 +228,11 @@ public class RoomController : MonoBehaviourPunCallbacks
 
     IEnumerator WaitAndRearrange()
     {
-        yield return new WaitForSeconds(1.55f);
-        FindObjectOfType<PhotonPlayer>().ArrangePlayersInCorrectOrder();
+        if(currentScene == MultiplayerSettings.multiplayerSettings.roomScene)
+        {
+            yield return new WaitForSeconds(1.55f);
+            FindObjectOfType<PhotonPlayer>().ArrangePlayersInCorrectOrder();
+        }
     }
 
     IEnumerator WaitAndUpdateColors()
@@ -197,11 +253,50 @@ public class RoomController : MonoBehaviourPunCallbacks
             Debug.Log(otherPlayer + " left the room. Number of players currently on the room: " + PhotonNetwork.CurrentRoom.PlayerCount);
             playersInGame--;
         }
+
+        if(currentScene == MultiplayerSettings.multiplayerSettings.gameScene)
+        {
+            if(PhotonNetwork.IsMasterClient)
+            {
+                PV.RPC("RPC_CheckIfLefterWasPlaying", RpcTarget.All);
+                if(!RoomController.room.isSomeonePlayingNow)
+                {
+                    if(GameController.gameController.sequencePositive)
+                    {
+                        RoomController.room.PrepareSendingPlayerSequence(true, false, 0, GameController.gameController.currentTurn);
+                    }
+                    else
+                    {
+                        GameController.gameController.currentTurn--;
+                        if(GameController.gameController.currentTurn < 0)
+                        {
+                            GameController.gameController.currentTurn = PhotonNetwork.PlayerList.Length;
+                        }
+                        RoomController.room.PrepareSendingPlayerSequence(true, false, 0, GameController.gameController.currentTurn);
+                    }
+                }
+            }
+        }
         
         if(PhotonNetwork.CurrentRoom.PlayerCount < 8)
         {
             PhotonNetwork.CurrentRoom.IsOpen = true;
         }
+    }
+
+    [PunRPC]
+    void RPC_CheckIfLefterWasPlaying()
+    {
+        if(GameController.gameController.isMyTurn)
+        {
+            PV.RPC("RPC_IsSomeonesTurnRightNow", RpcTarget.MasterClient);
+        }
+    }
+
+    [PunRPC]
+    void RPC_IsSomeonesTurnRightNow()
+    {
+        RoomController.room.isSomeonePlayingNow = true;
     }
 
     IEnumerator SearchForEmptySpaceInGrid()
@@ -238,4 +333,75 @@ public class RoomController : MonoBehaviourPunCallbacks
             StartCoroutine(GameSetup.GS.DisconnectAndLoad());
         }
     }
+
+    public void SendSequenceOrder(bool order)
+    {
+        PV.RPC("RPC_SendSequenceOrder", RpcTarget.All, order);
+    }
+
+    [PunRPC]
+    void RPC_SendSequenceOrder(bool order)
+    {
+        GameController.gameController.sequencePositive = order;
+        if(GameController.gameController.sequencePositive)
+        {
+            GameController.gameController.directionChanged.SetActive(false);
+        }
+        else
+        {
+            GameController.gameController.directionChanged.SetActive(true);
+        }
+    }
+
+    public void SendCardChosen8(bool ivePlayed8, int suitChosen)
+    {
+        PV.RPC("RPC_SendCardChosen8", RpcTarget.All, ivePlayed8, suitChosen);
+    }
+
+    [PunRPC]
+    void RPC_SendCardChosen8(bool ivePlayed8, int suitChosen)
+    {
+        if(ivePlayed8)
+        {
+            GameController.gameController.ivePlayed8 = true;
+            if (suitChosen == 1)
+            {
+                GameController.gameController.cardSuitChosen = Card.CardSuit.Hearts;
+            }
+            else if (suitChosen == 2)
+            {
+                GameController.gameController.cardSuitChosen = Card.CardSuit.Clovers;
+            }
+            else if (suitChosen == 3)
+            {
+                GameController.gameController.cardSuitChosen = Card.CardSuit.Tiles;
+            }
+            else if (suitChosen == 4)
+            {
+                GameController.gameController.cardSuitChosen = Card.CardSuit.Pikes;
+            }
+            GameController.gameController.suitChosenGo[suitChosen-1].SetActive(true);
+        }
+        else
+        {
+            GameController.gameController.ivePlayed8 = false;
+            foreach(GameObject suitChosenGoElement in GameController.gameController.suitChosenGo)
+            {
+                suitChosenGoElement.SetActive(false);
+            }
+        }
+    }
+
+    public void ShowWhoWon()
+    {
+        GameSetup.GS.GoToGameEndedScene();
+    }
+    
+    [PunRPC]
+    void RPC_ShowWhoWon(string nickName)
+    {
+        RoomController.room.PlayerWon = FindObjectOfType<TMP_Text>();
+        PlayerWon.text = nickName + "\nWins!";
+    }
+
 }

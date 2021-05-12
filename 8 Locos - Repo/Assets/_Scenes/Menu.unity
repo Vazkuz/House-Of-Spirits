@@ -2541,6 +2541,7 @@ MonoBehaviour:
   menuScene: 0
   roomScene: 1
   gameScene: 2
+  gameEndedScene: 3
 --- !u!1 &1475756406
 GameObject:
   m_ObjectHideFlags: 0
@@ -3608,6 +3609,9 @@ MonoBehaviour:
   currentScene: 0
   playersInGame: 0
   roomPassword: 
+  isSomeonePlayingNow: 0
+  nickNameOfWinner: 
+  PlayerWon: {fileID: 0}
 --- !u!114 &1910566578
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using Photon.Pun;
 using Photon.Realtime;
@@ -12,15 +13,21 @@ public class PhotonPlayer : MonoBehaviour
     [SerializeField] float avatarOffsetY;
     [SerializeField] float nicknameOffsetX;
     [SerializeField] float nicknameOffsetY;
+    [SerializeField] GameObject cardPrefab;
+    public int cardsIHave;
     public GameObject[] allCharacters;
     private PhotonView PV;
     public GameObject myAvatar;
     public int mySelectedCharacter;
     public int myPositionInGrid;
+    public bool IWon = false;
+    public List<Card> myCards = new List<Card>();
+    TMP_Text numberOfCardsText;
 
     void Start()
     {
         PV = GetComponent<PhotonView>();
+        numberOfCardsText = GetComponent<TMP_Text>();
         if(PV.IsMine)
         {        
             //Check if player has a nickname. If not, default nickname will be "Player"
@@ -139,7 +146,10 @@ public class PhotonPlayer : MonoBehaviour
     {
         foreach (GameObject spaceInGrid in PlayerInfo.PI.allSpacesInGrid)
         {
-            spaceInGrid.transform.DetachChildren(); //Detaching all players from their parent.
+            if (spaceInGrid)
+            {
+                spaceInGrid.transform.DetachChildren(); //Detaching all players from their parent.
+            }
         }
     }
 
@@ -198,4 +208,115 @@ public class PhotonPlayer : MonoBehaviour
         }
     }
 
+    public void AddCardToHand()
+    {
+        cardsIHave++;
+    }
+
+    public void LoseCardsFromHand()
+    {
+        cardsIHave--;
+    }
+
+    public int GetNumberOfCards()
+    {
+        return cardsIHave;
+    }
+
+    public void UpdateNumberOfCardsInDisplay(int playerIndex,string text)
+    {
+        PV.RPC("RPC_UpdateText", RpcTarget.All, playerIndex, text);
+    }
+
+    [PunRPC]
+    void RPC_UpdateText(int playerIndex, string text)
+    {
+        foreach(PhotonPlayer playerCustom in FindObjectsOfType<PhotonPlayer>())
+        {
+            if (PhotonNetwork.PlayerList[playerIndex] == playerCustom.GetComponent<PhotonView>().Owner)
+            {
+                playerCustom.GetComponent<TMP_Text>().text = text;
+            }
+        }
+    }
+
+    public void SendCardFromHandToTable(int cardChosenIndex, int playerIndex)
+    {
+        PV.RPC("SendCardPlayedToAllPlayers", RpcTarget.All, cardChosenIndex, playerIndex, cardsIHave);
+    }
+
+    [PunRPC]
+    void SendCardPlayedToAllPlayers(int cardChosenIndex, int playerIndex, int cardsPlayerHas)
+    {
+        foreach(PhotonPlayer playerCustom in FindObjectsOfType<PhotonPlayer>())
+        {
+            if (PhotonNetwork.PlayerList[playerIndex] == playerCustom.GetComponent<PhotonView>().Owner)
+            {
+                GameObject cardPlayed = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                cardPlayed.transform.SetParent(GameController.gameController.cardsInGame.transform, false);
+                cardPlayed.GetComponent<Image>().overrideSprite = playerCustom.myCards[cardChosenIndex].artwork;
+                cardPlayed.transform.localScale = new Vector3(1.5f, 1.5f, 0);
+                cardPlayed.GetComponent<Button>().enabled = false;
+                cardPlayed.name = playerCustom.myCards[cardChosenIndex].cardNumber.ToString() + " " + playerCustom.myCards[cardChosenIndex].cardSuit.ToString();
+                if(playerCustom.GetComponent<PhotonView>().IsMine)
+                {
+                    PV.RPC("UpdateCardsInGameList", RpcTarget.All, cardChosenIndex, playerIndex);
+                    PV.RPC("SendRemoveCardOrder", RpcTarget.All, cardChosenIndex, playerIndex);
+                    StartCoroutine(ReorganizeCards(cardChosenIndex, playerCustom));
+                }
+                playerCustom.UpdateNumberOfCardsInDisplay(playerIndex, cardsPlayerHas.ToString());
+                if(cardsPlayerHas <= 0)
+                {
+                    playerCustom.IWon = true;
+                    RoomController.room.ShowWhoWon();
+                    PV.RPC("UpdateGameWinnerNickName", RpcTarget.All, PhotonNetwork.PlayerList[playerIndex].NickName);
+                }
+            }
+        }
+    }
+
+    [PunRPC]
+    void UpdateGameWinnerNickName(string nickName)
+    {
+        RoomController.room.nickNameOfWinner = nickName;
+    }
+
+    [PunRPC]
+    void UpdateCardsInGameList(int cardChosenIndex, int playerIndex)
+    {
+        foreach(PhotonPlayer playerCustom in FindObjectsOfType<PhotonPlayer>())
+        {
+            if (PhotonNetwork.PlayerList[playerIndex] == playerCustom.GetComponent<PhotonView>().Owner)
+            {
+                GameController.gameController.cardsInGameList.Add(playerCustom.myCards[cardChosenIndex]);
+            }
+        }
+    }
+
+    [PunRPC]
+    void SendRemoveCardOrder(int cardChosenIndex, int playerIndex)
+    {
+        foreach(PhotonPlayer playerCustom in FindObjectsOfType<PhotonPlayer>())
+        {
+            if (PhotonNetwork.PlayerList[playerIndex] == playerCustom.GetComponent<PhotonView>().Owner)
+            {
+                playerCustom.myCards.RemoveAt(cardChosenIndex);
+            }
+        }
+    }
+
+    IEnumerator ReorganizeCards(int cardChosenIndex, PhotonPlayer playerCustom)
+    {
+        Destroy(GameController.gameController.myCards.transform.GetChild(cardChosenIndex).gameObject);
+        yield return new WaitForEndOfFrame();
+        int childIndex = 0;
+        foreach (Transform child in GameController.gameController.myCards.transform)
+        {
+            int multiplyBy = (childIndex) / CardDisplay.cardDisplayInstance.maxCardsPerRow;
+            child.localPosition = CardDisplay.cardDisplayInstance.cardLocalPosition +
+                    new Vector3(CardDisplay.cardDisplayInstance.distanceBetweenCardsX * (childIndex - multiplyBy * CardDisplay.cardDisplayInstance.maxCardsPerRow),
+                    -CardDisplay.cardDisplayInstance.distanceBetweenCardsY * multiplyBy, 0);
+            childIndex++;
+        }
+    }
 }
