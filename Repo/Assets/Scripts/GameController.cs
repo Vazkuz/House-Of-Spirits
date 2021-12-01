@@ -43,6 +43,10 @@ public class GameController : MonoBehaviour
     [SerializeField] GameObject cantPassTurnMessage;
     [SerializeField] TMP_Text kingPlayedAgainstYouMessage;
 
+    [Header("Win screen")]
+    
+    public Animator winAnimator;
+
     public List<GameObject> allMessages;
 
     void Awake()

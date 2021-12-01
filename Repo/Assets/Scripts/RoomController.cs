@@ -20,6 +20,8 @@ public class RoomController : MonoBehaviourPunCallbacks
     public string roomPassword;
     public bool isSomeonePlayingNow = false;
     public string nickNameOfWinner;
+    public int indexOfWinner;
+    public int indexOAvatarWinner;
     public TMP_Text PlayerWon;
     string passwordAttemptFromClient;
     bool kickedWrongPassword = false;
@@ -76,7 +78,7 @@ public class RoomController : MonoBehaviourPunCallbacks
         }
         if(currentScene == MultiplayerSettings.multiplayerSettings.gameEndedScene)
         {
-            PV.RPC("RPC_ShowWhoWon", RpcTarget.All, RoomController.room.nickNameOfWinner);
+            PV.RPC("RPC_ShowWhoWon", RpcTarget.All, RoomController.room.nickNameOfWinner, RoomController.room.indexOAvatarWinner);
         }
     }
 
@@ -398,10 +400,11 @@ public class RoomController : MonoBehaviourPunCallbacks
     }
     
     [PunRPC]
-    void RPC_ShowWhoWon(string nickName)
+    void RPC_ShowWhoWon(string nickName, int indexWinner)
     {
         RoomController.room.PlayerWon = FindObjectOfType<TMP_Text>();
-        PlayerWon.text = nickName + "\nWins!";
+        PlayerWon.text = nickName + "\nWins!\n" + indexWinner;
+        GameController.gameController.winAnimator.SetInteger("Winner", indexWinner);
     }
 
 }

@@ -68,7 +68,7 @@ public class PhotonPlayer : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
         GameObject myAvatar = Instantiate(allCharacters[mySelectedCharacter], transform.position, Quaternion.identity) as GameObject;
-        myAvatar.transform.localScale = new Vector3(0.6f,0.7f,0f);
+        //myAvatar.transform.localScale = new Vector3(0.6f,0.7f,0f);
         myAvatar.transform.SetParent(transform, false);
         transform.SetParent(PlayerInfo.PI.allSpacesInGrid[positionOfAvatar].transform, false);
         myPositionInGrid = positionOfAvatar;
@@ -120,11 +120,14 @@ public class PhotonPlayer : MonoBehaviour
                 //Cuando encontremos al owner, lo usamos para instanciar todo
                 if (PhotonNetwork.PlayerList[playerIndex] == playerCustom.PV.Owner)
                 {
-                    GameObject myAvatar = Instantiate(allCharacters[mySelectedCharacter], new Vector3(avatarOffsetX, avatarOffsetY, 0), Quaternion.identity);
-                    myAvatar.transform.localScale = new Vector3(0.6f,0.7f,0f);
+                    GameObject myAvatar = Instantiate(allCharacters[mySelectedCharacter], transform.position, Quaternion.identity);
+                    //myAvatar.transform.localScale = new Vector3(0.6f,0.7f,0f);
                     if(playerCustom.transform.childCount > 2) Destroy(playerCustom.transform.GetChild(1).gameObject);
                     myAvatar.transform.SetParent(playerCustom.gameObject.transform, false);
                     Destroy(playerCustom.transform.GetChild(0).gameObject);
+        // transform.SetParent(PlayerInfo.PI.allSpacesInGrid[positionOfAvatar].transform, false);
+        // myPositionInGrid = positionOfAvatar;
+                    myAvatar.GetComponent<RectTransform>().localPosition = new Vector3(avatarOffsetX, avatarOffsetY, 0);
                 }
             }
         }        
@@ -268,17 +271,34 @@ public class PhotonPlayer : MonoBehaviour
                 if(cardsPlayerHas <= 0)
                 {
                     playerCustom.IWon = true;
+                    foreach(PhotonPlayer player in FindObjectsOfType<PhotonPlayer>())
+                    {
+                        if (player.PV.Owner == PhotonNetwork.PlayerList[playerIndex])
+                        {
+                            if(player.PV.IsMine)
+                            {
+                                player.PV.RPC("UpdateGameAvatarIndex", RpcTarget.All, player.mySelectedCharacter);
+                            }
+                        }
+                    }
                     RoomController.room.ShowWhoWon();
-                    PV.RPC("UpdateGameWinnerNickName", RpcTarget.All, PhotonNetwork.PlayerList[playerIndex].NickName);
+                    PV.RPC("UpdateGameWinnerNickName", RpcTarget.All, PhotonNetwork.PlayerList[playerIndex].NickName, playerIndex);
                 }
             }
         }
     }
 
     [PunRPC]
-    void UpdateGameWinnerNickName(string nickName)
+    void UpdateGameWinnerNickName(string nickName, int indexOfWinner)
     {
         RoomController.room.nickNameOfWinner = nickName;
+        RoomController.room.indexOfWinner = indexOfWinner;
+    }
+
+    [PunRPC]
+    void UpdateGameAvatarIndex(int indexOfWinner)
+    {
+        RoomController.room.indexOAvatarWinner = indexOfWinner;
     }
 
     [PunRPC]
