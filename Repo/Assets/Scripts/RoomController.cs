@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using Photon.Pun;
 using Photon.Realtime;
@@ -23,6 +24,7 @@ public class RoomController : MonoBehaviourPunCallbacks
     public int indexOfWinner;
     public int indexOAvatarWinner;
     public TMP_Text PlayerWon;
+    public List<int> avatarsTaken;
     string passwordAttemptFromClient;
     bool kickedWrongPassword = false;
     int whoLeft;
@@ -138,6 +140,7 @@ public class RoomController : MonoBehaviourPunCallbacks
     {
         base.OnCreatedRoom();
         Debug.Log("Room created. Room name: " + PhotonNetwork.CurrentRoom.Name);
+        PhotonNetwork.CurrentRoom.MaxPlayers = ((byte) MultiplayerSettings.multiplayerSettings.maxPlayers);
     }
 
     //Once the client has joinned the room, the master client needs to validate if the password given by the player (if any) matches with the room's password. //ROOMCONTROLLER
@@ -202,7 +205,10 @@ public class RoomController : MonoBehaviourPunCallbacks
         {
             Debug.Log("The player will be kicked (wrong password).");
             kickedWrongPassword = true;
-            PhotonNetwork.CloseConnection(newPlayer);
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.CloseConnection(newPlayer);
+            }
         }
         // Else, we leave the player in the room and we load the Room Scene.
         else
@@ -254,6 +260,7 @@ public class RoomController : MonoBehaviourPunCallbacks
             StartCoroutine(SearchForEmptySpaceInGrid());
             Debug.Log(otherPlayer + " left the room. Number of players currently on the room: " + PhotonNetwork.CurrentRoom.PlayerCount);
             playersInGame--;
+            StartCoroutine(UpdateAvatarsListLag());
         }
 
         if(currentScene == MultiplayerSettings.multiplayerSettings.gameScene)
@@ -280,9 +287,25 @@ public class RoomController : MonoBehaviourPunCallbacks
             }
         }
         
-        if(PhotonNetwork.CurrentRoom.PlayerCount < 8)
+        if(PhotonNetwork.CurrentRoom.PlayerCount < MultiplayerSettings.multiplayerSettings.maxPlayers)
         {
             PhotonNetwork.CurrentRoom.IsOpen = true;
+        }
+    }
+
+    IEnumerator UpdateAvatarsListLag()
+    {
+        yield return null;
+        PV.RPC("RPC_UpdateAvatarsList", RpcTarget.AllBuffered);
+    }
+
+    [PunRPC]
+    void RPC_UpdateAvatarsList()
+    {
+        RoomController.room.avatarsTaken.Clear();
+        foreach(PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
+        {
+            RoomController.room.avatarsTaken.Add(photonPlayer.mySelectedCharacter);
         }
     }
 

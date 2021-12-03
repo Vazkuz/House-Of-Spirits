@@ -29,7 +29,7 @@ public class PhotonPlayer : MonoBehaviour
         PV = GetComponent<PhotonView>();
         numberOfCardsText = GetComponent<TMP_Text>();
         if(PV.IsMine)
-        {        
+        {
             //Check if player has a nickname. If not, default nickname will be "Player"
             if (!PlayerPrefs.HasKey("MY_NICKNAME"))
             {
@@ -37,25 +37,58 @@ public class PhotonPlayer : MonoBehaviour
             }
             foreach (Player player in PhotonNetwork.PlayerList)
             {
-                if(player.IsLocal)
+                if (player.IsLocal)
                 {
-                    player.NickName= PlayerPrefs.GetString("MY_NICKNAME");
+                    player.NickName = PlayerPrefs.GetString("MY_NICKNAME");
                 }
             }
 
 
-            //Check if player has selected a color before. If not, default color will be white (identified with number 0)
-            if (PlayerPrefs.HasKey("MY_CHARACTER"))
-            {
-                GetComponent<PhotonPlayer>().mySelectedCharacter = PlayerPrefs.GetInt("MY_CHARACTER");
-            }
-            else
-            {
-                GetComponent<PhotonPlayer>().mySelectedCharacter = 0;
-                PlayerPrefs.SetInt("MY_CHARACTER", GetComponent<PhotonPlayer>().mySelectedCharacter);
-            }
-            PV.RPC("RPC_InstantiateAvatar", RpcTarget.AllBuffered, PlayerInfo.PI.mySpaceInGrid, GetComponent<PhotonPlayer>().mySelectedCharacter);            
+            // //Check if player has selected a color before. If not, default color will be white (identified with number 0)
+            // if (PlayerPrefs.HasKey("MY_CHARACTER"))
+            // {
+            //     GetComponent<PhotonPlayer>().mySelectedCharacter = PlayerPrefs.GetInt("MY_CHARACTER");
+            // }
+            // else
+            // {
+            StartCoroutine(SetInitialAvatarLag());
         }
+    }
+
+    IEnumerator SetInitialAvatarLag()
+    {
+        yield return new WaitForSeconds(1f);
+        for (int indexAvatarsTaken = 0; indexAvatarsTaken < PhotonNetwork.CurrentRoom.PlayerCount; indexAvatarsTaken++)
+        {
+            if (!RoomController.room.avatarsTaken.Contains(indexAvatarsTaken))
+            {
+                Debug.Log("no hay " + indexAvatarsTaken);
+                PV.RPC("RPC_AddAvatarTaken", RpcTarget.AllBuffered, indexAvatarsTaken, ((int)PhotonNetwork.CurrentRoom.PlayerCount) - 1);
+                break;
+            }
+        }
+
+        PV.RPC("RPC_InstantiateAvatar", RpcTarget.AllBuffered, PlayerInfo.PI.mySpaceInGrid, GetComponent<PhotonPlayer>().mySelectedCharacter);
+    }
+
+    [PunRPC]
+    void RPC_AddAvatarTaken(int indexAvatar, int indexPlayer)
+    {
+        RoomController.room.avatarsTaken.Add(indexAvatar);
+        foreach(PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
+        {
+            if(PhotonNetwork.PlayerList[indexPlayer] == photonPlayer.GetComponent<PhotonView>().Owner)
+            {
+                photonPlayer.mySelectedCharacter = indexAvatar;
+            }
+        }
+    }
+
+    [PunRPC]
+    void RPC_RemoveAvatarTaken(int indexAvatar)
+    {
+        Debug.Log("The avatar "+ indexAvatar + " will change");
+        RoomController.room.avatarsTaken.Remove(indexAvatar);
     }
 
     [PunRPC]
@@ -66,7 +99,7 @@ public class PhotonPlayer : MonoBehaviour
 
     IEnumerator InstantiateWithLag(int positionOfAvatar, int mySelectedCharacter)
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
         GameObject myAvatar = Instantiate(allCharacters[mySelectedCharacter], transform.position, Quaternion.identity) as GameObject;
         //myAvatar.transform.localScale = new Vector3(0.6f,0.7f,0f);
         myAvatar.transform.SetParent(transform, false);
@@ -79,10 +112,19 @@ public class PhotonPlayer : MonoBehaviour
     {        
         if (PlayerInfo.PI != null)
         {
-            GetComponent<PhotonPlayer>().mySelectedCharacter = whichCharacter;
-            PlayerPrefs.SetInt("MY_CHARACTER", whichCharacter);
             Photon.Realtime.Player[] playersInRoom = PhotonNetwork.PlayerList;
             PhotonPlayer[] playersInRoomCustom = FindObjectsOfType<PhotonPlayer>();
+            Debug.Log("mySelectedCharacter = " + GetComponent<PhotonPlayer>().mySelectedCharacter);
+            foreach (PhotonPlayer playerInRoomCustom in playersInRoomCustom)
+            {
+                if(playerInRoomCustom.PV.IsMine)
+                {
+                    playerInRoomCustom.PV.RPC("RPC_RemoveAvatarTaken", RpcTarget.AllBuffered, playerInRoomCustom.mySelectedCharacter);
+                    playerInRoomCustom.mySelectedCharacter = whichCharacter;
+                    playerInRoomCustom.PV.RPC("RPC_AddAvatarTaken", RpcTarget.AllBuffered, playerInRoomCustom.mySelectedCharacter, playerInRoomCustom.myPositionInGrid);
+                }
+            }
+            //PlayerPrefs.SetInt("MY_CHARACTER", whichCharacter);
             // PhotonPlayer playerCustom;
             // foreach(PhotonPlayer player in playersInRoom)
 
@@ -98,7 +140,7 @@ public class PhotonPlayer : MonoBehaviour
                         if (playerInRoomCustom.PV.Owner == playersInRoom[playerIndex]) //Este es el índex! Con él podemos identificar unívocamente al jugador sin confusiones
                         {
                             playerInRoomCustom.mySelectedCharacter = whichCharacter;
-                            playerInRoomCustom.PV.RPC("SendNewColorToAllPlayers",RpcTarget.AllBuffered,playerIndex, GetComponent<PhotonPlayer>().mySelectedCharacter);
+                            playerInRoomCustom.PV.RPC("SendNewColorToAllPlayers",RpcTarget.AllBuffered,playerIndex, playerInRoomCustom.mySelectedCharacter);
                         }                        
                     }
                     // playerInRoomCustom.PV.RPC("SendNewColorToAllPlayers",RpcTarget.AllBuffered,playerIndex, mySelectedCharacter);

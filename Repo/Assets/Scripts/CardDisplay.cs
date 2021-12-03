@@ -10,6 +10,7 @@ public class CardDisplay : MonoBehaviour
     [SerializeField] GameObject cardPrefab;
     [SerializeField] GameObject myCardsFolder;
     [SerializeField] float cardSpriteSize = 1.5f;
+    [SerializeField] int maxPlayersJustOneDeck;
     public Vector3 cardLocalPosition;
     public float distanceBetweenCardsX = 200f;
     public float distanceBetweenCardsY = 300f;
@@ -40,6 +41,10 @@ public class CardDisplay : MonoBehaviour
     {
         PV = GetComponent<PhotonView>();
         cardDisplayInstance.cardsAvailable = new List<Card>(Resources.LoadAll<Card>("Cards")); //OJO: "Cards" es el path de donde se cargan todos los ScriptableObjects tipo Card (Resources)
+        if (PhotonNetwork.CurrentRoom.PlayerCount > maxPlayersJustOneDeck)
+        {
+            cardsAvailable.AddRange(cardsAvailable);
+        }
         if(PhotonNetwork.IsMasterClient)
         {
             StartCoroutine(DealCards());
