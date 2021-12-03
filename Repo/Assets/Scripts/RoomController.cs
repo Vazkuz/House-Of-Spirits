@@ -6,6 +6,7 @@ using Photon.Realtime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class RoomController : MonoBehaviourPunCallbacks
@@ -293,10 +294,34 @@ public class RoomController : MonoBehaviourPunCallbacks
         }
     }
 
+    public void DisableAvatarsTaken()
+    {
+        PV.RPC("RPC_DisableAvatarsTaken", RpcTarget.AllBuffered);
+    }
+
+    [PunRPC]
+    void RPC_DisableAvatarsTaken()
+    {
+        foreach (CharacterType characterType in FindObjectsOfType<CharacterType>())
+        {
+            if (RoomController.room.avatarsTaken.Contains(characterType.characterIndex))
+            {
+                Debug.Log("Avatar index " + characterType.characterIndex + "already taken. Disabling its button.");
+                characterType.gameObject.GetComponent<Button>().enabled = false;
+            }
+            else
+            {
+                Debug.Log("Avatar index " + characterType.characterIndex + "not taken. Enabling its button.");
+                characterType.gameObject.GetComponent<Button>().enabled = true;
+            }
+        }
+    }
+
     IEnumerator UpdateAvatarsListLag()
     {
         yield return null;
         PV.RPC("RPC_UpdateAvatarsList", RpcTarget.AllBuffered);
+        DisableAvatarsTaken();
     }
 
     [PunRPC]
@@ -307,6 +332,7 @@ public class RoomController : MonoBehaviourPunCallbacks
         {
             RoomController.room.avatarsTaken.Add(photonPlayer.mySelectedCharacter);
         }
+        DisableAvatarsTaken();
     }
 
     [PunRPC]

@@ -27,6 +27,7 @@ public class OptionHandler : MonoBehaviour
         {
             nicknameShow.GetComponent<NicknameInputController>().enabled = true;
         }
+        RoomController.room.DisableAvatarsTaken();
     }
 
     public void CloseOptions()

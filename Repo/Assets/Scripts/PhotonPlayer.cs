@@ -62,13 +62,15 @@ public class PhotonPlayer : MonoBehaviour
         {
             if (!RoomController.room.avatarsTaken.Contains(indexAvatarsTaken))
             {
-                Debug.Log("no hay " + indexAvatarsTaken);
                 PV.RPC("RPC_AddAvatarTaken", RpcTarget.AllBuffered, indexAvatarsTaken, ((int)PhotonNetwork.CurrentRoom.PlayerCount) - 1);
                 break;
             }
         }
 
         PV.RPC("RPC_InstantiateAvatar", RpcTarget.AllBuffered, PlayerInfo.PI.mySpaceInGrid, GetComponent<PhotonPlayer>().mySelectedCharacter);
+
+        Debug.Log("Starting disabling of buttons");
+        RoomController.room.DisableAvatarsTaken();
     }
 
     [PunRPC]
@@ -122,6 +124,7 @@ public class PhotonPlayer : MonoBehaviour
                     playerInRoomCustom.PV.RPC("RPC_RemoveAvatarTaken", RpcTarget.AllBuffered, playerInRoomCustom.mySelectedCharacter);
                     playerInRoomCustom.mySelectedCharacter = whichCharacter;
                     playerInRoomCustom.PV.RPC("RPC_AddAvatarTaken", RpcTarget.AllBuffered, playerInRoomCustom.mySelectedCharacter, playerInRoomCustom.myPositionInGrid);
+                    RoomController.room.DisableAvatarsTaken();
                 }
             }
             //PlayerPrefs.SetInt("MY_CHARACTER", whichCharacter);

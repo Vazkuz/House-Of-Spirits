@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class CharacterType : MonoBehaviour
 {
+    public int characterIndex;
     [SerializeField] GameObject playerUIIdentifier;
     [SerializeField] float coinScaleX = 1.2f;
     [SerializeField] float coinScaleY = 1f;

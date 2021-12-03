@@ -7759,6 +7759,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 741031220}
     m_Modifications:
+    - target: {fileID: 775263762816304208, guid: aaa6da176c4b6494a86a20a41b41132d, type: 3}
+      propertyPath: characterIndex
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 775263762816304235, guid: aaa6da176c4b6494a86a20a41b41132d, type: 3}
       propertyPath: m_Name
       value: Character (5)
@@ -8075,6 +8079,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 1632753261633537097, guid: d466a00df5f0dfe42acb7867edea3380, type: 3}
+      propertyPath: characterIndex
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d466a00df5f0dfe42acb7867edea3380, type: 3}
 --- !u!114 &1632753262271412180 stripped
@@ -8117,6 +8125,10 @@ PrefabInstance:
     - target: {fileID: 3659951413199471537, guid: 76a6f937b3c8d5e4484f35ee0f773f1c, type: 3}
       propertyPath: m_Name
       value: Character (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3659951413199471546, guid: 76a6f937b3c8d5e4484f35ee0f773f1c, type: 3}
+      propertyPath: characterIndex
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3659951413199471550, guid: 76a6f937b3c8d5e4484f35ee0f773f1c, type: 3}
       propertyPath: m_Pivot.x
@@ -8394,6 +8406,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 5035493299162535422, guid: be7a7495d28fea9468c91dd818b99a7e, type: 3}
+      propertyPath: characterIndex
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be7a7495d28fea9468c91dd818b99a7e, type: 3}
 --- !u!114 &5035493297565773825 stripped
@@ -8546,6 +8562,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5386746828063479950, guid: 0caed7c0b28377340ab9f57556a5aa9c, type: 3}
+      propertyPath: characterIndex
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0caed7c0b28377340ab9f57556a5aa9c, type: 3}
 --- !u!114 &5386746829257710680 stripped
@@ -8566,6 +8586,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 741031220}
     m_Modifications:
+    - target: {fileID: 5741777295159131287, guid: cdce4d053313ff2469da10aa03356eff, type: 3}
+      propertyPath: characterIndex
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5741777295159132008, guid: cdce4d053313ff2469da10aa03356eff, type: 3}
       propertyPath: m_Name
       value: Character (7)
@@ -9105,6 +9129,10 @@ PrefabInstance:
     - target: {fileID: 8755154911579638407, guid: ac23c2cf72bc75144a2f3adbeb28ac56, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8755154911579638427, guid: ac23c2cf72bc75144a2f3adbeb28ac56, type: 3}
+      propertyPath: characterIndex
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac23c2cf72bc75144a2f3adbeb28ac56, type: 3}
