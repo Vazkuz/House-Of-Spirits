@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5035493299162535419}
   - component: {fileID: 5035493299162535422}
   m_Layer: 5
-  m_Name: Character (6)
+  m_Name: Pachacamac
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -8152966678267803390, guid: a01c6954c1468044f9f51c2873e7cf31, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 368ff00dc6e11ff45bb97f83e9cbb013, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
