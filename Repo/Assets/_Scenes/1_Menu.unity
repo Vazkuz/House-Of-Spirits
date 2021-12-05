@@ -502,7 +502,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 2
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 3
   m_wordSpacing: 0
@@ -784,7 +784,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 2
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 3
   m_wordSpacing: 0
@@ -1173,7 +1173,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 3
   m_wordSpacing: 0
@@ -2779,7 +2779,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 3
   m_wordSpacing: 0
@@ -3621,6 +3621,7 @@ MonoBehaviour:
   indexOfWinner: 0
   indexOAvatarWinner: 0
   PlayerWon: {fileID: 0}
+  avatarsTaken: 
 --- !u!114 &1910566578
 MonoBehaviour:
   m_ObjectHideFlags: 0
