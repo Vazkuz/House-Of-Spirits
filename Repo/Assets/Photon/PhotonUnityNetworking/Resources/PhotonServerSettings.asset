@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AppSettings:
     AppIdRealtime: ac72ea17-709e-45a7-8ea2-a4b4f0d51b72
+    AppIdFusion: 
     AppIdChat: e55fb7da-1311-4fd8-8c44-2a0c3ccd7d7d
     AppIdVoice: 
     AppVersion: 
@@ -32,7 +33,42 @@ MonoBehaviour:
   EnableSupportLogger: 0
   RunInBackground: 1
   StartInOfflineMode: 0
-  RpcList: []
+  RpcList:
+  - ClickRpc
+  - DestroyRpc
+  - DetachEveryPlayerFromParent
+  - InstantiatePlayersInGame
+  - MixCardsInGame
+  - MovePlayerToRealPosition
+  - RPC_AddAvatarTaken
+  - RPC_AddToHand
+  - RPC_CheckIfLefterWasPlaying
+  - RPC_CreatePlayer
+  - RPC_DisableAvatarsTaken
+  - RPC_InstantiateAvatar
+  - RPC_IsSomeonesTurnRightNow
+  - RPC_RemoveAvatarTaken
+  - RPC_RemoveFromDeck
+  - RPC_SendCardChosen8
+  - RPC_SendPasswordAttempt
+  - RPC_SendSequenceOrder
+  - RPC_ShowWhoWon
+  - RPC_UpdateAvatarsList
+  - RPC_UpdateText
+  - SendCardPlayedToAllPlayers
+  - SendChat
+  - SendFirstCardInTableAllPlayers
+  - SendFirstPlayerToAllPlayers
+  - SendNewColorToAllPlayers
+  - SendRemoveCardOrder
+  - SendSeatPosition
+  - SetupDrawnCard
+  - ShowPasswordToAll
+  - ToggleTurnIndicator
+  - UpdateCardsInGameList
+  - UpdateGameAvatarIndex
+  - UpdateGameWinnerNickName
+  - UpdatePositionsInNetwork
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

@@ -38,7 +38,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 39.66, y: -18.21}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 99.31375, y: 41.419556}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4574079450835747506
@@ -56,12 +56,12 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  observableSearch: 2
   Synchronization: 3
   OwnershipTransfer: 0
+  observableSearch: 2
   ObservedComponents:
   - {fileID: 5761233510948091652}
-  viewIdField: 0
+  sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &1297686651828495829
@@ -76,11 +76,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cdf4b80086a1ec499fc7b1c83de9052, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  avatarOffsetX: -25.40999
-  avatarOffsetY: -48.93001
+  avatarOffsetX: -62.39999
+  avatarOffsetY: -4
   nicknameOffsetX: 5
   nicknameOffsetY: 0
   cardPrefab: {fileID: 5329566201207041873, guid: 1601d44a1e09ab6498f3559276ea8d9e, type: 3}
+  avatarScale: 1.7
   cardsIHave: 0
   allCharacters:
   - {fileID: 7186179102993685012, guid: 292bc26c0920ac244a9ee143c6149af0, type: 3}
@@ -91,6 +92,17 @@ MonoBehaviour:
   - {fileID: 5035493299162535417, guid: be7a7495d28fea9468c91dd818b99a7e, type: 3}
   - {fileID: 5741777295159132008, guid: cdce4d053313ff2469da10aa03356eff, type: 3}
   - {fileID: 1632753261633537094, guid: d466a00df5f0dfe42acb7867edea3380, type: 3}
+  avatarNames:
+  - Illapa
+  - Inti
+  - Mama Cocha
+  - Mama Quilla
+  - Mama Sara
+  - Pachacamac
+  - Pachamama
+  - Yacumama
+  mySelectedName: 
+  PV: {fileID: 0}
   myAvatar: {fileID: 0}
   mySelectedCharacter: 0
   myPositionInGrid: 0

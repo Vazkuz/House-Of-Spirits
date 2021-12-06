@@ -9,15 +9,22 @@
 // <author>developer@exitgames.com</author>
 // ----------------------------------------------------------------------------
 
+#if UNITY_2017_4_OR_NEWER
+#define SUPPORTED_UNITY
+#endif
+
 
 #if UNITY_EDITOR
-using System;
-using UnityEngine;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
-namespace Photon.Pun
+namespace Photon.Realtime
 {
+    using System;
+    using UnityEngine;
+    using System.Collections.Generic;
+    using System.Text.RegularExpressions;
+    using ExitGames.Client.Photon;
+
+
     /// <summary>
     /// Creates a instance of the Account Service to register Photon Cloud accounts.
     /// </summary>
@@ -38,8 +45,8 @@ namespace Photon.Pun
         /// <summary>
         /// third parties custom context, if null, defaults to DefaultContext property value
         /// </summary>
-        public string CustomContext = null;
-        
+        public string CustomContext = null;     // "PartnerCode" on the server
+
         /// <summary>
         /// third parties custom token. If null, defaults to DefaultToken property value
         /// </summary>
@@ -60,7 +67,8 @@ namespace Photon.Pun
         /// <param name="serviceTypes">Defines which type of Photon-service is being requested.</param>
         /// <param name="callback">Called when the result is available.</param>
         /// <param name="errorCallback">Called when the request failed.</param>
-        public bool RegisterByEmail(string email, List<ServiceTypes> serviceTypes, Action<AccountServiceResponse> callback = null, Action<string> errorCallback = null)
+        /// <param name="origin">Can be used to identify the origin of the registration (which package is being used).</param>
+        public bool RegisterByEmail(string email, List<ServiceTypes> serviceTypes, Action<AccountServiceResponse> callback = null, Action<string> errorCallback = null, string origin = null)
         {
             if (this.RequestPendingResult)
             {
@@ -81,7 +89,7 @@ namespace Photon.Pun
                 return false;
             }
 
-            string fullUrl = GetUrlWithQueryStringEscaped(email, serviceTypeString);
+            string fullUrl = GetUrlWithQueryStringEscaped(email, serviceTypeString, origin);
 
             RequestHeaders["x-functions-key"] = string.IsNullOrEmpty(CustomToken) ? DefaultToken : CustomToken;
 
@@ -132,14 +140,14 @@ namespace Photon.Pun
         }
 
 
-        private string GetUrlWithQueryStringEscaped(string email, string serviceTypes)
+        private string GetUrlWithQueryStringEscaped(string email, string serviceTypes, string originAv)
         {
             string emailEscaped = UnityEngine.Networking.UnityWebRequest.EscapeURL(email);
             string st = UnityEngine.Networking.UnityWebRequest.EscapeURL(serviceTypes);
             string uv = UnityEngine.Networking.UnityWebRequest.EscapeURL(Application.unityVersion);
             string serviceUrl = string.Format(ServiceUrl, string.IsNullOrEmpty(CustomContext) ? DefaultContext : CustomContext );
 
-            return string.Format("{0}?email={1}&st={2}&uv={3}", serviceUrl, emailEscaped, st, uv);
+            return string.Format("{0}?email={1}&st={2}&uv={3}&av={4}", serviceUrl, emailEscaped, st, uv, originAv);
         }
 
         /// <summary>
@@ -199,14 +207,14 @@ namespace Photon.Pun
                 int appType = (int)appTypes[i];
                 serviceTypes = string.Format("{0},{1}", serviceTypes, appType);
             }
-            
+
             return serviceTypes;
         }
 
         // RFC2822 compliant matching 99.9% of all email addresses in actual use today
         // according to http://www.regular-expressions.info/email.html [22.02.2012]
         private static Regex reg = new Regex("^((?>[a-zA-Z\\d!#$%&'*+\\-/=?^_{|}~]+\\x20*|\"((?=[\\x01-\\x7f])[^\"\\]|\\[\\x01-\\x7f])*\"\\x20*)*(?<angle><))?((?!\\.)(?>\\.?[a-zA-Z\\d!#$%&'*+\\-/=?^_{|}~]+)+|\"((?=[\\x01-\\x7f])[^\"\\]|\\[\\x01-\\x7f])*\")@(((?!-)[a-zA-Z\\d\\-]+(?<!-)\\.)+[a-zA-Z]{2,}|\\[(((?(?<!\\[)\\.)(25[0-5]|2[0-4]\\d|[01]?\\d?\\d)){4}|[a-zA-Z\\d\\-]*[a-zA-Z\\d]:((?=[\\x01-\\x7f])[^\\\\[\\]]|\\[\\x01-\\x7f])+)\\])(?(angle)>)$",
-            RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+             RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
         public static bool IsValidEmail(string mailAddress)
         {
             if (string.IsNullOrEmpty(mailAddress))
@@ -225,7 +233,7 @@ namespace Photon.Pun
         public string Message;
         public Dictionary<string, string> ApplicationIds; // Unity's JsonUtility does not support deserializing Dictionary
     }
-    
+
 
     public class AccountServiceReturnCodes
     {
@@ -243,6 +251,8 @@ namespace Photon.Pun
         TrueSync = 4,
         Pun = 5,
         Thunder = 6,
+        Quantum = 7,
+        Fusion = 8,
         Bolt = 20
     }
 }

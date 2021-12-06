@@ -11,6 +11,8 @@ public class PlayerInfo : MonoBehaviour
     public int mySpaceInGrid;
 
     public GameObject[] allSpacesInGrid;
+    public GameObject[] nicknameFrames;
+    public GameObject[] godnameFrames;
 
     void Start()
     {
@@ -53,6 +55,28 @@ public class PlayerInfo : MonoBehaviour
                 }
             }
         }
+
+        foreach(GameObject nicknameFrame in GameObject.FindGameObjectsWithTag("NicknameFrame"))
+        {
+            nicknameFrame.SetActive(false);
+        }
+
+        for(int playerIndex = 0; playerIndex < PhotonNetwork.CurrentRoom.PlayerCount; playerIndex++)
+        {
+            nicknameFrames[playerIndex].SetActive(true);
+        }
+        
+
+        foreach(GameObject godnameFrame in GameObject.FindGameObjectsWithTag("GodnameFrame"))
+        {
+            godnameFrame.SetActive(false);
+        }
+
+        for(int playerIndex = 0; playerIndex < PhotonNetwork.CurrentRoom.PlayerCount; playerIndex++)
+        {
+            godnameFrames[playerIndex].SetActive(true);
+        }
+
     }
 
 }

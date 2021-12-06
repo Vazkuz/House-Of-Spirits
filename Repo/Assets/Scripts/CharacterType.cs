@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class CharacterType : MonoBehaviour
 {
     public int characterIndex;
+    public string characterName;
     [SerializeField] GameObject playerUIIdentifier;
     [SerializeField] float coinScaleX = 1.2f;
     [SerializeField] float coinScaleY = 1f;
@@ -27,12 +28,5 @@ public class CharacterType : MonoBehaviour
                 coinID.transform.localPosition = new Vector3(coinPosX, coinPosY, coinID.transform.localPosition.z);
             }
         }
-    }
-
-    public void ChangePreviewColor()
-    {
-        AvatarPreviewController avatarPreviewController = FindObjectOfType<AvatarPreviewController>();
-        if (avatarPreviewController!=null) avatarPreviewController.ChangePreviewColor(GetComponent<Image>().color);
-        
     }
 }

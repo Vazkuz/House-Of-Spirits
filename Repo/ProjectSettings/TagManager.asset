@@ -9,6 +9,9 @@ TagManager:
   - NicknameShow
   - PlayerGrid
   - Seats
+  - NicknameFrame
+  - GodnameFrame
+  - GodnameShow
   layers:
   - Default
   - TransparentFX

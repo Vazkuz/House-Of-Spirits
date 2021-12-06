@@ -14,9 +14,12 @@ public class PhotonPlayer : MonoBehaviour
     [SerializeField] float nicknameOffsetX;
     [SerializeField] float nicknameOffsetY;
     [SerializeField] GameObject cardPrefab;
+    [SerializeField] float avatarScale = 1.7f;
     public int cardsIHave;
     public GameObject[] allCharacters;
-    private PhotonView PV;
+    public string[] avatarNames;
+    public string mySelectedName;
+    public PhotonView PV;
     public GameObject myAvatar;
     public int mySelectedCharacter;
     public int myPositionInGrid;
@@ -82,6 +85,7 @@ public class PhotonPlayer : MonoBehaviour
             if(PhotonNetwork.PlayerList[indexPlayer] == photonPlayer.GetComponent<PhotonView>().Owner)
             {
                 photonPlayer.mySelectedCharacter = indexAvatar;
+                photonPlayer.mySelectedName = photonPlayer.avatarNames[indexAvatar];
             }
         }
     }
@@ -103,11 +107,13 @@ public class PhotonPlayer : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         GameObject myAvatar = Instantiate(allCharacters[mySelectedCharacter], transform.position, Quaternion.identity) as GameObject;
-        //myAvatar.transform.localScale = new Vector3(0.6f,0.7f,0f);
+        myAvatar.transform.localScale = new Vector3(avatarScale, avatarScale, 1f);
         myAvatar.transform.SetParent(transform, false);
         transform.SetParent(PlayerInfo.PI.allSpacesInGrid[positionOfAvatar].transform, false);
         myPositionInGrid = positionOfAvatar;
         myAvatar.GetComponent<RectTransform>().localPosition = new Vector3(avatarOffsetX, avatarOffsetY, 0);
+        PlayerInfo.PI.nicknameFrames[positionOfAvatar].SetActive(true);
+        PlayerInfo.PI.godnameFrames[positionOfAvatar].SetActive(true);
     }
 
     public void ChangePlayerAvatar(int whichCharacter)
@@ -166,7 +172,7 @@ public class PhotonPlayer : MonoBehaviour
                 if (PhotonNetwork.PlayerList[playerIndex] == playerCustom.PV.Owner)
                 {
                     GameObject myAvatar = Instantiate(allCharacters[mySelectedCharacter], transform.position, Quaternion.identity);
-                    //myAvatar.transform.localScale = new Vector3(0.6f,0.7f,0f);
+                    myAvatar.transform.localScale = new Vector3(avatarScale, avatarScale, 1f);
                     if(playerCustom.transform.childCount > 2) Destroy(playerCustom.transform.GetChild(1).gameObject);
                     myAvatar.transform.SetParent(playerCustom.gameObject.transform, false);
                     Destroy(playerCustom.transform.GetChild(0).gameObject);
@@ -175,7 +181,8 @@ public class PhotonPlayer : MonoBehaviour
                     myAvatar.GetComponent<RectTransform>().localPosition = new Vector3(avatarOffsetX, avatarOffsetY, 0);
                 }
             }
-        }        
+        }
+
     }
 
     public void ArrangePlayersInCorrectOrder()

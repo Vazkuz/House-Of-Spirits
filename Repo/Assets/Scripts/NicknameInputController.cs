@@ -7,6 +7,9 @@ using TMPro;
 
 public class NicknameInputController : MonoBehaviour
 {
+    [SerializeField] TMP_InputField inputField;
+    [SerializeField] bool isPlaceholderHideOnSelect;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,4 +34,24 @@ public class NicknameInputController : MonoBehaviour
             }
         }
     }
+
+    public void OnInputFieldSelect()
+    {
+        if (this.isPlaceholderHideOnSelect == true)
+        {
+            this.inputField.placeholder.gameObject.SetActive(false);
+        }
+    }
+
+    /// <summary>
+    /// The input field deselect
+    /// </summary>
+    public void OnInputFieldDeselect()
+    {
+        if (this.isPlaceholderHideOnSelect == true)
+        {
+            this.inputField.placeholder.gameObject.SetActive(true);
+        }
+    }
+
 }

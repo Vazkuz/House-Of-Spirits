@@ -2,34 +2,49 @@
 using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 
 public class AvatarPreviewController : MonoBehaviour
 {
+    public static AvatarPreviewController APC;
+    [SerializeField] TMP_Text avatarGodName;
     Image avatarPreviewImage;
-    
-    void OnEnable()
-    {
-        for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
-        {
-                
-            if (PhotonNetwork.LocalPlayer.IsLocal)
-            {
-                PhotonPlayer exampleOfPlayer = FindObjectOfType<PhotonPlayer>();
-                Color avatarPreviewImageColor = exampleOfPlayer.allCharacters[i].GetComponent<Image>().color;
 
-                avatarPreviewImage = GetComponent<Image>();
-                avatarPreviewImage.color = avatarPreviewImageColor;
+    [SerializeField] Animator animator;
+    public int currentAnimation;
+
+    void Awake()
+    {
+        if (AvatarPreviewController.APC == null)
+        {
+            AvatarPreviewController.APC = this;
+        }
+        else
+        {
+            if (RoomController.room != this)
+            { 
+                Destroy(AvatarPreviewController.APC.gameObject);
+                AvatarPreviewController.APC = this;
             }
         }
     }
 
-    // Update is called once per frame
-    public void ChangePreviewColor(Color newPreviewColor)
+    public void ChangePreviewAnimation(int newAvatarAnimation)
     {
         if(PhotonNetwork.LocalPlayer.IsLocal)
         {
-            avatarPreviewImage.color = newPreviewColor;
+            animator.SetInteger("avatarChosen", newAvatarAnimation);
+            currentAnimation = newAvatarAnimation;
         }
     }
+
+    public void ChangePreviewGodsName(string name)
+    {
+        if(PhotonNetwork.LocalPlayer.IsLocal)
+        {
+            avatarGodName.text = name;
+        }
+    }
+
 }

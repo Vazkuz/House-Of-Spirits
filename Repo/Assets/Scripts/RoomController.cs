@@ -304,15 +304,18 @@ public class RoomController : MonoBehaviourPunCallbacks
     {
         foreach (CharacterType characterType in FindObjectsOfType<CharacterType>())
         {
-            if (RoomController.room.avatarsTaken.Contains(characterType.characterIndex))
+            if(characterType)
             {
-                Debug.Log("Avatar index " + characterType.characterIndex + "already taken. Disabling its button.");
-                characterType.gameObject.GetComponent<Button>().enabled = false;
-            }
-            else
-            {
-                Debug.Log("Avatar index " + characterType.characterIndex + "not taken. Enabling its button.");
-                characterType.gameObject.GetComponent<Button>().enabled = true;
+                if (RoomController.room.avatarsTaken.Contains(characterType.characterIndex))
+                {
+                    Debug.Log("Avatar index " + characterType.characterIndex + "already taken. Disabling its button.");
+                    characterType.gameObject.GetComponent<Button>().enabled = false;
+                }
+                else
+                {
+                    Debug.Log("Avatar index " + characterType.characterIndex + "not taken. Enabling its button.");
+                    characterType.gameObject.GetComponent<Button>().enabled = true;
+                }
             }
         }
     }
