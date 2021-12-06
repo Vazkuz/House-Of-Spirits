@@ -8,6 +8,7 @@ public class OptionHandler : MonoBehaviour
     public GameObject optionCanvas;
     [SerializeField] GameObject optionOpener;
     [SerializeField] GameObject turnOptions;
+    [SerializeField] PUN2_Chat chatController;
     
     void Start()
     {
@@ -28,6 +29,7 @@ public class OptionHandler : MonoBehaviour
             nicknameShow.GetComponent<NicknameInputController>().enabled = true;
         }
         RoomController.room.DisableAvatarsTaken();
+        chatController.gameObject.SetActive(false);
     }
 
     public void CloseOptions()
@@ -49,5 +51,6 @@ public class OptionHandler : MonoBehaviour
         {
             nicknameShow.GetComponent<NicknameInputController>().enabled = false;
         }
+        chatController.gameObject.SetActive(true);
     }
 }

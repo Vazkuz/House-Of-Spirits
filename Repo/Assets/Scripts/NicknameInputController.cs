@@ -14,7 +14,7 @@ public class NicknameInputController : MonoBehaviour
         {
             if(player.IsLocal)
             {
-                transform.GetChild(0).GetComponent<TMP_InputField>().text = player.NickName;
+                transform.GetComponent<TMP_InputField>().text = player.NickName;
             }
         }
     }
@@ -26,8 +26,7 @@ public class NicknameInputController : MonoBehaviour
         {
             if(player.IsLocal)
             {
-                player.NickName = transform.GetChild(0).GetComponent<TMP_InputField>().text;
-                Debug.Log(player.NickName);
+                player.NickName = transform.GetComponent<TMP_InputField>().text;
                 PlayerPrefs.SetString("MY_NICKNAME", player.NickName);
             }
         }
