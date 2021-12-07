@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2861446d17d864c47995fcdd9ffdd58c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5a91e4c7ca94b4542830e5efb5aa374b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -147,6 +147,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterIndex: 0
   characterName: Illapa
+  notSelected: {fileID: 0}
+  selectedByOther: {fileID: 0}
+  selectedByMe: {fileID: 0}
   playerUIIdentifier: {fileID: 8184958355450711802, guid: a6e89e8ef9a46664bb7137103f374d5c, type: 3}
   coinScaleX: 1.2
   coinScaleY: 1

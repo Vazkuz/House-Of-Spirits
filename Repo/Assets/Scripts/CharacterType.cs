@@ -11,7 +11,7 @@ public class CharacterType : MonoBehaviour
     public Sprite notSelected;
     public Sprite selectedByOther;
     public Sprite selectedByMe;
-    [SerializeField] GameObject playerUIIdentifier;
+    // [SerializeField] GameObject playerUIIdentifier;
     [SerializeField] float coinScaleX = 1.2f;
     [SerializeField] float coinScaleY = 1f;
     [SerializeField] float coinPosX = 163f;
@@ -25,10 +25,10 @@ public class CharacterType : MonoBehaviour
         {
             if(transform.parent.GetComponent<PhotonView>().IsMine)
             {
-                GameObject coinID = Instantiate(playerUIIdentifier, transform);
-                coinID.transform.SetParent(transform, true);
-                coinID.transform.localScale = new Vector3(coinScaleX, coinScaleY, 1);
-                coinID.transform.localPosition = new Vector3(coinPosX, coinPosY, coinID.transform.localPosition.z);
+                // GameObject coinID = Instantiate(playerUIIdentifier, transform);
+                // coinID.transform.SetParent(transform, true);
+                // coinID.transform.localScale = new Vector3(coinScaleX, coinScaleY, 1);
+                // coinID.transform.localPosition = new Vector3(coinPosX, coinPosY, coinID.transform.localPosition.z);
             }
         }
     }
