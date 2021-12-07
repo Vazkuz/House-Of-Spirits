@@ -133,7 +133,7 @@ public class RoomController : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonNetworkPlayer"), transform.position, Quaternion.identity, 0);
         playersInGame++;
-        Debug.Log("Actualmente hay " + playersInGame + " jugadores en la sala.");
+        //Debug.Log("Actualmente hay " + playersInGame + " jugadores en la sala.");
     }
 
     //Once the master client has created the room, the game will go to the Room Scene. //ROOMCONTROLLER
@@ -148,7 +148,7 @@ public class RoomController : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
-        Debug.Log("Joined room. Room name: " + PhotonNetwork.CurrentRoom.Name + ". Number of players currently on room: " + PhotonNetwork.CurrentRoom.PlayerCount);
+        //Debug.Log("Joined room. Room name: " + PhotonNetwork.CurrentRoom.Name + ". Number of players currently on room: " + PhotonNetwork.CurrentRoom.PlayerCount);
 
         //The password doesn't need to be validated if the client is also the master client.
         if(PhotonNetwork.IsMasterClient)
@@ -297,24 +297,49 @@ public class RoomController : MonoBehaviourPunCallbacks
     public void DisableAvatarsTaken()
     {
         PV.RPC("RPC_DisableAvatarsTaken", RpcTarget.AllBuffered);
+        // PhotonPlayer[] playersInRoomCustom = FindObjectsOfType<PhotonPlayer>();
+        // CharacterType[] characterTypes = AvatarPreviewController.APC.characterTypes;
+        // foreach (PhotonPlayer playerInRoomCustom in playersInRoomCustom)
+        // {
+        //     if(playerInRoomCustom.PV.IsMine)
+        //     {
+        //         Debug.Log("playerInRoomCustom.mySelectedCharacter: " + playerInRoomCustom.mySelectedCharacter);
+        //         Debug.Log("characterTypes[playerInRoomCustom.mySelectedCharacter]: " + characterTypes[playerInRoomCustom.mySelectedCharacter]);
+        //         characterTypes[playerInRoomCustom.mySelectedCharacter].ChangeImageInButtonAvatar(characterTypes[playerInRoomCustom.mySelectedCharacter].selectedByMe);
+        //     }
+        // }     
     }
 
     [PunRPC]
     void RPC_DisableAvatarsTaken()
     {
-        foreach (CharacterType characterType in FindObjectsOfType<CharacterType>())
+        CharacterType[] characterTypes = AvatarPreviewController.APC.characterTypes;
+        foreach (CharacterType characterType in characterTypes)
         {
             if(characterType)
             {
                 if (RoomController.room.avatarsTaken.Contains(characterType.characterIndex))
                 {
-                    Debug.Log("Avatar index " + characterType.characterIndex + "already taken. Disabling its button.");
+                    //Debug.Log("Avatar index " + characterType.characterIndex + "already taken. Disabling its button.");
                     characterType.gameObject.GetComponent<Button>().enabled = false;
+                    characterType.ChangeImageInButtonAvatar(characterType.selectedByOther);
+                    PhotonPlayer[] playersInRoomCustom = FindObjectsOfType<PhotonPlayer>();
+                    foreach (PhotonPlayer playerInRoomCustom in playersInRoomCustom)
+                    {
+                        if(playerInRoomCustom.PV)
+                        {
+                            if(playerInRoomCustom.PV.IsMine)
+                            {
+                                characterTypes[playerInRoomCustom.mySelectedCharacter].ChangeImageInButtonAvatar(characterTypes[playerInRoomCustom.mySelectedCharacter].selectedByMe);
+                            }
+                        }
+                    }                 
                 }
                 else
                 {
-                    Debug.Log("Avatar index " + characterType.characterIndex + "not taken. Enabling its button.");
+                    //Debug.Log("Avatar index " + characterType.characterIndex + "not taken. Enabling its button.");
                     characterType.gameObject.GetComponent<Button>().enabled = true;
+                    characterType.ChangeImageInButtonAvatar(characterType.notSelected);
                 }
             }
         }

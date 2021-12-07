@@ -145,8 +145,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba901aaf832b24447af67e6757809906, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterIndex: 0
+  characterIndex: 2
   characterName: Mama Cocha
+  notSelected: {fileID: 0}
+  selectedByOther: {fileID: 0}
+  selectedByMe: {fileID: 0}
   playerUIIdentifier: {fileID: 8184958355450711802, guid: a6e89e8ef9a46664bb7137103f374d5c, type: 3}
   coinScaleX: 1.2
   coinScaleY: 1

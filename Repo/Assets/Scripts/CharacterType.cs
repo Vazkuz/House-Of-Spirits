@@ -8,6 +8,9 @@ public class CharacterType : MonoBehaviour
 {
     public int characterIndex;
     public string characterName;
+    public Sprite notSelected;
+    public Sprite selectedByOther;
+    public Sprite selectedByMe;
     [SerializeField] GameObject playerUIIdentifier;
     [SerializeField] float coinScaleX = 1.2f;
     [SerializeField] float coinScaleY = 1f;
@@ -29,4 +32,10 @@ public class CharacterType : MonoBehaviour
             }
         }
     }
+
+    public void ChangeImageInButtonAvatar(Sprite whichTypeOfSelection)
+    {
+        this.GetComponent<Image>().sprite = whichTypeOfSelection;
+    }
+
 }

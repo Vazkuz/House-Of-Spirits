@@ -9,6 +9,7 @@ public class AvatarPreviewController : MonoBehaviour
 {
     public static AvatarPreviewController APC;
     public string[] avatarNames;
+    public CharacterType[] characterTypes;
     public int previousSelection;
     [SerializeField] TMP_Text avatarGodName;
     Image avatarPreviewImage;
@@ -83,6 +84,8 @@ public class AvatarPreviewController : MonoBehaviour
         }
         ChangePreviewAnimation(currentAnimation);
         FindObjectOfType<PhotonPlayer>().ChangePlayerAvatar(currentAnimation);
+        //CharacterType[] characterTypes = FindObjectsOfType<CharacterType>();
+        //characterTypes[currentAnimation].ChangeImageInButtonAvatar(characterTypes[currentAnimation].selectedByMe);
     }
 
 }
