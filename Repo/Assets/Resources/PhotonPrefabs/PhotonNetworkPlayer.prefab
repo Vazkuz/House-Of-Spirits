@@ -92,15 +92,6 @@ MonoBehaviour:
   - {fileID: 5035493299162535417, guid: be7a7495d28fea9468c91dd818b99a7e, type: 3}
   - {fileID: 5741777295159132008, guid: cdce4d053313ff2469da10aa03356eff, type: 3}
   - {fileID: 1632753261633537094, guid: d466a00df5f0dfe42acb7867edea3380, type: 3}
-  avatarNames:
-  - Illapa
-  - Inti
-  - Mama Cocha
-  - Mama Quilla
-  - Mama Sara
-  - Pachacamac
-  - Pachamama
-  - Yacumama
   mySelectedName: 
   PV: {fileID: 0}
   myAvatar: {fileID: 0}

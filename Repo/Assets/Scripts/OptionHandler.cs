@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class OptionHandler : MonoBehaviour
@@ -42,9 +43,16 @@ public class OptionHandler : MonoBehaviour
         }
 
         RoomController.room.DisableAvatarsTaken();
-        chatController.gameObject.SetActive(false);
+        if(chatController)
+        {
+            chatController.gameObject.SetActive(false);
+        }
 
-        StateInitialAnimation();
+        if(SceneManager.GetActiveScene().buildIndex == MultiplayerSettings.multiplayerSettings.roomScene)
+        {
+            StateInitialAnimation();
+            AvatarPreviewController.APC.previousSelection = AvatarPreviewController.APC.currentAnimation;
+        }
 
     }
 
@@ -56,7 +64,7 @@ public class OptionHandler : MonoBehaviour
             {
                 Debug.Log("The initial animation is: " + photonPlayer.mySelectedCharacter);
                 FindObjectOfType<AvatarPreviewController>().ChangePreviewAnimation(photonPlayer.mySelectedCharacter);
-                FindObjectOfType<AvatarPreviewController>().ChangePreviewGodsName(photonPlayer.mySelectedName);
+                // FindObjectOfType<AvatarPreviewController>().ChangePreviewGodsName(photonPlayer.mySelectedCharacter);
             }
         }
     }
@@ -86,6 +94,9 @@ public class OptionHandler : MonoBehaviour
             nicknameShow.GetComponent<NicknameInputController>().enabled = false;
         }
 
-        chatController.gameObject.SetActive(true);
+        if(chatController)
+        {
+            chatController.gameObject.SetActive(true);
+        }
     }
 }

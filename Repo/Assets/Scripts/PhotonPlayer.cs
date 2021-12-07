@@ -17,7 +17,7 @@ public class PhotonPlayer : MonoBehaviour
     [SerializeField] float avatarScale = 1.7f;
     public int cardsIHave;
     public GameObject[] allCharacters;
-    public string[] avatarNames;
+    // public string[] avatarNames;
     public string mySelectedName;
     public PhotonView PV;
     public GameObject myAvatar;
@@ -85,7 +85,7 @@ public class PhotonPlayer : MonoBehaviour
             if(PhotonNetwork.PlayerList[indexPlayer] == photonPlayer.GetComponent<PhotonView>().Owner)
             {
                 photonPlayer.mySelectedCharacter = indexAvatar;
-                photonPlayer.mySelectedName = photonPlayer.avatarNames[indexAvatar];
+                photonPlayer.mySelectedName = AvatarPreviewController.APC.avatarNames[indexAvatar];
             }
         }
     }
