@@ -150,11 +150,7 @@ MonoBehaviour:
   spriteInRoom: {fileID: 0}
   spriteInGame: {fileID: 21300000, guid: e76653c4806c50c4baa75cdf76150ad8, type: 3}
   spriteDisconnected: {fileID: 0}
-  spriteTurn: {fileID: 0}
+  spriteTurn: {fileID: 21300000, guid: 2a05b09e50492934e89aee6172825e32, type: 3}
   notSelected: {fileID: 0}
   selectedByOther: {fileID: 0}
   selectedByMe: {fileID: 0}
-  coinScaleX: 1.2
-  coinScaleY: 1
-  coinPosX: 163
-  coinPosY: -110
