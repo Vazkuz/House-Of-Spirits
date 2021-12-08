@@ -18,10 +18,10 @@ public class SeatsController : MonoBehaviour
 
     void Start()
     {
-        foreach(Seat seat in seats)
-        {
-            seat.gameObject.transform.GetChild(0).gameObject.SetActive(false);
-        }
+        // foreach(Seat seat in seats)
+        // {
+        //     seat.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        // }
     }
     public void ChoseASeatAndSeat()
     {
@@ -97,8 +97,15 @@ public class SeatsController : MonoBehaviour
         Debug.Log("seatPosition = " + seatPosition);
         foreach(Seat seat in seats)
         {
-            seat.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+            if(seat.gameObject.transform.childCount > 0)
+            {
+                CharacterType characterType_int = seat.gameObject.transform.GetChild(0).transform.GetChild(0).GetComponent<CharacterType>();
+                characterType_int.ChangeImageInButtonAvatar(characterType_int.spriteInGame);
+            }
+
         }
+        CharacterType characterType = seats[seatPosition].gameObject.transform.GetChild(0).transform.GetChild(0).GetComponent<CharacterType>();
+        characterType.ChangeImageInButtonAvatar(characterType.spriteTurn);
         seats[seatPosition].transform.GetChild(0).gameObject.SetActive(true);
     }
 

@@ -289,7 +289,7 @@ public class RoomController : MonoBehaviourPunCallbacks
             }
         }
         
-        if(PhotonNetwork.CurrentRoom.PlayerCount < MultiplayerSettings.multiplayerSettings.maxPlayers)
+        if(PhotonNetwork.CurrentRoom.PlayerCount < MultiplayerSettings.multiplayerSettings.maxPlayers && currentScene == MultiplayerSettings.multiplayerSettings.roomScene)
         {
             PhotonNetwork.CurrentRoom.IsOpen = true;
         }
