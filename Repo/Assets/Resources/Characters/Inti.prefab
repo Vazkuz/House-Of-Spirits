@@ -147,11 +147,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterIndex: 1
   characterName: Inti
+  spriteInRoom: {fileID: 0}
+  spriteInGame: {fileID: 21300000, guid: ba067c3bc099c774d8c4479b7c788692, type: 3}
+  spriteDisconnected: {fileID: 0}
+  spriteTurn: {fileID: 0}
   notSelected: {fileID: 0}
   selectedByOther: {fileID: 0}
   selectedByMe: {fileID: 0}
-  playerUIIdentifier: {fileID: 8184958355450711802, guid: a6e89e8ef9a46664bb7137103f374d5c, type: 3}
-  coinScaleX: 1.2
-  coinScaleY: 1
-  coinPosX: 163
-  coinPosY: -110

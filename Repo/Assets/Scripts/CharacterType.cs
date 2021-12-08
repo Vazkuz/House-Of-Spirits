@@ -8,14 +8,18 @@ public class CharacterType : MonoBehaviour
 {
     public int characterIndex;
     public string characterName;
+    public Sprite spriteInRoom;
+    public Sprite spriteInGame;
+    public Sprite spriteDisconnected;
+    public Sprite spriteTurn;
     public Sprite notSelected;
     public Sprite selectedByOther;
     public Sprite selectedByMe;
     // [SerializeField] GameObject playerUIIdentifier;
-    [SerializeField] float coinScaleX = 1.2f;
-    [SerializeField] float coinScaleY = 1f;
-    [SerializeField] float coinPosX = 163f;
-    [SerializeField] float coinPosY = -110f;
+    // [SerializeField] float coinScaleX = 1.2f;
+    // [SerializeField] float coinScaleY = 1f;
+    // [SerializeField] float coinPosX = 163f;
+    // [SerializeField] float coinPosY = -110f;
 
 
     // Start is called before the first frame update

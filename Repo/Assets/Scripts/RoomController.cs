@@ -233,6 +233,7 @@ public class RoomController : MonoBehaviourPunCallbacks
         GameSetup.GS.roomPasswordTMP.text = "Room password: " + roomPassword;
         roomOptions.CustomRoomProperties.Add("pwd", roomPassword);
         PhotonNetwork.CurrentRoom.SetCustomProperties(roomOptions.CustomRoomProperties);
+        roomOptions.PlayerTtl = 1;
     }
 
     IEnumerator WaitAndRearrange()
@@ -348,7 +349,7 @@ public class RoomController : MonoBehaviourPunCallbacks
     IEnumerator UpdateAvatarsListLag()
     {
         yield return null;
-        PV.RPC("RPC_UpdateAvatarsList", RpcTarget.AllBuffered);
+        PV.RPC("RPC_UpdateAvatarsList", RpcTarget.All);
         DisableAvatarsTaken();
     }
 

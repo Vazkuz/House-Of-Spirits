@@ -70,6 +70,8 @@ public class SeatsController : MonoBehaviour
     {
         foreach(PhotonPlayer player in FindObjectsOfType<PhotonPlayer>())
         {
+            CharacterType characterType = player.transform.GetChild(0).GetComponent<CharacterType>();
+            characterType.ChangeImageInButtonAvatar(characterType.spriteInGame);
             if(player.GetComponent<PhotonView>().Owner == PhotonNetwork.PlayerList[playerOwner])
             {
                 SeatsController seatsController = FindObjectOfType<SeatsController>();
@@ -77,6 +79,7 @@ public class SeatsController : MonoBehaviour
                 player.transform.localPosition = new Vector3(0, 0, 0);
                 if(player.GetComponent<PhotonView>().IsMine)
                 {
+                    
                     GameController.gameController.mySeat = seatChosenSent;
                 }
             }
