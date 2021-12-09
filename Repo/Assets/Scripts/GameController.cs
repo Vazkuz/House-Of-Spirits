@@ -455,19 +455,19 @@ public class GameController : MonoBehaviour
 
         if (suitChosen == 1)
         {
-            cardSuitChosen = Card.CardSuit.Hearts;
+            cardSuitChosen = Card.CardSuit.Orange;
         }
         else if (suitChosen == 2)
         {
-            cardSuitChosen = Card.CardSuit.Clovers;
+            cardSuitChosen = Card.CardSuit.Yellow;
         }
         else if (suitChosen == 3)
         {
-            cardSuitChosen = Card.CardSuit.Tiles;
+            cardSuitChosen = Card.CardSuit.Green;
         }
         else if (suitChosen == 4)
         {
-            cardSuitChosen = Card.CardSuit.Pikes;
+            cardSuitChosen = Card.CardSuit.Purple;
         }
 
         SuitChosen = suitChosen;
