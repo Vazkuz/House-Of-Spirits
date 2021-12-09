@@ -149,7 +149,7 @@ MonoBehaviour:
   characterName: Inti
   spriteInRoom: {fileID: 0}
   spriteInGame: {fileID: 21300000, guid: ba067c3bc099c774d8c4479b7c788692, type: 3}
-  spriteDisconnected: {fileID: 0}
+  spriteDisconnected: {fileID: 21300000, guid: 64bf03ebb3f6f384493d757642a3a32f, type: 3}
   spriteTurn: {fileID: 21300000, guid: af8c6b37ea588e64ab35964283ad447f, type: 3}
   notSelected: {fileID: 0}
   selectedByOther: {fileID: 0}

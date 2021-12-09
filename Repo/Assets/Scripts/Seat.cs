@@ -5,4 +5,5 @@ using UnityEngine;
 public class Seat : MonoBehaviour
 {
     public bool seatTaken;
+    public Sprite disconnectedPlayer;
 }

@@ -54,7 +54,6 @@ public class SeatsController : MonoBehaviour
                         }
                         Debug.Log("El jugador " + PhotonNetwork.PlayerList[playerIndex].NickName + " ocupará el sitio " + seatChosen);
                         PV.RPC("SendSeatPosition", RpcTarget.All, seatChosen, playerIndex);
-                        seats[seatChosen].seatTaken = true;
                     }
                 }
             }
@@ -82,13 +81,27 @@ public class SeatsController : MonoBehaviour
                     
                     GameController.gameController.mySeat = seatChosenSent;
                 }
+                seatsController.seats[seatChosenSent].disconnectedPlayer = player.transform.GetChild(0).GetComponent<CharacterType>().spriteDisconnected;
             }
         }
+        seats[seatChosenSent].seatTaken = true;
     }
 
     public void ShowEveryoneWhosTurnItIs(int seatPosition)
     {
-        PV.RPC("ToggleTurnIndicator", RpcTarget.All, seatPosition);
+        int numberOfWinners = 0;
+        foreach(PhotonPlayer player in FindObjectsOfType<PhotonPlayer>())
+        {
+            if(player.IWon)
+            {
+                numberOfWinners++;
+            }
+        }
+        
+        if(numberOfWinners<=0)
+        {
+            PV.RPC("ToggleTurnIndicator", RpcTarget.All, seatPosition);
+        }
     }
 
     [PunRPC]

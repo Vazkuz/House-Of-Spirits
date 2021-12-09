@@ -149,7 +149,7 @@ MonoBehaviour:
   characterName: Illapa
   spriteInRoom: {fileID: 0}
   spriteInGame: {fileID: 21300000, guid: e76653c4806c50c4baa75cdf76150ad8, type: 3}
-  spriteDisconnected: {fileID: 0}
+  spriteDisconnected: {fileID: 21300000, guid: a22bd1bca999a7041bd292c81fbacddd, type: 3}
   spriteTurn: {fileID: 21300000, guid: 2a05b09e50492934e89aee6172825e32, type: 3}
   notSelected: {fileID: 0}
   selectedByOther: {fileID: 0}

@@ -14,6 +14,7 @@ public class RoomController : MonoBehaviourPunCallbacks
     public static RoomController room;
     [SerializeField] TMP_InputField roomNameInputField;
     [SerializeField] TMP_InputField roomPasswordInputField;
+    [SerializeField] float avatarScale = 1.7f;
     RoomOptions roomOptions;
     private PhotonView PV;
     // bool isRoomLoaded; //TO USE LATER
@@ -108,6 +109,17 @@ public class RoomController : MonoBehaviourPunCallbacks
         GameController.gameController.currentTurn = currentTurn;
         foreach(PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
         {
+            if(GameController.gameController.currentTurn >= PhotonNetwork.CurrentRoom.PlayerCount)
+            {
+                if(GameController.gameController.sequencePositive)
+                {
+                    GameController.gameController.currentTurn = 0;
+                }
+                else
+                {
+                    GameController.gameController.currentTurn = PhotonNetwork.CurrentRoom.PlayerCount - 1;
+                }
+            }
             if (PhotonNetwork.PlayerList[GameController.gameController.currentTurn] == photonPlayer.GetComponent<PhotonView>().Owner &&
                     photonPlayer.GetComponent<PhotonView>().IsMine)
             {
@@ -267,19 +279,19 @@ public class RoomController : MonoBehaviourPunCallbacks
 
         if(currentScene == MultiplayerSettings.multiplayerSettings.gameScene)
         {
-            if(PhotonNetwork.IsMasterClient)
+            if (PhotonNetwork.IsMasterClient)
             {
                 PV.RPC("RPC_CheckIfLefterWasPlaying", RpcTarget.All);
-                if(!RoomController.room.isSomeonePlayingNow)
+                if (!RoomController.room.isSomeonePlayingNow)
                 {
-                    if(GameController.gameController.sequencePositive)
+                    if (GameController.gameController.sequencePositive)
                     {
                         RoomController.room.PrepareSendingPlayerSequence(true, false, 0, GameController.gameController.currentTurn);
                     }
                     else
                     {
                         GameController.gameController.currentTurn--;
-                        if(GameController.gameController.currentTurn < 0)
+                        if (GameController.gameController.currentTurn < 0)
                         {
                             GameController.gameController.currentTurn = PhotonNetwork.PlayerList.Length;
                         }
@@ -287,11 +299,26 @@ public class RoomController : MonoBehaviourPunCallbacks
                     }
                 }
             }
+            StartCoroutine(ChangeLefterAvatarToDisconnected());
         }
-        
-        if(PhotonNetwork.CurrentRoom.PlayerCount < MultiplayerSettings.multiplayerSettings.maxPlayers && currentScene == MultiplayerSettings.multiplayerSettings.roomScene)
+
+        if (PhotonNetwork.CurrentRoom.PlayerCount < MultiplayerSettings.multiplayerSettings.maxPlayers && currentScene == MultiplayerSettings.multiplayerSettings.roomScene)
         {
             PhotonNetwork.CurrentRoom.IsOpen = true;
+        }
+    }
+
+    IEnumerator ChangeLefterAvatarToDisconnected()
+    {
+        yield return null;
+        foreach (Seat seat in SeatsController.currentSC.seats)
+        {
+            if (seat.seatTaken && seat.gameObject.transform.childCount == 0)
+            {
+                seat.GetComponent<Image>().sprite = seat.disconnectedPlayer;
+                seat.GetComponent<Image>().color = Color.white;
+                seat.transform.localScale = new Vector3(avatarScale, avatarScale, 1);
+            }
         }
     }
 
@@ -480,8 +507,8 @@ public class RoomController : MonoBehaviourPunCallbacks
     [PunRPC]
     void RPC_ShowWhoWon(string nickName, int indexWinner)
     {
-        RoomController.room.PlayerWon = FindObjectOfType<TMP_Text>();
-        PlayerWon.text = nickName + "\nWins!\n" + indexWinner;
+        // RoomController.room.PlayerWon = GameObject.FindGameObjectWithTag("PlayerWinText").GetComponent<TMP_Text>();
+        // PlayerWon.text = nickName + "\nWins!\n" + indexWinner;
         GameController.gameController.winAnimator.SetInteger("Winner", indexWinner);
     }
 

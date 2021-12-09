@@ -149,7 +149,7 @@ MonoBehaviour:
   characterName: Pachacamac
   spriteInRoom: {fileID: 0}
   spriteInGame: {fileID: 21300000, guid: 368ff00dc6e11ff45bb97f83e9cbb013, type: 3}
-  spriteDisconnected: {fileID: 0}
+  spriteDisconnected: {fileID: 21300000, guid: 9a8794438393cd44bb641b0b4596904a, type: 3}
   spriteTurn: {fileID: 21300000, guid: 5eaa6d3d27227b74994b938a0c5289bd, type: 3}
   notSelected: {fileID: 0}
   selectedByOther: {fileID: 0}
