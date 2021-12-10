@@ -159,9 +159,12 @@ public class SeatsController : MonoBehaviour
             }
 
         }
-        CharacterType characterType = seats[seatPosition].gameObject.transform.GetChild(0).transform.GetChild(0).GetComponent<CharacterType>();
-        characterType.ChangeImageInButtonAvatar(characterType.spriteTurn);
-        seats[seatPosition].transform.GetChild(0).gameObject.SetActive(true);
+        if(seats[seatPosition].gameObject.transform.childCount >0)
+        {
+            CharacterType characterType = seats[seatPosition].gameObject.transform.GetChild(0).transform.GetChild(0).GetComponent<CharacterType>();
+            characterType.ChangeImageInButtonAvatar(characterType.spriteTurn);
+            seats[seatPosition].transform.GetChild(0).gameObject.SetActive(true);
+        }
     }
 
 }
