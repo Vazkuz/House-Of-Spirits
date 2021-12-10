@@ -14,7 +14,7 @@ public class RoomController : MonoBehaviourPunCallbacks
     public static RoomController room;
     [SerializeField] TMP_InputField roomNameInputField;
     [SerializeField] TMP_InputField roomPasswordInputField;
-    [SerializeField] float avatarScale = 1.7f;
+    [SerializeField] float avatarDisconnectScale = 1.6f;
     RoomOptions roomOptions;
     private PhotonView PV;
     // bool isRoomLoaded; //TO USE LATER
@@ -317,7 +317,7 @@ public class RoomController : MonoBehaviourPunCallbacks
             {
                 seat.GetComponent<Image>().sprite = seat.disconnectedPlayer;
                 seat.GetComponent<Image>().color = Color.white;
-                seat.transform.localScale = new Vector3(avatarScale, avatarScale, 1);
+                seat.transform.localScale = new Vector3(avatarDisconnectScale, avatarDisconnectScale, 1);
             }
         }
     }

@@ -25,16 +25,16 @@ public class CharacterType : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(transform.parent.GetComponent<PhotonPlayer>())
-        {
-            if(transform.parent.GetComponent<PhotonView>().IsMine)
-            {
-                // GameObject coinID = Instantiate(playerUIIdentifier, transform);
-                // coinID.transform.SetParent(transform, true);
-                // coinID.transform.localScale = new Vector3(coinScaleX, coinScaleY, 1);
-                // coinID.transform.localPosition = new Vector3(coinPosX, coinPosY, coinID.transform.localPosition.z);
-            }
-        }
+        // if(transform.parent.GetComponent<PhotonPlayer>())
+        // {
+        //     if(transform.parent.GetComponent<PhotonView>().IsMine)
+        //     {
+        //         // GameObject coinID = Instantiate(playerUIIdentifier, transform);
+        //         // coinID.transform.SetParent(transform, true);
+        //         // coinID.transform.localScale = new Vector3(coinScaleX, coinScaleY, 1);
+        //         // coinID.transform.localPosition = new Vector3(coinPosX, coinPosY, coinID.transform.localPosition.z);
+        //     }
+        // }
     }
 
     public void ChangeImageInButtonAvatar(Sprite whichTypeOfSelection)

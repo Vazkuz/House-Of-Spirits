@@ -26,7 +26,7 @@ public class AvatarPreviewController : MonoBehaviour
         }
         else
         {
-            if (RoomController.room != this)
+            if (AvatarPreviewController.APC != this)
             { 
                 Destroy(AvatarPreviewController.APC.gameObject);
                 AvatarPreviewController.APC = this;

@@ -9,6 +9,8 @@ public class SeatsController : MonoBehaviour
     public Seat[] seats;
     public static SeatsController currentSC;
     PhotonView PV;
+    [SerializeField] float avatarScaleInGame = 1.6f;
+    [SerializeField] int playerOffsetY = -84;
 
     void Awake()
     {
@@ -25,42 +27,80 @@ public class SeatsController : MonoBehaviour
     }
     public void ChoseASeatAndSeat()
     {
-        foreach (PhotonPlayer player in FindObjectsOfType<PhotonPlayer>())
-        {
-            player.transform.GetChild(0).gameObject.SetActive(false);
-        }
+        // foreach (PhotonPlayer player in FindObjectsOfType<PhotonPlayer>())
+        // {
+        //     player.transform.GetChild(0).gameObject.SetActive(false);
+        // }
         StartCoroutine(HandleSeatsCoroutine());
     }
 
     IEnumerator HandleSeatsCoroutine()
     {
-        yield return new WaitForSeconds(1f);        
-        if (PhotonNetwork.IsMasterClient)
+        Debug.Log("Número de jugadores: " + PhotonNetwork.CurrentRoom.PlayerCount);    
+        if(PhotonNetwork.CurrentRoom.PlayerCount % 2 == 0)
         {
-            int seatChosen = Random.Range(0, seats.Length);
-            for (int playerIndex = 0; playerIndex < PhotonNetwork.PlayerList.Length; playerIndex++)
-            {                    
-                foreach (PhotonPlayer player in FindObjectsOfType<PhotonPlayer>())
-                {
-                    if (player.GetComponent<PhotonView>().Owner == PhotonNetwork.PlayerList[playerIndex])
+            yield return new WaitForSeconds(1f);  
+            if (PhotonNetwork.IsMasterClient)
+            {
+                int initial = (seats.Length - PhotonNetwork.CurrentRoom.PlayerCount)/2;
+                int final = initial + PhotonNetwork.CurrentRoom.PlayerCount - 1;
+                int seatChosen = Random.Range(initial, final);
+
+                for (int playerIndex = 0; playerIndex < PhotonNetwork.PlayerList.Length; playerIndex++)
+                {                    
+                    foreach (PhotonPlayer player in FindObjectsOfType<PhotonPlayer>())
                     {
-                        if(playerIndex > 0)
+                        if (player.GetComponent<PhotonView>().Owner == PhotonNetwork.PlayerList[playerIndex])
                         {
-                            seatChosen++;
-                            if(seatChosen >= seats.Length)
+                            if(playerIndex > 0)
                             {
-                                seatChosen = 0;
+                                seatChosen++;
+                                if(seatChosen >= seats.Length)
+                                {
+                                    seatChosen = 0;
+                                }
                             }
+                            Debug.Log("El jugador " + PhotonNetwork.PlayerList[playerIndex].NickName + " ocupará el sitio " + seatChosen);
+                            PV.RPC("SendSeatPosition", RpcTarget.All, seatChosen, playerIndex);
                         }
-                        Debug.Log("El jugador " + PhotonNetwork.PlayerList[playerIndex].NickName + " ocupará el sitio " + seatChosen);
-                        PV.RPC("SendSeatPosition", RpcTarget.All, seatChosen, playerIndex);
                     }
                 }
             }
         }
-        foreach (PhotonPlayer player in FindObjectsOfType<PhotonPlayer>())
+        else
         {
-            player.transform.GetChild(0).gameObject.SetActive(true);
+            foreach(Seat seat in FindObjectsOfType<Seat>())
+            {
+                seat.transform.localPosition = seat.transform.localPosition + new Vector3(seat.GetComponent<RectTransform>().rect.width/2, 0, 0);
+            }
+            yield return new WaitForSeconds(1f);  
+            if (PhotonNetwork.IsMasterClient)
+            {
+                int initial = (seats.Length - PhotonNetwork.CurrentRoom.PlayerCount - 1)/2;
+                int final = initial + PhotonNetwork.CurrentRoom.PlayerCount - 1;
+                int seatChosen = Random.Range(initial, final);
+
+                for (int playerIndex = 0; playerIndex < PhotonNetwork.PlayerList.Length; playerIndex++)
+                {                    
+                    foreach (PhotonPlayer player in FindObjectsOfType<PhotonPlayer>())
+                    {
+                        if (player.GetComponent<PhotonView>().Owner == PhotonNetwork.PlayerList[playerIndex])
+                        {
+                            if(playerIndex > 0)
+                            {
+                                seatChosen++;
+                                if(seatChosen >= seats.Length)
+                                {
+                                    seatChosen = 0;
+                                }
+                            }
+                            Debug.Log("El jugador " + PhotonNetwork.PlayerList[playerIndex].NickName + " ocupará el sitio " + seatChosen);
+                            PV.RPC("SendSeatPosition", RpcTarget.All, seatChosen, playerIndex);
+                        }
+                    }
+                }
+            }
+
         }
     }
 
@@ -75,7 +115,9 @@ public class SeatsController : MonoBehaviour
             {
                 SeatsController seatsController = FindObjectOfType<SeatsController>();
                 player.transform.SetParent(seatsController.seats[seatChosenSent].transform);
-                player.transform.localPosition = new Vector3(0, 0, 0);
+                player.GetComponent<RectTransform>().localPosition = new Vector3(0, playerOffsetY, 0);
+                player.transform.localScale = new Vector3(1, 1, 1);
+                player.transform.GetChild(0).transform.localScale = new Vector3(1, 1, 1);
                 if(player.GetComponent<PhotonView>().IsMine)
                 {
                     

@@ -286,13 +286,13 @@ public class PhotonPlayer : MonoBehaviour
     [PunRPC]
     void RPC_UpdateText(int playerIndex, string text)
     {
-        foreach(PhotonPlayer playerCustom in FindObjectsOfType<PhotonPlayer>())
-        {
-            if (PhotonNetwork.PlayerList[playerIndex] == playerCustom.GetComponent<PhotonView>().Owner)
-            {
-                playerCustom.GetComponent<TMP_Text>().text = text;
-            }
-        }
+        // foreach(PhotonPlayer playerCustom in FindObjectsOfType<PhotonPlayer>())
+        // {
+        //     if (PhotonNetwork.PlayerList[playerIndex] == playerCustom.GetComponent<PhotonView>().Owner)
+        //     {
+        //         playerCustom.GetComponent<TMP_Text>().text = text;
+        //     }
+        // }
     }
 
     public void SendCardFromHandToTable(int cardChosenIndex, int playerIndex)
