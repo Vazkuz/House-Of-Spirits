@@ -82,6 +82,23 @@ public class CardDisplay : MonoBehaviour
     [PunRPC]
     void SendFirstCardInTableAllPlayers(int cardChosenIndex)
     {
+        if(cardDisplayInstance.cardsAvailable[cardChosenIndex].cardSuit == Card.CardSuit.Green)
+        {
+            GameController.gameController.gameBackground.sprite = GameController.gameController.greenBackgroud;
+        }
+        else if(cardDisplayInstance.cardsAvailable[cardChosenIndex].cardSuit == Card.CardSuit.Orange)
+        {
+            GameController.gameController.gameBackground.sprite = GameController.gameController.orangeBackgroud;
+        }
+        else if(cardDisplayInstance.cardsAvailable[cardChosenIndex].cardSuit == Card.CardSuit.Purple)
+        {
+            GameController.gameController.gameBackground.sprite = GameController.gameController.purpleBackgroud;
+        }
+        else if(cardDisplayInstance.cardsAvailable[cardChosenIndex].cardSuit == Card.CardSuit.Yellow)
+        {
+            GameController.gameController.gameBackground.sprite = GameController.gameController.yellowBackgroud;
+        }
+
         GameObject cardPlayed = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         cardPlayed.transform.SetParent(GameController.gameController.cardsInGame.transform, false);
         cardPlayed.name = cardDisplayInstance.cardsAvailable[cardChosenIndex].cardNumber.ToString() + " " 
@@ -98,6 +115,7 @@ public class CardDisplay : MonoBehaviour
         cardPlayed.GetComponent<Image>().overrideSprite = cardDisplayInstance.cardsAvailable[cardChosenIndex].artwork;
 
         GameController.gameController.cardsInGameList.Add(cardDisplayInstance.cardsAvailable[cardChosenIndex]);
+
     }
 
     public void DrawCards(int cardsToDrawn, PhotonPlayer photonPlayer, int playerIndex)

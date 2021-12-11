@@ -325,17 +325,6 @@ public class RoomController : MonoBehaviourPunCallbacks
     public void DisableAvatarsTaken()
     {
         PV.RPC("RPC_DisableAvatarsTaken", RpcTarget.AllBuffered);
-        // PhotonPlayer[] playersInRoomCustom = FindObjectsOfType<PhotonPlayer>();
-        // CharacterType[] characterTypes = AvatarPreviewController.APC.characterTypes;
-        // foreach (PhotonPlayer playerInRoomCustom in playersInRoomCustom)
-        // {
-        //     if(playerInRoomCustom.PV.IsMine)
-        //     {
-        //         Debug.Log("playerInRoomCustom.mySelectedCharacter: " + playerInRoomCustom.mySelectedCharacter);
-        //         Debug.Log("characterTypes[playerInRoomCustom.mySelectedCharacter]: " + characterTypes[playerInRoomCustom.mySelectedCharacter]);
-        //         characterTypes[playerInRoomCustom.mySelectedCharacter].ChangeImageInButtonAvatar(characterTypes[playerInRoomCustom.mySelectedCharacter].selectedByMe);
-        //     }
-        // }     
     }
 
     [PunRPC]
