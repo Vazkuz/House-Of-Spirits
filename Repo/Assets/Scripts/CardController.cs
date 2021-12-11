@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class CardController : MonoBehaviour
 {
 
-    [SerializeField] int cardNumber;
-    [SerializeField] Card.CardSuit cardSuit;
+    public int cardNumber;
+    public Card.CardSuit cardSuit;
     Button thisCardButton;
     GameController gameController;
 
@@ -38,7 +38,7 @@ public class CardController : MonoBehaviour
         //     }
         // }
 
-        this.gameObject.GetComponent<RectTransform>().localPosition += new Vector3(0,0,0);
+        // this.gameObject.GetComponent<RectTransform>().localPosition += new Vector3(0,0,0);
 
         if(cardNumber == 8)
         {

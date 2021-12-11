@@ -34,6 +34,10 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         Debug.Log("Carta seleccionada");
         cardSelected = true;
         button.GetComponent<Animator>().Play("SelectionOn_Card");
+        if (eventData.selectedObject.GetComponent<CardController>().cardNumber == 8)
+        {
+            GameController.gameController.card8Options.SetActive(true);
+        }
     }
 
     public void OnDeselect(BaseEventData eventData)
@@ -41,7 +45,10 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         Debug.Log("Carta deseleccionada");
         cardSelected = false;
         button.GetComponent<Animator>().Play("HoverOff_Card");
-        StartCoroutine(WaitAndCancelCardSelection());
+        if (eventData.selectedObject.GetComponent<CardController>().cardNumber == 8)
+        {
+            GameController.gameController.card8Options.SetActive(false);
+        }
     }
 
     IEnumerator WaitAndCancelCardSelection()
