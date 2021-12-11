@@ -5733,9 +5733,29 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 56349373}
     - target: {fileID: 8263503189350133060, guid: 80db64f25f09dea418625ac011ba1a70, type: 3}
+      propertyPath: gameBackground
+      value: 
+      objectReference: {fileID: 1049219649}
+    - target: {fileID: 8263503189350133060, guid: 80db64f25f09dea418625ac011ba1a70, type: 3}
+      propertyPath: greenBackgroud
+      value: 
+      objectReference: {fileID: 21300000, guid: b3707f7f5b3f2964aa114405a19ba19a, type: 3}
+    - target: {fileID: 8263503189350133060, guid: 80db64f25f09dea418625ac011ba1a70, type: 3}
       propertyPath: openDeckButton
       value: 
       objectReference: {fileID: 1474464882}
+    - target: {fileID: 8263503189350133060, guid: 80db64f25f09dea418625ac011ba1a70, type: 3}
+      propertyPath: orangeBackgroud
+      value: 
+      objectReference: {fileID: 21300000, guid: bc2acd3555d510e438a3067f66dec9c7, type: 3}
+    - target: {fileID: 8263503189350133060, guid: 80db64f25f09dea418625ac011ba1a70, type: 3}
+      propertyPath: purpleBackgroud
+      value: 
+      objectReference: {fileID: 21300000, guid: 8dde439022d6deb4384cde0ecc5c32f9, type: 3}
+    - target: {fileID: 8263503189350133060, guid: 80db64f25f09dea418625ac011ba1a70, type: 3}
+      propertyPath: yellowBackgroud
+      value: 
+      objectReference: {fileID: 21300000, guid: cb8d7fcbb66989f45b8eb106c020fd51, type: 3}
     - target: {fileID: 8263503189350133060, guid: 80db64f25f09dea418625ac011ba1a70, type: 3}
       propertyPath: directionChanged
       value: 
@@ -5769,6 +5789,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1399772549}
     - target: {fileID: 8263503189350133060, guid: 80db64f25f09dea418625ac011ba1a70, type: 3}
+      propertyPath: gameBackgrounds.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8263503189350133060, guid: 80db64f25f09dea418625ac011ba1a70, type: 3}
       propertyPath: suitChosenGo.Array.data[0]
       value: 
       objectReference: {fileID: 2019168802}
@@ -5796,6 +5820,22 @@ PrefabInstance:
       propertyPath: kingPlayedAgainstYouMessage
       value: 
       objectReference: {fileID: 1451103661}
+    - target: {fileID: 8263503189350133060, guid: 80db64f25f09dea418625ac011ba1a70, type: 3}
+      propertyPath: gameBackgrounds.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 8dde439022d6deb4384cde0ecc5c32f9, type: 3}
+    - target: {fileID: 8263503189350133060, guid: 80db64f25f09dea418625ac011ba1a70, type: 3}
+      propertyPath: gameBackgrounds.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: b3707f7f5b3f2964aa114405a19ba19a, type: 3}
+    - target: {fileID: 8263503189350133060, guid: 80db64f25f09dea418625ac011ba1a70, type: 3}
+      propertyPath: gameBackgrounds.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: bc2acd3555d510e438a3067f66dec9c7, type: 3}
+    - target: {fileID: 8263503189350133060, guid: 80db64f25f09dea418625ac011ba1a70, type: 3}
+      propertyPath: gameBackgrounds.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: cb8d7fcbb66989f45b8eb106c020fd51, type: 3}
     - target: {fileID: 8263503189350133061, guid: 80db64f25f09dea418625ac011ba1a70, type: 3}
       propertyPath: m_RootOrder
       value: 4

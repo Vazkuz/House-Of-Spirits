@@ -34,6 +34,11 @@ public class GameController : MonoBehaviour
     [SerializeField] GameObject[] options8G0;
     public GameObject directionChanged;
     public int mySeat;
+    public Image gameBackground;
+    public Sprite greenBackgroud;
+    public Sprite orangeBackgroud;
+    public Sprite purpleBackgroud;
+    public Sprite yellowBackgroud;
 
     [Header("Messages")]
     [SerializeField] GameObject alreadyDrawnCardMessage;

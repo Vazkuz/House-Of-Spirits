@@ -313,6 +313,46 @@ public class PhotonPlayer : MonoBehaviour
                 cardPlayed.transform.localScale = new Vector3(1.5f, 1.5f, 0);
                 cardPlayed.GetComponent<Button>().enabled = false;
                 cardPlayed.name = playerCustom.myCards[cardChosenIndex].cardNumber.ToString() + " " + playerCustom.myCards[cardChosenIndex].cardSuit.ToString();
+                Debug.Log("Player the card: " + cardPlayed.name);
+                if(playerCustom.myCards[cardChosenIndex].cardNumber != 8)
+                {
+                    if(playerCustom.myCards[cardChosenIndex].cardSuit == Card.CardSuit.Green)
+                    {
+                        GameController.gameController.gameBackground.sprite = GameController.gameController.greenBackgroud;
+                    }
+                    else if(playerCustom.myCards[cardChosenIndex].cardSuit == Card.CardSuit.Orange)
+                    {
+                        GameController.gameController.gameBackground.sprite = GameController.gameController.orangeBackgroud;
+                    }
+                    else if(playerCustom.myCards[cardChosenIndex].cardSuit == Card.CardSuit.Purple)
+                    {
+                        GameController.gameController.gameBackground.sprite = GameController.gameController.purpleBackgroud;
+                    }
+                    else if(playerCustom.myCards[cardChosenIndex].cardSuit == Card.CardSuit.Yellow)
+                    {
+                        GameController.gameController.gameBackground.sprite = GameController.gameController.yellowBackgroud;
+                    }
+                }
+                else
+                {
+                    if(GameController.gameController.SuitChosen == 1)
+                    {
+                        GameController.gameController.gameBackground.sprite = GameController.gameController.orangeBackgroud;
+                    }
+                    else if(GameController.gameController.SuitChosen == 2)
+                    {
+                        GameController.gameController.gameBackground.sprite = GameController.gameController.yellowBackgroud;
+                    }
+                    else if(GameController.gameController.SuitChosen == 3)
+                    {
+                        GameController.gameController.gameBackground.sprite = GameController.gameController.greenBackgroud;
+                    }
+                    else if(GameController.gameController.SuitChosen == 4)
+                    {
+                        GameController.gameController.gameBackground.sprite = GameController.gameController.purpleBackgroud;
+                    }
+                }
+
                 if(playerCustom.GetComponent<PhotonView>().IsMine)
                 {
                     PV.RPC("UpdateCardsInGameList", RpcTarget.All, cardChosenIndex, playerIndex);
