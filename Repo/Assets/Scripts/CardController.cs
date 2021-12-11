@@ -30,13 +30,13 @@ public class CardController : MonoBehaviour
 
     void TaskOnClick()
     {
-        foreach(Transform child in gameController.myCards.transform)
-        {
-            if (child.GetComponent<CardController>() != this)
-            {
-                child.gameObject.GetComponent<Image>().color = new Color(0,0,0);
-            }
-        }
+        // foreach(Transform child in gameController.myCards.transform)
+        // {
+        //     if (child.GetComponent<CardController>() != this)
+        //     {
+        //         child.gameObject.GetComponent<Image>().color = new Color(0,0,0);
+        //     }
+        // }
 
         if(cardNumber == 8)
         {
