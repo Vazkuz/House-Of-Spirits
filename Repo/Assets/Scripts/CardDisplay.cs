@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class CardDisplay : MonoBehaviour
 {
-    [SerializeField] GameObject myDeckButton;
     [SerializeField] GameObject cardPrefab;
     [SerializeField] GameObject myCardsFolder;
     [SerializeField] float cardSpriteSize = 1.5f;
@@ -153,7 +152,6 @@ public class CardDisplay : MonoBehaviour
     [PunRPC]
     void RPC_AddToHand(int cardDrawnIndex, int playerIndex)
     {
-        myDeckButton.SetActive(true);
         foreach(PhotonPlayer playerCustom in FindObjectsOfType<PhotonPlayer>())
         {
             if (PhotonNetwork.PlayerList[playerIndex] == playerCustom.GetComponent<PhotonView>().Owner)

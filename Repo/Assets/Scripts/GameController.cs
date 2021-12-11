@@ -10,8 +10,6 @@ using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour
 {
     public static GameController gameController;
-    public GameObject deckCanvas;
-    [SerializeField] GameObject openDeckButton;
     public GameObject turnOptions;
     [SerializeField] GameObject cardOptions;
     [SerializeField] GameObject K13Options;
@@ -67,8 +65,6 @@ public class GameController : MonoBehaviour
         int currentScene = scene.buildIndex;
         if(currentScene == MultiplayerSettings.multiplayerSettings.gameScene)
         {
-            deckCanvas.SetActive(false);
-            openDeckButton.SetActive(false);
             cardOptions.SetActive(false);
             turnOptions.SetActive(false);
             K13Options.SetActive(false);
@@ -112,14 +108,10 @@ public class GameController : MonoBehaviour
 
     public void ViewDeck()
     {
-        deckCanvas.SetActive(true);
-        openDeckButton.SetActive(false);
     }
 
     public void CloseDeckOptions()
     {
-        deckCanvas.SetActive(false);
-        openDeckButton.SetActive(true);
     }
 
     public void QuitGame()
@@ -413,8 +405,6 @@ public class GameController : MonoBehaviour
     {
         if(!youNeedToPlay13)
         {
-            deckCanvas.SetActive(true);
-            openDeckButton.SetActive(true);
             kingPlayedAgainstYouMessage.text = "Someone played King against you. You have to either play another King or draw " 
                                                 + GameController.gameController.cardsToDraw + " cards.";
             K13Options.SetActive(true);
