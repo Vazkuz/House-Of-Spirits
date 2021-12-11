@@ -41,5 +41,19 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         Debug.Log("Carta deseleccionada");
         cardSelected = false;
         button.GetComponent<Animator>().Play("HoverOff_Card");
+        StartCoroutine(WaitAndCancelCardSelection());
+    }
+
+    IEnumerator WaitAndCancelCardSelection()
+    {
+        for(int i_frames = 0; i_frames < 8; i_frames++)
+        {
+            yield return null;
+        }
+        if (!GameController.gameController.attemptToPlayCard)
+        {
+            GameController.gameController.ToggleCardOptions(false);
+        }
+        GameController.gameController.attemptToPlayCard = false;
     }
 }

@@ -37,6 +37,8 @@ public class GameController : MonoBehaviour
     public Sprite orangeBackgroud;
     public Sprite purpleBackgroud;
     public Sprite yellowBackgroud;
+    public bool attemptToPlayCard = false;
+    [SerializeField] int fpsLimit = 60;
 
     [Header("Messages")]
     [SerializeField] GameObject alreadyDrawnCardMessage;
@@ -58,6 +60,8 @@ public class GameController : MonoBehaviour
         {
             gameController = this;
         }
+        Application.targetFrameRate = fpsLimit;
+
     }
     void Start()
     {
@@ -162,6 +166,7 @@ public class GameController : MonoBehaviour
 
     public void AttemptToPlayCard()
     {
+        attemptToPlayCard = true;
         int lastCardIndex = GameController.gameController.cardsInGameList.Count - 1;
         foreach (PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
         {
