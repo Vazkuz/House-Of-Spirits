@@ -38,6 +38,8 @@ public class CardController : MonoBehaviour
         //     }
         // }
 
+        this.gameObject.GetComponent<RectTransform>().localPosition += new Vector3(0,0,0);
+
         if(cardNumber == 8)
         {
             GameController.gameController.card8Options.SetActive(true);
