@@ -99,6 +99,7 @@ public class CardDisplay : MonoBehaviour
         }
 
         GameObject cardPlayed = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        cardPlayed.GetComponent<HoverButton>().enabled = false;
         cardPlayed.transform.SetParent(GameController.gameController.cardsInGame.transform, false);
         cardPlayed.name = cardDisplayInstance.cardsAvailable[cardChosenIndex].cardNumber.ToString() + " " 
                             + cardDisplayInstance.cardsAvailable[cardChosenIndex].cardSuit.ToString();
@@ -198,7 +199,7 @@ public class CardDisplay : MonoBehaviour
                 cardDrawn.GetComponent<CardController>().SetCardNumber(photonPlayer.myCards[photonPlayer.myCards.Count - 1].cardNumber);
 
                 // Setup the visuals
-                cardDrawn.GetComponent<Image>().overrideSprite = photonPlayer.myCards[photonPlayer.myCards.Count - 1].artwork;
+                cardDrawn.GetComponent<Image>().sprite = photonPlayer.myCards[photonPlayer.myCards.Count - 1].artwork;
             }
         }
     }

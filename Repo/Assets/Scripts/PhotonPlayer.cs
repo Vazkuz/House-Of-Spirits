@@ -309,9 +309,10 @@ public class PhotonPlayer : MonoBehaviour
             {
                 GameObject cardPlayed = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 cardPlayed.transform.SetParent(GameController.gameController.cardsInGame.transform, false);
-                cardPlayed.GetComponent<Image>().overrideSprite = playerCustom.myCards[cardChosenIndex].artwork;
+                cardPlayed.GetComponent<Image>().sprite = playerCustom.myCards[cardChosenIndex].artwork;
                 cardPlayed.transform.localScale = new Vector3(1f, 1f, 0);
                 cardPlayed.GetComponent<Button>().enabled = false;
+                cardPlayed.GetComponent<HoverButton>().enabled = false;
                 cardPlayed.name = playerCustom.myCards[cardChosenIndex].cardNumber.ToString() + " " + playerCustom.myCards[cardChosenIndex].cardSuit.ToString();
                 Debug.Log("Player the card: " + cardPlayed.name);
                 if(playerCustom.myCards[cardChosenIndex].cardNumber != 8)
