@@ -105,7 +105,7 @@ public class CardDisplay : MonoBehaviour
                             + cardDisplayInstance.cardsAvailable[cardChosenIndex].cardSuit.ToString();
 
         cardPlayed.transform.localScale = new Vector3(cardSpriteSize, cardSpriteSize, 0);
-        cardPlayed.transform.localScale = new Vector3(1.5f, 1.5f, 0);
+        cardPlayed.transform.localScale = new Vector3(1f, 1f, 0);
         cardPlayed.GetComponent<Button>().enabled = false;
                     
         // We configure it's number and suit. We'll use that info later for the game mechanics.
