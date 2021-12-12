@@ -5024,6 +5024,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8263503189350133060, guid: 80db64f25f09dea418625ac011ba1a70, type: 3}
+      propertyPath: playButton
+      value: 
+      objectReference: {fileID: 865575078}
+    - target: {fileID: 8263503189350133060, guid: 80db64f25f09dea418625ac011ba1a70, type: 3}
       propertyPath: cardOptions
       value: 
       objectReference: {fileID: 1173118936}

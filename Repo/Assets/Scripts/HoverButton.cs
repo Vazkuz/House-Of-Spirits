@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -38,7 +39,16 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         if (eventData.selectedObject.GetComponent<CardController>().cardNumber == 8)
         {
             GameController.gameController.card8Options.SetActive(true);
+            foreach (PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
+            {
+                if (photonPlayer.GetComponent<PhotonView>().IsMine
+                        && photonPlayer.GetComponent<PhotonView>().Owner == PhotonNetwork.PlayerList[GameController.gameController.currentTurn])
+                {
+                    GameController.gameController.cardChosenIndex8 = GameController.gameController.cardChosenIndex;
+                }
+            }
         }
+        StartCoroutine(YaNoQuieroHacerEsto2());
     }
 
     public void OnDeselect(BaseEventData eventData)
@@ -50,9 +60,26 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             StartCoroutine(YaNoQuieroHacerEsto());
         }
+        StartCoroutine(YaNoQuieroHacerEsto3());
     }
 
-    
+    IEnumerator YaNoQuieroHacerEsto2()
+    {
+        for(int i_frames = 0; i_frames < 10; i_frames++)
+        {
+            yield return null;
+        }
+        GameController.gameController.playButton.SetActive(true);
+    }
+
+    IEnumerator YaNoQuieroHacerEsto3()
+    {
+        for(int i_frames = 0; i_frames < 8; i_frames++)
+        {
+            yield return null;
+        }
+        GameController.gameController.playButton.SetActive(false);
+    }
 
     IEnumerator YaNoQuieroHacerEsto()
     {

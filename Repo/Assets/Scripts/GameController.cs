@@ -17,11 +17,13 @@ public class GameController : MonoBehaviour
     public GameObject myCards;
     public GameObject cardsInGame;
     public GameObject cardChosen;
+    public GameObject playButton;
     public GameObject[] suitChosenGo;
     public int SuitChosen;
     public int currentTurn = 0;
     public bool sequencePositive = true;
-    [SerializeField] int cardChosenIndex;
+    public int cardChosenIndex;
+    public int cardChosenIndex8;
     public bool IveDrawnACard = false;
     public bool youNeedToPlay13 = false;
     public bool ivePlayed8 = false;
@@ -38,6 +40,7 @@ public class GameController : MonoBehaviour
     public Sprite purpleBackgroud;
     public Sprite yellowBackgroud;
     public bool attemptToPlayCard = false;
+    public bool card8Selected = false;
     [SerializeField] int fpsLimit = 60;
 
     [Header("Messages")]
