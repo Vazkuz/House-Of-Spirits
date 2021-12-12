@@ -228,10 +228,10 @@ public class GameController : MonoBehaviour
 
     void PlayCardFromHand()
     {
-        foreach (Transform child in myCards.transform)
-        {
-            child.gameObject.GetComponent<Image>().color = new Color(1, 1, 1);
-        }
+        // foreach (Transform child in myCards.transform)
+        // {
+        //     child.gameObject.GetComponent<Image>().color = new Color(1, 1, 1);
+        // }
 
         foreach (PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
         {

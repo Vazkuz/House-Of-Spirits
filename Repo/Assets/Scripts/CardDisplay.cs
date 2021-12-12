@@ -215,7 +215,8 @@ public class CardDisplay : MonoBehaviour
                 {
                     if (photonPlayer.cardsIHave <= maxCardsPerRow)
                     {
-                        cardDrawn.transform.localPosition = new Vector3((maxCardsPerRow / 2 - drawIndex) * distanceBetweenCardsX, /*- distanceBetweenCardsY * multiplyBy*/ 0, 0);
+                        cardDrawn.gameObject.SetActive(true);
+                        cardDrawn.transform.localPosition = new Vector3(-((maxCardsPerRow / 2 - drawIndex) * distanceBetweenCardsX), 0, 0);
                     }
                     else
                     {
