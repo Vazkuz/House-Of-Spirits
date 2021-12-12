@@ -64,7 +64,7 @@ public class CardDisplay : MonoBehaviour
                 //Cuando encontremos al owner, lo usamos para instanciar todo
                 if (PhotonNetwork.PlayerList[playerIndex] == playerCustom.GetComponent<PhotonView>().Owner)
                 {
-                    DrawCards(cardsDrawnInitially, playerCustom, playerIndex);
+                    DrawCards(cardsDrawnInitially, playerCustom, playerIndex, true);
                 }
             }
         }
@@ -120,7 +120,7 @@ public class CardDisplay : MonoBehaviour
 
     }
 
-    public void DrawCards(int cardsToDrawn, PhotonPlayer photonPlayer, int playerIndex)
+    public void DrawCards(int cardsToDrawn, PhotonPlayer photonPlayer, int playerIndex, bool firstDraw)
     {
         if(cardDisplayInstance.cardsAvailable.Count == 0)
         {
@@ -131,7 +131,14 @@ public class CardDisplay : MonoBehaviour
         {
             int cardDrawnIndex = Random.Range(0, cardDisplayInstance.cardsAvailable.Count);
             PV.RPC("RPC_AddToHand",RpcTarget.All,cardDrawnIndex, playerIndex);
-            PV.RPC("SetupDrawnCard", RpcTarget.All,playerIndex, drawIndex);
+            if(firstDraw)
+            {
+                PV.RPC("SetupDrawnCard", RpcTarget.All,playerIndex, drawIndex);
+            }
+            else
+            {
+                PV.RPC("SetupDrawnCard", RpcTarget.All,playerIndex, photonPlayer.cardsIHave-1);
+            }
             PV.RPC("RPC_RemoveFromDeck",RpcTarget.All,cardDrawnIndex);
         }
     }

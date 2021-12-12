@@ -379,14 +379,14 @@ public class GameController : MonoBehaviour
                 {
                     if(youNeedToPlay13)
                     {
-                        CardDisplay.cardDisplayInstance.DrawCards(GameController.gameController.cardsToDraw, photonPlayer, GameController.gameController.currentTurn);
+                        CardDisplay.cardDisplayInstance.DrawCards(GameController.gameController.cardsToDraw, photonPlayer, GameController.gameController.currentTurn, false);
                         GameController.gameController.cardsToDraw = 0;
                         GameController.gameController.IveDrawnACard = false;
                         youNeedToPlay13 = false;
                     }
                     else
                     {
-                        CardDisplay.cardDisplayInstance.DrawCards(1, photonPlayer, GameController.gameController.currentTurn);
+                        CardDisplay.cardDisplayInstance.DrawCards(1, photonPlayer, GameController.gameController.currentTurn, false);
                     }
                 }
             }
@@ -434,7 +434,7 @@ public class GameController : MonoBehaviour
             if (PhotonNetwork.PlayerList[GameController.gameController.currentTurn] == photonPlayer.GetComponent<PhotonView>().Owner &&
                     photonPlayer.GetComponent<PhotonView>().IsMine)
             {
-                CardDisplay.cardDisplayInstance.DrawCards(GameController.gameController.cardsToDraw, photonPlayer, GameController.gameController.currentTurn); 
+                CardDisplay.cardDisplayInstance.DrawCards(GameController.gameController.cardsToDraw, photonPlayer, GameController.gameController.currentTurn, false); 
             }
         }
         GameController.gameController.cardsToDraw = 0;
