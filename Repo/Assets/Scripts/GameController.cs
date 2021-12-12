@@ -381,7 +381,7 @@ public class GameController : MonoBehaviour
     {
         if (!GameController.gameController.IveDrawnACard)
         {
-            if(!CardDisplay.cardDisplayInstance.rightButton.activeInHierarchy)
+            if(!CardDisplay.cardDisplayInstance.rightButton.activeInHierarchy && CardDisplay.cardDisplayInstance.myCardsFolder.transform.childCount >= CardDisplay.cardDisplayInstance.maxCardsPerRow)
             {
                 CardDisplay.cardDisplayInstance.rightButton.SetActive(true);
             }
