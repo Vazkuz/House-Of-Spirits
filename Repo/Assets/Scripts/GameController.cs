@@ -25,7 +25,7 @@ public class GameController : MonoBehaviour
     public bool IveDrawnACard = false;
     public bool youNeedToPlay13 = false;
     public bool ivePlayed8 = false;
-    public Card.CardSuit cardSuitChosen = 0;
+    public Card.CardSuit cardSuitChosen = Card.CardSuit.NoColor;
     public int cardsToDraw = 0;
     public List<Card> cardsInGameList;
     public bool isMyTurn = false;
@@ -447,11 +447,11 @@ public class GameController : MonoBehaviour
 
     public void IvePlayed8(int suitChosen)
     {
-        foreach(GameObject options8GOElement in GameController.gameController.options8G0)
-        {
-            options8GOElement.GetComponent<Image>().color = new Color(0,0,0);
-        }
-        options8G0[suitChosen-1].GetComponent<Image>().color = new Color(1,1,1);
+        // foreach(GameObject options8GOElement in GameController.gameController.options8G0)
+        // {
+        //     options8GOElement.GetComponent<Image>().color = new Color(0,0,0);
+        // }
+        // options8G0[suitChosen-1].GetComponent<Image>().color = new Color(1,1,1);
 
         if (suitChosen == 1)
         {

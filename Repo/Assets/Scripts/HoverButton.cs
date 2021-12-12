@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,22 +46,23 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         Debug.Log("Carta deseleccionada");
         cardSelected = false;
         button.GetComponent<Animator>().Play("HoverOff_Card");
-        if (eventData.selectedObject.GetComponent<CardController>().cardNumber == 8)
+        if(eventData.selectedObject.GetComponent<CardController>().cardNumber == 8)
         {
-            GameController.gameController.card8Options.SetActive(false);
+            StartCoroutine(YaNoQuieroHacerEsto());
         }
     }
 
-    IEnumerator WaitAndCancelCardSelection()
+    
+
+    IEnumerator YaNoQuieroHacerEsto()
     {
         for(int i_frames = 0; i_frames < 8; i_frames++)
         {
             yield return null;
         }
-        if (!GameController.gameController.attemptToPlayCard)
+        if (GameController.gameController.cardSuitChosen == Card.CardSuit.NoColor)
         {
-            GameController.gameController.ToggleCardOptions(false);
+            GameController.gameController.card8Options.SetActive(false);
         }
-        GameController.gameController.attemptToPlayCard = false;
     }
 }

@@ -11,9 +11,9 @@ public class CardDisplay : MonoBehaviour
     [SerializeField] float cardSpriteSize = 1.5f;
     [SerializeField] int maxPlayersJustOneDeck;
     public Vector3 cardLocalPosition;
-    public float distanceBetweenCardsX = 200f;
+    public float distanceBetweenCardsX = 360f;
     public float distanceBetweenCardsY = 300f;
-    public int maxCardsPerRow = 8;
+    public int maxCardsPerRow = 7;
     [SerializeField] int cardsDrawnInitially = 8;
     public List<Card> cardsAvailable;
     // List<Card> myCards = new List<Card>();
@@ -21,9 +21,11 @@ public class CardDisplay : MonoBehaviour
 
     // Instance
     public static CardDisplay cardDisplayInstance;
+    public int indexCardOnLeft = 0;
 
     void Awake()
     {
+        Debug.Log(7/2);
         if(cardDisplayInstance != null && cardDisplayInstance != this)
         {
             gameObject.SetActive(false);
@@ -129,7 +131,7 @@ public class CardDisplay : MonoBehaviour
         {
             int cardDrawnIndex = Random.Range(0, cardDisplayInstance.cardsAvailable.Count);
             PV.RPC("RPC_AddToHand",RpcTarget.All,cardDrawnIndex, playerIndex);
-            PV.RPC("SetupDrawnCard", RpcTarget.All,playerIndex);
+            PV.RPC("SetupDrawnCard", RpcTarget.All,playerIndex, drawIndex);
             PV.RPC("RPC_RemoveFromDeck",RpcTarget.All,cardDrawnIndex);
         }
     }
@@ -175,7 +177,7 @@ public class CardDisplay : MonoBehaviour
     }
 
     [PunRPC]
-    void SetupDrawnCard(int playerIndex)
+    void SetupDrawnCard(int playerIndex, int drawIndex)
     {
         foreach(PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
         {
@@ -184,15 +186,12 @@ public class CardDisplay : MonoBehaviour
             {
                 // Name and parenting of the card drawn. We parent it in a GO/folder to organize them easily. 
                 // GameObject cardDrawn = new GameObject(myCards[drawIndex].cardNumber.ToString() + " " + myCards[drawIndex].cardSuit.ToString());
-                GameObject cardDrawn = Instantiate(cardPrefab, new Vector3(0,0,0), Quaternion.identity);
+                GameObject cardDrawn = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 cardDrawn.transform.SetParent(myCardsFolder.transform, false);
-                cardDrawn.name = photonPlayer.myCards[photonPlayer.myCards.Count - 1].cardNumber.ToString() + " " 
+                cardDrawn.name = photonPlayer.myCards[photonPlayer.myCards.Count - 1].cardNumber.ToString() + " "
                                     + photonPlayer.myCards[photonPlayer.myCards.Count - 1].cardSuit.ToString();
 
                 cardDrawn.transform.localScale = new Vector3(cardSpriteSize, cardSpriteSize, 0);
-                int multiplyBy = (photonPlayer.GetNumberOfCards()-1)/maxCardsPerRow;
-                cardDrawn.transform.localPosition = cardLocalPosition + 
-                                    new Vector3(distanceBetweenCardsX * (photonPlayer.GetNumberOfCards() - 1 - multiplyBy * maxCardsPerRow), - distanceBetweenCardsY * multiplyBy, 0);
 
                 // We configure it's number and suit. We'll use that info later for the game mechanics.
                 cardDrawn.GetComponent<CardController>().SetCardSuit(photonPlayer.myCards[photonPlayer.myCards.Count - 1].cardSuit);
@@ -200,8 +199,30 @@ public class CardDisplay : MonoBehaviour
 
                 // Setup the visuals
                 cardDrawn.GetComponent<Image>().sprite = photonPlayer.myCards[photonPlayer.myCards.Count - 1].artwork;
+                ArrangeCards(drawIndex, cardDrawn);
             }
         }
     }
 
+    private void ArrangeCards(int drawIndex, GameObject cardDrawn)
+    {
+        for(int playerIndex = 0; playerIndex < PhotonNetwork.PlayerList.Length; playerIndex++)
+        {
+            foreach(PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
+            {
+                //Cuando encontremos al owner, lo usamos para instanciar todo
+                if (PhotonNetwork.PlayerList[playerIndex] == photonPlayer.GetComponent<PhotonView>().Owner && photonPlayer.GetComponent<PhotonView>().IsMine)
+                {
+                    if (photonPlayer.cardsIHave <= maxCardsPerRow)
+                    {
+                        cardDrawn.transform.localPosition = new Vector3((maxCardsPerRow / 2 - drawIndex) * distanceBetweenCardsX, /*- distanceBetweenCardsY * multiplyBy*/ 0, 0);
+                    }
+                    else
+                    {
+                        cardDrawn.gameObject.SetActive(false);
+                    }
+                }
+            }
+        }
+    }
 }

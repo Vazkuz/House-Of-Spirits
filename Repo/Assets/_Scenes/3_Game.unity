@@ -173,7 +173,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &56349374
 RectTransform:
   m_ObjectHideFlags: 0
@@ -194,7 +194,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 199}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &275936754
@@ -283,6 +283,7 @@ GameObject:
   - component: {fileID: 331745783}
   - component: {fileID: 331745786}
   - component: {fileID: 331745785}
+  - component: {fileID: 331745787}
   - component: {fileID: 331745784}
   m_Layer: 5
   m_Name: Yellow
@@ -329,7 +330,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -404,6 +405,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 331745782}
   m_CullTransparentMesh: 0
+--- !u!114 &331745787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331745782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18fbcb7fbe562af4c9c3f386b8654be2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &358312558
 GameObject:
   m_ObjectHideFlags: 0
@@ -682,6 +695,7 @@ GameObject:
   - component: {fileID: 477122101}
   - component: {fileID: 477122104}
   - component: {fileID: 477122103}
+  - component: {fileID: 477122105}
   - component: {fileID: 477122102}
   m_Layer: 5
   m_Name: Green
@@ -728,7 +742,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -803,6 +817,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 477122100}
   m_CullTransparentMesh: 0
+--- !u!114 &477122105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 477122100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18fbcb7fbe562af4c9c3f386b8654be2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &480627365
 GameObject:
   m_ObjectHideFlags: 0
@@ -2331,6 +2357,7 @@ GameObject:
   - component: {fileID: 951677313}
   - component: {fileID: 951677316}
   - component: {fileID: 951677315}
+  - component: {fileID: 951677317}
   - component: {fileID: 951677314}
   m_Layer: 5
   m_Name: Orange
@@ -2377,7 +2404,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -2452,6 +2479,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 951677312}
   m_CullTransparentMesh: 0
+--- !u!114 &951677317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 951677312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18fbcb7fbe562af4c9c3f386b8654be2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &952536850
 GameObject:
   m_ObjectHideFlags: 0
@@ -3072,11 +3111,12 @@ MonoBehaviour:
   cardSpriteSize: 1.5
   maxPlayersJustOneDeck: 2
   cardLocalPosition: {x: -700, y: 369, z: 0}
-  distanceBetweenCardsX: 200
+  distanceBetweenCardsX: 360
   distanceBetweenCardsY: 200
-  maxCardsPerRow: 8
+  maxCardsPerRow: 7
   cardsDrawnInitially: 8
   cardsAvailable: []
+  indexCardOnLeft: 0
 --- !u!114 &1194265084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3290,6 +3330,7 @@ GameObject:
   - component: {fileID: 1399772550}
   - component: {fileID: 1399772553}
   - component: {fileID: 1399772552}
+  - component: {fileID: 1399772554}
   - component: {fileID: 1399772551}
   m_Layer: 5
   m_Name: Purple
@@ -3336,7 +3377,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -3411,6 +3452,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1399772549}
   m_CullTransparentMesh: 0
+--- !u!114 &1399772554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399772549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18fbcb7fbe562af4c9c3f386b8654be2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1451103659
 GameObject:
   m_ObjectHideFlags: 0
@@ -4986,6 +5039,10 @@ PrefabInstance:
       propertyPath: card8Options
       value: 
       objectReference: {fileID: 56349373}
+    - target: {fileID: 8263503189350133060, guid: 80db64f25f09dea418625ac011ba1a70, type: 3}
+      propertyPath: cardSuitChosen
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8263503189350133060, guid: 80db64f25f09dea418625ac011ba1a70, type: 3}
       propertyPath: gameBackground
       value: 

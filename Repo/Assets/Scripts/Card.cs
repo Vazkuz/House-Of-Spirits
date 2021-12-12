@@ -6,7 +6,7 @@ using UnityEngine;
 public class Card : ScriptableObject 
 {
     [Range(1,13)] public int cardNumber;
-    public enum CardSuit {Orange /*Llama*/, Yellow /*Tigrillo*/, Green /*Jaguar*/, Purple /*Condor*/};
+    public enum CardSuit {Orange /*Llama*/, Yellow /*Tigrillo*/, Green /*Jaguar*/, Purple /*Condor*/, NoColor};
     public CardSuit cardSuit;
     public Sprite artwork;
 
