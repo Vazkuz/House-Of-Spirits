@@ -299,6 +299,15 @@ public class GameController : MonoBehaviour
                 }
             }
         }
+        // for(int childIndex = 0; childIndex < CardDisplay.cardDisplayInstance.myCardsFolder.transform.childCount; childIndex++)
+        // {
+        //     if(CardDisplay.cardDisplayInstance.myCardsFolder.transform.GetChild(childIndex).gameObject.activeInHierarchy)
+        //     {
+        //         CardDisplay.cardDisplayInstance.indexCardOnLeft = childIndex;
+        //         break;
+        //     }
+        // }
+        Debug.Log("La carta de la izquierda es... " + CardDisplay.cardDisplayInstance.indexCardOnLeft);
     }
 
     void GoToNextPlayerTurn(PhotonPlayer photonPlayer, int playerIndex)

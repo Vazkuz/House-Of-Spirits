@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class CardDisplay : MonoBehaviour
 {
     [SerializeField] GameObject cardPrefab;
-    [SerializeField] GameObject myCardsFolder;
+    public GameObject myCardsFolder;
     [SerializeField] float cardSpriteSize = 1.5f;
     [SerializeField] int maxPlayersJustOneDeck;
     public GameObject rightButton;

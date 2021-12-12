@@ -358,7 +358,8 @@ public class PhotonPlayer : MonoBehaviour
                 {
                     PV.RPC("UpdateCardsInGameList", RpcTarget.All, cardChosenIndex, playerIndex);
                     PV.RPC("SendRemoveCardOrder", RpcTarget.All, cardChosenIndex, playerIndex);
-                    StartCoroutine(ReorganizeCards(cardChosenIndex, playerCustom));
+                    Debug.Log("Se comienza a reorganizar: " + CardDisplay.cardDisplayInstance.indexCardOnLeft);
+                    StartCoroutine(ReorganizeCards(cardChosenIndex, playerCustom, CardDisplay.cardDisplayInstance.indexCardOnLeft, CardDisplay.cardDisplayInstance.indexCardOnLeft));
                 }
                 playerCustom.UpdateNumberOfCardsInDisplay(playerIndex, cardsPlayerHas.ToString());
                 if(cardsPlayerHas <= 0)
@@ -418,23 +419,25 @@ public class PhotonPlayer : MonoBehaviour
         }
     }
 
-    IEnumerator ReorganizeCards(int cardChosenIndex, PhotonPlayer playerCustom)
+    IEnumerator ReorganizeCards(int cardChosenIndex, PhotonPlayer playerCustom, int childIndex = 0, int extraCards = 0)
     {
         Destroy(GameController.gameController.myCards.transform.GetChild(cardChosenIndex).gameObject);
+        Debug.Log("Empiezo la reorganización desde la carta #" + childIndex);
+        Debug.Log("hasta la carta #"+CardDisplay.cardDisplayInstance.maxCardsPerRow + extraCards);
         yield return new WaitForEndOfFrame();
-        int childIndex = 0;
-        foreach (Transform child in GameController.gameController.myCards.transform)
+        // foreach (Transform child in GameController.gameController.myCards.transform)
+        for(int childIndexFor = childIndex; childIndexFor < GameController.gameController.myCards.transform.childCount; childIndexFor++)
         {
-            if (childIndex < CardDisplay.cardDisplayInstance.maxCardsPerRow)
+            Transform child = GameController.gameController.myCards.transform.GetChild(childIndexFor);
+            if (childIndex <= childIndexFor && childIndexFor < CardDisplay.cardDisplayInstance.maxCardsPerRow + extraCards)
             {
                 child.gameObject.SetActive(true);
-                child.localPosition = new Vector3(-((CardDisplay.cardDisplayInstance.maxCardsPerRow / 2 - childIndex) * CardDisplay.cardDisplayInstance.distanceBetweenCardsX), 0, 0);
+                child.localPosition = new Vector3(-((CardDisplay.cardDisplayInstance.maxCardsPerRow / 2 - (childIndexFor-childIndex)) * CardDisplay.cardDisplayInstance.distanceBetweenCardsX), 0, 0);
             }
             else
             {
                 child.gameObject.SetActive(false);
             }
-            childIndex++;
         }
     }
 }

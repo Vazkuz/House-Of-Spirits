@@ -9,7 +9,6 @@ using UnityEngine.UI;
 public class OptionHandler : MonoBehaviour
 {
     public GameObject optionCanvas;
-    [SerializeField] GameObject optionOpener;
     [SerializeField] GameObject turnOptions;
     [SerializeField] PUN2_Chat chatController;
     [SerializeField] GameObject secondBackground;
@@ -17,7 +16,6 @@ public class OptionHandler : MonoBehaviour
     void Start()
     {
         optionCanvas.SetActive(false);
-        optionOpener.SetActive(true);
         if(secondBackground)
         {
             secondBackground.SetActive(false);
@@ -27,7 +25,6 @@ public class OptionHandler : MonoBehaviour
     public void OpenOptions()
     {
         optionCanvas.SetActive(true);
-        optionOpener.SetActive(false);
         if(secondBackground)
         {
             secondBackground.SetActive(true);
@@ -72,7 +69,6 @@ public class OptionHandler : MonoBehaviour
     public void CloseOptions()
     {
         optionCanvas.SetActive(false);
-        optionOpener.SetActive(true);
         if(secondBackground)
         {
             secondBackground.SetActive(false);
