@@ -35,7 +35,8 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         Debug.Log("Carta seleccionada");
         cardSelected = true;
-        button.GetComponent<Animator>().Play("SelectionOn_Card");
+        button.GetComponent<Animator>().Play("SelectionOn_Image_0");
+        button.transform.GetChild(0).transform.GetComponent<Image>().sprite = button.GetComponent<Image>().sprite;
         if (eventData.selectedObject.GetComponent<CardController>().cardNumber == 8)
         {
             GameController.gameController.card8Options.SetActive(true);
