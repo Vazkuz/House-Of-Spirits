@@ -425,7 +425,7 @@ public class PhotonPlayer : MonoBehaviour
         int childIndex = 0;
         foreach (Transform child in GameController.gameController.myCards.transform)
         {
-            if (playerCustom.cardsIHave <= CardDisplay.cardDisplayInstance.maxCardsPerRow)
+            if (childIndex < CardDisplay.cardDisplayInstance.maxCardsPerRow)
             {
                 child.gameObject.SetActive(true);
                 child.localPosition = new Vector3(-((CardDisplay.cardDisplayInstance.maxCardsPerRow / 2 - childIndex) * CardDisplay.cardDisplayInstance.distanceBetweenCardsX), 0, 0);

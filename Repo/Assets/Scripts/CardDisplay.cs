@@ -10,6 +10,8 @@ public class CardDisplay : MonoBehaviour
     [SerializeField] GameObject myCardsFolder;
     [SerializeField] float cardSpriteSize = 1.5f;
     [SerializeField] int maxPlayersJustOneDeck;
+    public GameObject rightButton;
+    public GameObject leftButton;
     public Vector3 cardLocalPosition;
     public float distanceBetweenCardsX = 360f;
     public float distanceBetweenCardsY = 300f;
@@ -50,6 +52,7 @@ public class CardDisplay : MonoBehaviour
         {
             StartCoroutine(DealCards());
         }
+        leftButton.SetActive(false);
     }
 
     IEnumerator DealCards()
@@ -220,7 +223,7 @@ public class CardDisplay : MonoBehaviour
                 //Cuando encontremos al owner, lo usamos para instanciar todo
                 if (PhotonNetwork.PlayerList[playerIndex] == photonPlayer.GetComponent<PhotonView>().Owner && photonPlayer.GetComponent<PhotonView>().IsMine)
                 {
-                    if (photonPlayer.cardsIHave <= maxCardsPerRow)
+                    if (drawIndex < maxCardsPerRow)
                     {
                         cardDrawn.gameObject.SetActive(true);
                         cardDrawn.transform.localPosition = new Vector3(-((maxCardsPerRow / 2 - drawIndex) * distanceBetweenCardsX), 0, 0);
@@ -233,4 +236,73 @@ public class CardDisplay : MonoBehaviour
             }
         }
     }
+
+    public void MoveToRightCards()
+    {
+        indexCardOnLeft++;
+        for(int indexCard = 0; indexCard < indexCardOnLeft; indexCard++)
+        {
+            myCardsFolder.transform.GetChild(indexCard).gameObject.SetActive(false);
+        }
+
+        for(int indexCard = indexCardOnLeft; indexCard < myCardsFolder.transform.childCount; indexCard++)
+        {
+            Transform child = child = myCardsFolder.transform.GetChild(indexCard);
+            if (indexCard < CardDisplay.cardDisplayInstance.maxCardsPerRow + indexCardOnLeft)
+            {
+                child.gameObject.SetActive(true);
+                child.localPosition = new Vector3(-((CardDisplay.cardDisplayInstance.maxCardsPerRow / 2 - (indexCard-indexCardOnLeft)) * CardDisplay.cardDisplayInstance.distanceBetweenCardsX), 0, 0);
+            }
+            else
+            {
+                child.gameObject.SetActive(false);
+            }
+        }
+
+        if(indexCardOnLeft+maxCardsPerRow >= myCardsFolder.transform.childCount)
+        {
+            rightButton.gameObject.SetActive(false);
+        }
+
+        if(indexCardOnLeft > 0)
+        {
+            leftButton.gameObject.SetActive(true);
+        }
+
+    }
+
+    public void MoveToLefttCards()
+    {
+        indexCardOnLeft--;
+        for(int indexCard = 0; indexCard < indexCardOnLeft; indexCard++)
+        {
+            myCardsFolder.transform.GetChild(indexCard).gameObject.SetActive(false);
+        }
+
+        for(int indexCard = indexCardOnLeft; indexCard < myCardsFolder.transform.childCount; indexCard++)
+        {
+            Transform child = child = myCardsFolder.transform.GetChild(indexCard);
+            if (indexCard < CardDisplay.cardDisplayInstance.maxCardsPerRow + indexCardOnLeft)
+            {
+                child.gameObject.SetActive(true);
+                child.localPosition = new Vector3(-((CardDisplay.cardDisplayInstance.maxCardsPerRow / 2 - (indexCard-indexCardOnLeft)) * CardDisplay.cardDisplayInstance.distanceBetweenCardsX), 0, 0);
+            }
+            else
+            {
+                child.gameObject.SetActive(false);
+            }
+        }
+
+        if(indexCardOnLeft <= 0)
+        {
+            leftButton.gameObject.SetActive(false);
+        }       
+
+        if(indexCardOnLeft+maxCardsPerRow < myCardsFolder.transform.childCount)
+        {
+            rightButton.gameObject.SetActive(true);
+        }
+
+    }
+
 }

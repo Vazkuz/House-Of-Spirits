@@ -372,6 +372,10 @@ public class GameController : MonoBehaviour
     {
         if (!GameController.gameController.IveDrawnACard)
         {
+            if(!CardDisplay.cardDisplayInstance.rightButton.activeInHierarchy)
+            {
+                CardDisplay.cardDisplayInstance.rightButton.SetActive(true);
+            }
             foreach(PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
             {
                 if (PhotonNetwork.PlayerList[GameController.gameController.currentTurn] == photonPlayer.GetComponent<PhotonView>().Owner &&
