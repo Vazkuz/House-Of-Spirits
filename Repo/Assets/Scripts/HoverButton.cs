@@ -56,7 +56,7 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         Debug.Log("Carta deseleccionada");
         cardSelected = false;
-        button.GetComponent<Animator>().Play("HoverOff_Card");
+        button.GetComponent<Animator>().Play("SelectionOff_Image_0");
         if(eventData.selectedObject.GetComponent<CardController>().cardNumber == 8)
         {
             StartCoroutine(YaNoQuieroHacerEsto());
