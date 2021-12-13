@@ -294,6 +294,7 @@ public class GameController : MonoBehaviour
                             GoToNextPlayerTurn(photonPlayer, lookForPlayerIndex);
                         }
                         GameController.gameController.IveDrawnACard = false;
+                        GameController.gameController.playButton.SetActive(true);
                         photonPlayer.SendCardFromHandToTable(cardChosenIndex, lookForPlayerIndex);
                     }
                 }
@@ -404,6 +405,11 @@ public class GameController : MonoBehaviour
                 }
             }
             GameController.gameController.IveDrawnACard = true;
+            CardDisplay cardDisplay = CardDisplay.cardDisplayInstance;
+            if(!cardDisplay.myCardsFolder.transform.GetChild(cardDisplay.myCardsFolder.transform.childCount-1).gameObject.activeInHierarchy)
+            {
+                cardDisplay.rightButton.gameObject.SetActive(true);
+            }
         }
         else
         {

@@ -27,7 +27,6 @@ public class CardDisplay : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log(7/2);
         if(cardDisplayInstance != null && cardDisplayInstance != this)
         {
             gameObject.SetActive(false);
