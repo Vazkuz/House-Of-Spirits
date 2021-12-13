@@ -13,6 +13,7 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     void Start()
     {
         button.GetComponent<Animator>().Play("HoverOff_Card");
+        button.transform.GetChild(0).transform.GetComponent<Image>().sprite = button.GetComponent<Image>().sprite;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -36,7 +37,6 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         Debug.Log("Carta seleccionada");
         cardSelected = true;
         button.GetComponent<Animator>().Play("SelectionOn_Image_0");
-        button.transform.GetChild(0).transform.GetComponent<Image>().sprite = button.GetComponent<Image>().sprite;
         if (eventData.selectedObject.GetComponent<CardController>().cardNumber == 8)
         {
             GameController.gameController.card8Options.SetActive(true);
