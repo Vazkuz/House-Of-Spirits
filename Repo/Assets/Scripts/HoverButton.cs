@@ -36,7 +36,15 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         Debug.Log("Carta seleccionada");
         cardSelected = true;
-        button.GetComponent<Animator>().Play("SelectionOn_Image_0");
+        if(eventData.selectedObject.GetComponent<CardController>().positionInHand == 0)
+        {
+            button.GetComponent<Animator>().Play("SelectionOn_Image_0");
+        }
+        else if(eventData.selectedObject.GetComponent<CardController>().positionInHand == 1)
+        {
+            button.GetComponent<Animator>().Play("SelectionOn_Image_1");
+        }
+
         if (eventData.selectedObject.GetComponent<CardController>().cardNumber == 8)
         {
             GameController.gameController.card8Options.SetActive(true);
@@ -56,7 +64,15 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         Debug.Log("Carta deseleccionada");
         cardSelected = false;
-        button.GetComponent<Animator>().Play("SelectionOff_Image_0");
+        if(eventData.selectedObject.GetComponent<CardController>().positionInHand == 0)
+        {
+            button.GetComponent<Animator>().Play("SelectionOff_Image_0");
+        }
+        else if(eventData.selectedObject.GetComponent<CardController>().positionInHand == 1)
+        {
+            button.GetComponent<Animator>().Play("SelectionOff_Image_1");
+        }
+        
         if(eventData.selectedObject.GetComponent<CardController>().cardNumber == 8)
         {
             StartCoroutine(YaNoQuieroHacerEsto());
