@@ -10,6 +10,7 @@ public class CardController : MonoBehaviour
     public int cardNumber;
     public Card.CardSuit cardSuit;
     Button thisCardButton;
+    public int positionInHand;
     GameController gameController;
 
     void Start()

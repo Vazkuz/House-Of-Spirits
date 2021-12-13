@@ -227,6 +227,7 @@ public class CardDisplay : MonoBehaviour
                     {
                         cardDrawn.gameObject.SetActive(true);
                         cardDrawn.transform.localPosition = new Vector3(-((maxCardsPerRow / 2 - drawIndex) * distanceBetweenCardsX), 0, 0);
+                        cardDrawn.GetComponent<CardController>().positionInHand = drawIndex;
                     }
                     else
                     {
@@ -252,6 +253,7 @@ public class CardDisplay : MonoBehaviour
             {
                 child.gameObject.SetActive(true);
                 child.localPosition = new Vector3(-((CardDisplay.cardDisplayInstance.maxCardsPerRow / 2 - (indexCard-indexCardOnLeft)) * CardDisplay.cardDisplayInstance.distanceBetweenCardsX), 0, 0);
+                child.gameObject.GetComponent<CardController>().positionInHand = indexCard-indexCardOnLeft;
             }
             else
             {
@@ -286,6 +288,7 @@ public class CardDisplay : MonoBehaviour
             {
                 child.gameObject.SetActive(true);
                 child.localPosition = new Vector3(-((CardDisplay.cardDisplayInstance.maxCardsPerRow / 2 - (indexCard-indexCardOnLeft)) * CardDisplay.cardDisplayInstance.distanceBetweenCardsX), 0, 0);
+                child.gameObject.GetComponent<CardController>().positionInHand = indexCard-indexCardOnLeft;
             }
             else
             {

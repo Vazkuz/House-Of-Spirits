@@ -433,6 +433,7 @@ public class PhotonPlayer : MonoBehaviour
             {
                 child.gameObject.SetActive(true);
                 child.localPosition = new Vector3(-((CardDisplay.cardDisplayInstance.maxCardsPerRow / 2 - (childIndexFor-childIndex)) * CardDisplay.cardDisplayInstance.distanceBetweenCardsX), 0, 0);
+                child.gameObject.GetComponent<CardController>().positionInHand = childIndexFor-childIndex;
             }
             else
             {
