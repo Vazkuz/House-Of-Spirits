@@ -8,7 +8,7 @@ public class CardDisplay : MonoBehaviour
 {
     [SerializeField] GameObject cardPrefab;
     public GameObject myCardsFolder;
-    [SerializeField] float cardSpriteSize = 1.5f;
+    [SerializeField] float cardSpriteSize = 1f;
     [SerializeField] int maxPlayersJustOneDeck;
     public GameObject rightButton;
     public GameObject leftButton;
