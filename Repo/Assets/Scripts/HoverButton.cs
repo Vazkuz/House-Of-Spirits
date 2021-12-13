@@ -44,6 +44,18 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             button.GetComponent<Animator>().Play("SelectionOn_Image_1");
         }
+        else if(eventData.selectedObject.GetComponent<CardController>().positionInHand == 2)
+        {
+            button.GetComponent<Animator>().Play("SelectionOn_Image_2");
+        }
+        else if(eventData.selectedObject.GetComponent<CardController>().positionInHand == 3)
+        {
+            button.GetComponent<Animator>().Play("SelectionOn_Image_3");
+        }
+        else if(eventData.selectedObject.GetComponent<CardController>().positionInHand == 4)
+        {
+            button.GetComponent<Animator>().Play("SelectionOn_Image_4");
+        }
 
         if (eventData.selectedObject.GetComponent<CardController>().cardNumber == 8)
         {
@@ -71,6 +83,18 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         else if(eventData.selectedObject.GetComponent<CardController>().positionInHand == 1)
         {
             button.GetComponent<Animator>().Play("SelectionOff_Image_1");
+        }
+        else if(eventData.selectedObject.GetComponent<CardController>().positionInHand == 2)
+        {
+            button.GetComponent<Animator>().Play("SelectionOff_Image_2");
+        }
+        else if(eventData.selectedObject.GetComponent<CardController>().positionInHand == 3)
+        {
+            button.GetComponent<Animator>().Play("SelectionOff_Image_3");
+        }
+        else if(eventData.selectedObject.GetComponent<CardController>().positionInHand == 4)
+        {
+            button.GetComponent<Animator>().Play("SelectionOff_Image_4");
         }
         
         if(eventData.selectedObject.GetComponent<CardController>().cardNumber == 8)
