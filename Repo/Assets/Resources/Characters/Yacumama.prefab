@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1632753261633537098}
   - component: {fileID: 1632753261633537099}
   - component: {fileID: 1632753261633537092}
+  - component: {fileID: -3383716269771841418}
   - component: {fileID: 1632753261633537097}
   m_Layer: 5
   m_Name: Yacumama
@@ -133,6 +134,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &-3383716269771841418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632753261633537094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50b55cd0db1056f4fa9d0bac1b724ae5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1632753261633537097
 MonoBehaviour:
   m_ObjectHideFlags: 0

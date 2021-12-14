@@ -13,6 +13,7 @@ TagManager:
   - GodnameFrame
   - GodnameShow
   - PlayerWinText
+  - 8option
   layers:
   - Default
   - TransparentFX

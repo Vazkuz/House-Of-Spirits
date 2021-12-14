@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5741777295159131284}
   - component: {fileID: 5741777295159131285}
   - component: {fileID: 5741777295159132010}
+  - component: {fileID: -267791465739107673}
   - component: {fileID: 5741777295159131287}
   m_Layer: 5
   m_Name: Pachamama
@@ -133,6 +134,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &-267791465739107673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5741777295159132008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50b55cd0db1056f4fa9d0bac1b724ae5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5741777295159131287
 MonoBehaviour:
   m_ObjectHideFlags: 0
