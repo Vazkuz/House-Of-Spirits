@@ -62,8 +62,22 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 button.GetComponent<Animator>().Play("SelectionOff_Image_4");
             }
         }
+        StartCoroutine(WaitAndClear());
     }
 
+    IEnumerator WaitAndClear()
+    {
+        yield return null;
+        yield return null;        
+        yield return null;        
+        yield return null;        
+        yield return null;        
+        yield return null;        
+        yield return null;
+        yield return null;
+        yield return null;
+        GameController.gameController.ClearCardChosen();
+    }
 
     public void OnSelect(BaseEventData eventData)
     {

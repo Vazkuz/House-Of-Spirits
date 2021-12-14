@@ -113,6 +113,12 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void ClearCardChosen()
+    {
+        cardChosen = null;
+        cardChosenIndex = 0;
+    }
+
     public void ViewDeck()
     {
     }
