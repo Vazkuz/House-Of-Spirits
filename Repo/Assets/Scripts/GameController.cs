@@ -169,6 +169,7 @@ public class GameController : MonoBehaviour
 
     public void AttemptToPlayCard()
     {
+        Debug.Log("Card attempt");
         attemptToPlayCard = true;
         int lastCardIndex = GameController.gameController.cardsInGameList.Count - 1;
         foreach (PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())

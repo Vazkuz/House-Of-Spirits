@@ -17,7 +17,7 @@ public class CardController : MonoBehaviour
     {
         gameController = FindObjectOfType<GameController>();
         thisCardButton = GetComponent<Button>();
-        thisCardButton.onClick.AddListener(TaskOnClick);
+        // thisCardButton.onClick.AddListener(TaskOnClick);
     }
 
     public void SetCardNumber(int newCardNumber)

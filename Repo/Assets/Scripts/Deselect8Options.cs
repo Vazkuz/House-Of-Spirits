@@ -26,8 +26,8 @@ public class Deselect8Options : MonoBehaviour, ISelectHandler,IDeselectHandler
         GameController.gameController.cardSuitChosen = Card.CardSuit.NoColor;
         GameController.gameController.ivePlayed8 = false;
         GameController.gameController.card8Options.SetActive(false);
-        GameController.gameController.ToggleCardOptions(false);
-        GameController.gameController.playButton.SetActive(false);
+        GameController.gameController.ToggleCardOptions(false); //no lo necesito
+        GameController.gameController.playButton.SetActive(false); //no lo necesito
     }
 
     public void OnSelect(BaseEventData eventData)
