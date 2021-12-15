@@ -466,18 +466,22 @@ public class RoomController : MonoBehaviourPunCallbacks
             if (suitChosen == 1)
             {
                 GameController.gameController.cardSuitChosen = Card.CardSuit.Orange;
+                GameController.gameController.gameBackground.sprite = GameController.gameController.orangeBackgroud;
             }
             else if (suitChosen == 2)
             {
                 GameController.gameController.cardSuitChosen = Card.CardSuit.Yellow;
+                GameController.gameController.gameBackground.sprite = GameController.gameController.yellowBackgroud;
             }
             else if (suitChosen == 3)
             {
                 GameController.gameController.cardSuitChosen = Card.CardSuit.Green;
+                GameController.gameController.gameBackground.sprite = GameController.gameController.greenBackgroud;
             }
             else if (suitChosen == 4)
             {
                 GameController.gameController.cardSuitChosen = Card.CardSuit.Purple;
+                GameController.gameController.gameBackground.sprite = GameController.gameController.purpleBackgroud;
             }
             GameController.gameController.suitChosenGo[suitChosen-1].SetActive(true);
         }

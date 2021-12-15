@@ -295,7 +295,7 @@ public class PhotonPlayer : MonoBehaviour
         // }
     }
 
-    public void SendCardFromHandToTable(int cardChosenIndex, int playerIndex)
+    public void SendCardFromHandToTable(int cardChosenIndex, int playerIndex, Card.CardSuit cardSuitChosen = Card.CardSuit.NoColor)
     {
         PV.RPC("SendCardPlayedToAllPlayers", RpcTarget.All, cardChosenIndex, playerIndex, cardsIHave);
     }
