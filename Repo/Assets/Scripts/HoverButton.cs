@@ -10,24 +10,21 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 {
     [SerializeField] RectTransform button;
     bool cardSelected = false;
-    public int is8Selected = 0;
     void Start()
     {
-        Debug.Log("Start");
         button.GetComponent<Animator>().Play("HoverOff_Card");
         button.transform.GetChild(0).transform.GetComponent<Image>().sprite = button.GetComponent<Image>().sprite;
         foreach(GameObject option8 in GameObject.FindGameObjectsWithTag("8option"))
         {
             option8.GetComponent<Image>().enabled = false;
             option8.GetComponent<Button>().enabled = false;
-            option8.GetComponent<Button>().Select();
+            // option8.GetComponent<Button>().Select();
         }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("OnPointerEnter");
-        if(!cardSelected)
+        if(!cardSelected && !GameController.gameController.is8Selected)
         {
             button.GetComponent<Animator>().Play("HoverOn_Card");
         }
@@ -35,8 +32,7 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log("OnPointerExit");
-        if(!cardSelected)
+        if(!cardSelected && !GameController.gameController.is8Selected)
         {
             button.GetComponent<Animator>().Play("HoverOff_Card");
         }
@@ -44,30 +40,39 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void OnSelect(BaseEventData eventData)
     {
-        Debug.Log("OnSelect");
         cardSelected = true;
         GameController.gameController.SetCardChosen(eventData.selectedObject);
         if(eventData.selectedObject.GetComponent<CardController>())
         {
             PlayAnimation(eventData, "SelectionOn_Image_");
+            GameController.gameController.positionInHandChosen = eventData.selectedObject.GetComponent<CardController>().positionInHand;
         }
 
         if (eventData.selectedObject.GetComponent<CardController>().cardNumber == 8)
         {
+            GameController.gameController.is8Selected = true;
             foreach(GameObject option8 in GameObject.FindGameObjectsWithTag("8option"))
             {
                 option8.GetComponent<Image>().enabled = true;
                 option8.GetComponent<Button>().enabled = true;
-                option8.GetComponent<Button>().Select();
+                // option8.GetComponent<Button>().Select();
             }
-            is8Selected = 4;
+        }
+        else
+        {
+            GameController.gameController.is8Selected = false;
+            foreach(GameObject option8 in GameObject.FindGameObjectsWithTag("8option"))
+            {
+                option8.GetComponent<Image>().enabled = false;
+                option8.GetComponent<Button>().enabled = false;
+                // option8.GetComponent<Button>().Select();
+            }
         }
 
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
-        Debug.Log("OnDeselect");
         cardSelected = false;
         if(eventData.selectedObject.GetComponent<CardController>())
         {
@@ -82,7 +87,6 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     private void PlayAnimation(BaseEventData eventData, string animationPrefix)
     {
         button.GetComponent<Animator>().Play(animationPrefix + eventData.selectedObject.GetComponent<CardController>().positionInHand);
-
     }
 }
 

@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour
     public GameObject myCards;
     public GameObject cardsInGame;
     public GameObject cardChosen;
+    public int positionInHandChosen;
     public GameObject playButton;
     public GameObject[] suitChosenGo;
     public int SuitChosen;
@@ -27,6 +28,7 @@ public class GameController : MonoBehaviour
     public bool IveDrawnACard = false;
     public bool youNeedToPlay13 = false;
     public bool ivePlayed8 = false;
+    public bool is8Selected = false;
     public Card.CardSuit cardSuitChosen = Card.CardSuit.NoColor;
     public int cardsToDraw = 0;
     public List<Card> cardsInGameList;

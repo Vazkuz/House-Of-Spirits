@@ -26,6 +26,12 @@ public class PlayButton : MonoBehaviour, ISelectHandler, IDeselectHandler
             GameController.gameController.AttemptToPlayCard();
             //delete cardChosen
             GameController.gameController.ClearCardChosen();
+            foreach(GameObject option8 in GameObject.FindGameObjectsWithTag("8option"))
+            {
+                option8.GetComponent<Image>().enabled = false;
+                option8.GetComponent<Button>().enabled = false;
+                option8.GetComponent<Button>().Select();
+            }
         }
     }
 }
