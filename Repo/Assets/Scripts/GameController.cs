@@ -180,6 +180,7 @@ public class GameController : MonoBehaviour
 
     public void AttemptToPlayCard()
     {
+        Debug.Log(GameController.gameController.cardChosen);
         if(GameController.gameController.cardChosen)
         {
             Debug.Log("Card attempt");

@@ -279,13 +279,13 @@ public class RoomController : MonoBehaviourPunCallbacks
 
         if(currentScene == MultiplayerSettings.multiplayerSettings.gameScene)
         {
-            // Debug.Log("Entra aquí 1");
+            Debug.Log("Entra aquí 1");
             // if (PhotonNetwork.IsMasterClient)
             // {
             //     Debug.Log("Entra aquí 2");
             //     PV.RPC("RPC_CheckIfLefterWasPlaying", RpcTarget.All);
-                if (RoomController.room.isSomeonePlayingNow)
-                {
+                // if (RoomController.room.isSomeonePlayingNow)
+                // {
                     Debug.Log("Entra aquí 3");
                     if (GameController.gameController.sequencePositive)
                     {
@@ -300,7 +300,7 @@ public class RoomController : MonoBehaviourPunCallbacks
                         }
                         RoomController.room.PrepareSendingPlayerSequence(true, false, 0, GameController.gameController.currentTurn);
                     }
-                }
+                // }
             // }
             StartCoroutine(ChangeLefterAvatarToDisconnected());
         }
