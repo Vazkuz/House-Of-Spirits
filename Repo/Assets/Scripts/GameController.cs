@@ -327,6 +327,23 @@ public class GameController : MonoBehaviour
         //     }
         // }
         Debug.Log("La carta de la izquierda es... " + CardDisplay.cardDisplayInstance.indexCardOnLeft);
+
+        int cardsShown2 = 0;
+        for(int childIndex = 0; childIndex < CardDisplay.cardDisplayInstance.myCardsFolder.transform.childCount; childIndex++)
+        {
+            if(CardDisplay.cardDisplayInstance.myCardsFolder.transform.GetChild(childIndex).gameObject.activeInHierarchy)
+            {
+                cardsShown2++;
+            }
+        }
+        if(CardDisplay.cardDisplayInstance.rightButton.activeInHierarchy || cardsShown2 >= CardDisplay.cardDisplayInstance.maxCardsPerRow)
+        {
+            CardDisplay.cardDisplayInstance.rightButton.SetActive(true);
+        }
+        else
+        {
+            CardDisplay.cardDisplayInstance.rightButton.SetActive(false);
+        }
     }
 
     void GoToNextPlayerTurn(PhotonPlayer photonPlayer, int playerIndex)
@@ -400,9 +417,23 @@ public class GameController : MonoBehaviour
     {
         if (!GameController.gameController.IveDrawnACard)
         {
-            if(!CardDisplay.cardDisplayInstance.rightButton.activeInHierarchy && CardDisplay.cardDisplayInstance.myCardsFolder.transform.childCount > CardDisplay.cardDisplayInstance.maxCardsPerRow)
+            int cardsShown = 0;
+            for(int childIndex = 0; childIndex < CardDisplay.cardDisplayInstance.myCardsFolder.transform.childCount; childIndex++)
+            {
+                if(CardDisplay.cardDisplayInstance.myCardsFolder.transform.GetChild(childIndex).gameObject.activeInHierarchy)
+                {
+                    cardsShown++;
+                }
+            }
+            Debug.Log("Actualmente hay " + cardsShown + " cartas activas");
+            //!CardDisplay.cardDisplayInstance.rightButton.activeInHierarchy && 
+            if(CardDisplay.cardDisplayInstance.rightButton.activeInHierarchy || cardsShown >= CardDisplay.cardDisplayInstance.maxCardsPerRow)
             {
                 CardDisplay.cardDisplayInstance.rightButton.SetActive(true);
+            }
+            else
+            {
+                CardDisplay.cardDisplayInstance.rightButton.SetActive(false);
             }
             foreach(PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
             {

@@ -139,9 +139,62 @@ public class CardDisplay : MonoBehaviour
             }
             else
             {
-                PV.RPC("SetupDrawnCard", RpcTarget.All,playerIndex, photonPlayer.cardsIHave-1);
+                int cardsShown = 0;
+                for(int childIndex = 0; childIndex < myCardsFolder.transform.childCount; childIndex++)
+                {
+                    if(myCardsFolder.transform.GetChild(childIndex).gameObject.activeInHierarchy)
+                    {
+                        cardsShown++;
+                    }
+                }
+                PV.RPC("SetupDrawnCard", RpcTarget.All,playerIndex, cardsShown);//photonPlayer.cardsIHave-1);
             }
             PV.RPC("RPC_RemoveFromDeck",RpcTarget.All,cardDrawnIndex);
+        }
+
+        int cardsShown2 = 0;
+        for(int childIndex = 0; childIndex < CardDisplay.cardDisplayInstance.myCardsFolder.transform.childCount; childIndex++)
+        {
+            if(CardDisplay.cardDisplayInstance.myCardsFolder.transform.GetChild(childIndex).gameObject.activeInHierarchy)
+            {
+                cardsShown2++;
+            }
+        }
+        if(rightButton.activeInHierarchy || cardsShown2 >= CardDisplay.cardDisplayInstance.maxCardsPerRow)
+        {
+            CardDisplay.cardDisplayInstance.rightButton.SetActive(true);
+        }
+        else
+        {
+            CardDisplay.cardDisplayInstance.rightButton.SetActive(false);
+        }
+    }
+
+    [PunRPC]
+    void SetupDrawnCard(int playerIndex, int drawIndex)
+    {
+        foreach(PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
+        {
+            //Cuando encontremos al owner, lo usamos para instanciar todo
+            if (PhotonNetwork.PlayerList[playerIndex] == photonPlayer.GetComponent<PhotonView>().Owner && photonPlayer.GetComponent<PhotonView>().IsMine)
+            {
+                // Name and parenting of the card drawn. We parent it in a GO/folder to organize them easily. 
+                // GameObject cardDrawn = new GameObject(myCards[drawIndex].cardNumber.ToString() + " " + myCards[drawIndex].cardSuit.ToString());
+                GameObject cardDrawn = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                cardDrawn.transform.SetParent(myCardsFolder.transform, false);
+                cardDrawn.name = photonPlayer.myCards[photonPlayer.myCards.Count - 1].cardNumber.ToString() + " "
+                                    + photonPlayer.myCards[photonPlayer.myCards.Count - 1].cardSuit.ToString();
+
+                cardDrawn.transform.localScale = new Vector3(cardSpriteSize, cardSpriteSize, 0);
+
+                // We configure it's number and suit. We'll use that info later for the game mechanics.
+                cardDrawn.GetComponent<CardController>().SetCardSuit(photonPlayer.myCards[photonPlayer.myCards.Count - 1].cardSuit);
+                cardDrawn.GetComponent<CardController>().SetCardNumber(photonPlayer.myCards[photonPlayer.myCards.Count - 1].cardNumber);
+
+                // Setup the visuals
+                cardDrawn.GetComponent<Image>().sprite = photonPlayer.myCards[photonPlayer.myCards.Count - 1].artwork;
+                ArrangeCards(drawIndex, cardDrawn);
+            }
         }
     }
 
@@ -183,34 +236,6 @@ public class CardDisplay : MonoBehaviour
     {
         // Debug.Log("Card to remove: " + instance.cardsAvailable[cardDrawnIndex]);
         cardDisplayInstance.cardsAvailable.Remove(cardDisplayInstance.cardsAvailable[cardDrawnIndex]);
-    }
-
-    [PunRPC]
-    void SetupDrawnCard(int playerIndex, int drawIndex)
-    {
-        foreach(PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
-        {
-            //Cuando encontremos al owner, lo usamos para instanciar todo
-            if (PhotonNetwork.PlayerList[playerIndex] == photonPlayer.GetComponent<PhotonView>().Owner && photonPlayer.GetComponent<PhotonView>().IsMine)
-            {
-                // Name and parenting of the card drawn. We parent it in a GO/folder to organize them easily. 
-                // GameObject cardDrawn = new GameObject(myCards[drawIndex].cardNumber.ToString() + " " + myCards[drawIndex].cardSuit.ToString());
-                GameObject cardDrawn = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                cardDrawn.transform.SetParent(myCardsFolder.transform, false);
-                cardDrawn.name = photonPlayer.myCards[photonPlayer.myCards.Count - 1].cardNumber.ToString() + " "
-                                    + photonPlayer.myCards[photonPlayer.myCards.Count - 1].cardSuit.ToString();
-
-                cardDrawn.transform.localScale = new Vector3(cardSpriteSize, cardSpriteSize, 0);
-
-                // We configure it's number and suit. We'll use that info later for the game mechanics.
-                cardDrawn.GetComponent<CardController>().SetCardSuit(photonPlayer.myCards[photonPlayer.myCards.Count - 1].cardSuit);
-                cardDrawn.GetComponent<CardController>().SetCardNumber(photonPlayer.myCards[photonPlayer.myCards.Count - 1].cardNumber);
-
-                // Setup the visuals
-                cardDrawn.GetComponent<Image>().sprite = photonPlayer.myCards[photonPlayer.myCards.Count - 1].artwork;
-                ArrangeCards(drawIndex, cardDrawn);
-            }
-        }
     }
 
     private void ArrangeCards(int drawIndex, GameObject cardDrawn)
