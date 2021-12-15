@@ -77,7 +77,7 @@ public class SeatsController : MonoBehaviour
             if (PhotonNetwork.IsMasterClient)
             {
                 int initial = (seats.Length - PhotonNetwork.CurrentRoom.PlayerCount - 1)/2;
-                int final = initial + PhotonNetwork.CurrentRoom.PlayerCount - 1;
+                int final = initial + PhotonNetwork.CurrentRoom.PlayerCount;
                 int seatChosen = Random.Range(initial, final);
 
                 for (int playerIndex = 0; playerIndex < PhotonNetwork.PlayerList.Length; playerIndex++)
@@ -89,9 +89,9 @@ public class SeatsController : MonoBehaviour
                             if(playerIndex > 0)
                             {
                                 seatChosen++;
-                                if(seatChosen >= seats.Length)
+                                if(seatChosen >= final - 1)
                                 {
-                                    seatChosen = 0;
+                                    seatChosen = initial;
                                 }
                             }
                             Debug.Log("El jugador " + PhotonNetwork.PlayerList[playerIndex].NickName + " ocupará el sitio " + seatChosen);
