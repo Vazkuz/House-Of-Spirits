@@ -135,6 +135,9 @@ GameObject:
   - component: {fileID: 109244524}
   - component: {fileID: 109244523}
   - component: {fileID: 109244522}
+  - component: {fileID: 109244525}
+  - component: {fileID: 109244527}
+  - component: {fileID: 109244526}
   m_Layer: 5
   m_Name: Join room button
   m_TagString: Untagged
@@ -180,7 +183,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0, g: 0, b: 0, a: 0.2509804}
@@ -255,6 +258,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 109244520}
   m_CullTransparentMesh: 0
+--- !u!114 &109244525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 109244520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 619e5d829d0b69e428ef151fa807162a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &109244526
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 109244520}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b1e172bf3922fbf429c71e7fbd505312, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &109244527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 109244520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7860494ae15746448b600782ddc37de3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverOnClip: {fileID: 7400000, guid: 2532ed70d0643f84f950e096137be439, type: 2}
+  hoverOffClip: {fileID: 7400000, guid: df612a559886ba14b892e076a79ae812, type: 2}
+  selectionOnClip: {fileID: 7400000, guid: 7091c7b37d46357498fc8c12ccd8f165, type: 2}
 --- !u!1 &120756048
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,6 +316,9 @@ GameObject:
   - component: {fileID: 120756052}
   - component: {fileID: 120756051}
   - component: {fileID: 120756050}
+  - component: {fileID: 120756053}
+  - component: {fileID: 120756055}
+  - component: {fileID: 120756054}
   m_Layer: 5
   m_Name: Tutorial button
   m_TagString: Untagged
@@ -312,7 +364,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0, g: 0, b: 0, a: 0.2509804}
@@ -336,19 +388,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 120756051}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1185614301}
-        m_TargetAssemblyTypeName: LobbyController, Assembly-CSharp
-        m_MethodName: QuitGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &120756051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,6 +427,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 120756048}
   m_CullTransparentMesh: 0
+--- !u!114 &120756053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120756048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 619e5d829d0b69e428ef151fa807162a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &120756054
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120756048}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b1e172bf3922fbf429c71e7fbd505312, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &120756055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120756048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7860494ae15746448b600782ddc37de3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverOnClip: {fileID: 7400000, guid: 2532ed70d0643f84f950e096137be439, type: 2}
+  hoverOffClip: {fileID: 7400000, guid: df612a559886ba14b892e076a79ae812, type: 2}
+  selectionOnClip: {fileID: 7400000, guid: 7091c7b37d46357498fc8c12ccd8f165, type: 2}
 --- !u!1 &185523494
 GameObject:
   m_ObjectHideFlags: 0
@@ -919,6 +1005,8 @@ GameObject:
   - component: {fileID: 524521753}
   - component: {fileID: 524521752}
   - component: {fileID: 524521751}
+  - component: {fileID: 524521754}
+  - component: {fileID: 524521755}
   m_Layer: 5
   m_Name: Join!
   m_TagString: Untagged
@@ -965,7 +1053,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 0, g: 0, b: 0, a: 0.16862746}
     m_HighlightedColor: {r: 0, g: 0, b: 0, a: 0.2509804}
@@ -1040,6 +1128,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 524521749}
   m_CullTransparentMesh: 0
+--- !u!114 &524521754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524521749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7860494ae15746448b600782ddc37de3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverOnClip: {fileID: 7400000, guid: 2532ed70d0643f84f950e096137be439, type: 2}
+  hoverOffClip: {fileID: 7400000, guid: df612a559886ba14b892e076a79ae812, type: 2}
+  selectionOnClip: {fileID: 7400000, guid: 7091c7b37d46357498fc8c12ccd8f165, type: 2}
+--- !u!95 &524521755
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524521749}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b1e172bf3922fbf429c71e7fbd505312, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &617454365
 GameObject:
   m_ObjectHideFlags: 0
@@ -2765,6 +2887,8 @@ GameObject:
   - component: {fileID: 1707744940}
   - component: {fileID: 1707744939}
   - component: {fileID: 1707744938}
+  - component: {fileID: 1707744941}
+  - component: {fileID: 1707744942}
   m_Layer: 5
   m_Name: Create!
   m_TagString: Untagged
@@ -2811,7 +2935,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 0, g: 0, b: 0, a: 0.16862746}
     m_HighlightedColor: {r: 0, g: 0, b: 0, a: 0.2509804}
@@ -2886,6 +3010,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1707744936}
   m_CullTransparentMesh: 0
+--- !u!114 &1707744941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707744936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7860494ae15746448b600782ddc37de3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverOnClip: {fileID: 7400000, guid: 2532ed70d0643f84f950e096137be439, type: 2}
+  hoverOffClip: {fileID: 7400000, guid: df612a559886ba14b892e076a79ae812, type: 2}
+  selectionOnClip: {fileID: 7400000, guid: 7091c7b37d46357498fc8c12ccd8f165, type: 2}
+--- !u!95 &1707744942
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707744936}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b1e172bf3922fbf429c71e7fbd505312, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1802058963
 GameObject:
   m_ObjectHideFlags: 0
@@ -3328,6 +3486,8 @@ GameObject:
   - component: {fileID: 2068057729}
   - component: {fileID: 2068057728}
   - component: {fileID: 2068057727}
+  - component: {fileID: 2068057730}
+  - component: {fileID: 2068057731}
   m_Layer: 5
   m_Name: Back button
   m_TagString: Untagged
@@ -3374,7 +3534,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 0, g: 0, b: 0, a: 0.16862746}
     m_HighlightedColor: {r: 0, g: 0, b: 0, a: 0.2509804}
@@ -3449,6 +3609,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2068057725}
   m_CullTransparentMesh: 0
+--- !u!114 &2068057730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2068057725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7860494ae15746448b600782ddc37de3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverOnClip: {fileID: 7400000, guid: 2532ed70d0643f84f950e096137be439, type: 2}
+  hoverOffClip: {fileID: 7400000, guid: df612a559886ba14b892e076a79ae812, type: 2}
+  selectionOnClip: {fileID: 7400000, guid: 7091c7b37d46357498fc8c12ccd8f165, type: 2}
+--- !u!95 &2068057731
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2068057725}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b1e172bf3922fbf429c71e7fbd505312, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2073250274
 GameObject:
   m_ObjectHideFlags: 0
@@ -3502,6 +3696,9 @@ GameObject:
   - component: {fileID: 2091085871}
   - component: {fileID: 2091085870}
   - component: {fileID: 2091085869}
+  - component: {fileID: 2091085874}
+  - component: {fileID: 2091085873}
+  - component: {fileID: 2091085872}
   m_Layer: 5
   m_Name: Create room button
   m_TagString: Untagged
@@ -3547,7 +3744,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0, g: 0, b: 0, a: 0.2509804}
@@ -3622,3 +3819,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2091085867}
   m_CullTransparentMesh: 0
+--- !u!95 &2091085872
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2091085867}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b1e172bf3922fbf429c71e7fbd505312, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2091085873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2091085867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7860494ae15746448b600782ddc37de3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverOnClip: {fileID: 7400000, guid: 2532ed70d0643f84f950e096137be439, type: 2}
+  hoverOffClip: {fileID: 7400000, guid: df612a559886ba14b892e076a79ae812, type: 2}
+  selectionOnClip: {fileID: 7400000, guid: 7091c7b37d46357498fc8c12ccd8f165, type: 2}
+--- !u!114 &2091085874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2091085867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 619e5d829d0b69e428ef151fa807162a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -64,7 +64,13 @@ public class LobbyController : MonoBehaviourPunCallbacks
     //It is also needed to disable all other UI elements.
     public void ActivateRoomCreation()
     {
-        foreach(Button button in buttons)
+        StartCoroutine(RoomCreationCoroutine());
+    }
+
+    IEnumerator RoomCreationCoroutine()
+    {
+        yield return new WaitForSeconds(0.1f);
+        foreach (Button button in buttons)
         {
             GameObject buttonGameObject = button.gameObject;
             buttonGameObject.SetActive(false);
@@ -78,8 +84,14 @@ public class LobbyController : MonoBehaviourPunCallbacks
     //It is important to say that the player can also create the room without any password.
     public void CreateRoom()
     {
+        StartCoroutine(CreateRoomCoroutine());
+    }
+
+    IEnumerator CreateRoomCoroutine()
+    {
+        yield return new WaitForSeconds(0.1f);
         //The name of the room is taken by concatenating a random capital letter and 3 random digits.
-        string roomName = (char)('A'+Random.Range(0, 26))+Random.Range(100,1000).ToString();
+        string roomName = (char)('A' + Random.Range(0, 26)) + Random.Range(100, 1000).ToString();
         PhotonNetwork.CreateRoom(roomName);// PhotonNetwork.CreateRoom(roomName);
     }
 
@@ -94,7 +106,13 @@ public class LobbyController : MonoBehaviourPunCallbacks
     //It is also needed to disable all other UI elements.
     public void ActivateRoomJoin()
     {
-        foreach(Button button in buttons)
+        StartCoroutine(ActivateRoomJoinCoroutine());
+    }
+
+    IEnumerator ActivateRoomJoinCoroutine()
+    {
+        yield return new WaitForSeconds(0.1f);
+        foreach (Button button in buttons)
         {
             GameObject buttonGameObject = button.gameObject;
             buttonGameObject.SetActive(false);
@@ -108,6 +126,12 @@ public class LobbyController : MonoBehaviourPunCallbacks
     //This public method will be called by the Joinning button below the Input Fields of name and password.
     public void JoinRoomRequest()
     {
+        StartCoroutine(JoinRoomRequestCoroutine());
+    }
+
+    IEnumerator JoinRoomRequestCoroutine()
+    {
+        yield return new WaitForSeconds(0.1f);
         passwordAttempt = roomPasswordInputField.GetComponent<InputFieldController>().inputText;
         string roomName = roomNameInputField.GetComponent<InputFieldController>().inputText;
         PhotonNetwork.JoinRoom(roomName);
@@ -116,7 +140,13 @@ public class LobbyController : MonoBehaviourPunCallbacks
     //Just a method to activate main menu buttons while deactivating the rest of the UI elements.
     public void ShowMainMenuButtons()
     {
-        foreach(Button button in buttons)
+        StartCoroutine(ShowMainMenuButtonsCoroutine());
+    }
+
+    IEnumerator ShowMainMenuButtonsCoroutine()
+    {
+        yield return new WaitForSeconds(0.1f);
+        foreach (Button button in buttons)
         {
             GameObject buttonGameObject = button.gameObject;
             buttonGameObject.SetActive(true);

@@ -4019,6 +4019,8 @@ GameObject:
   - component: {fileID: 844306744}
   - component: {fileID: 844306743}
   - component: {fileID: 844306746}
+  - component: {fileID: 844306748}
+  - component: {fileID: 844306747}
   m_Layer: 5
   m_Name: Arrow Right Button
   m_TagString: Untagged
@@ -4043,7 +4045,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 181.3, y: -12.504}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &844306743
 MonoBehaviour:
@@ -4064,7 +4066,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.95294124, g: 0.9176471, b: 0.4, a: 1}
@@ -4151,6 +4153,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 619e5d829d0b69e428ef151fa807162a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &844306747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 844306741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7860494ae15746448b600782ddc37de3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverOnClip: {fileID: 7400000, guid: 2532ed70d0643f84f950e096137be439, type: 2}
+  hoverOffClip: {fileID: 7400000, guid: df612a559886ba14b892e076a79ae812, type: 2}
+  selectionOnClip: {fileID: 7400000, guid: 7091c7b37d46357498fc8c12ccd8f165, type: 2}
+--- !u!95 &844306748
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 844306741}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b1e172bf3922fbf429c71e7fbd505312, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &878698724
 GameObject:
   m_ObjectHideFlags: 0
@@ -8063,7 +8099,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   optionCanvas: {fileID: 1748263176}
-  optionOpener: {fileID: 178358792}
   turnOptions: {fileID: 0}
   chatController: {fileID: 175688090}
   secondBackground: {fileID: 1098971283}
@@ -8080,6 +8115,8 @@ GameObject:
   - component: {fileID: 1771566181}
   - component: {fileID: 1771566180}
   - component: {fileID: 1771566183}
+  - component: {fileID: 1771566185}
+  - component: {fileID: 1771566184}
   m_Layer: 5
   m_Name: Arrow Left Button
   m_TagString: Untagged
@@ -8104,7 +8141,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -405.3, y: -12.504}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1771566180
 MonoBehaviour:
@@ -8125,7 +8162,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9529412, g: 0.91764706, b: 0.4, a: 1}
@@ -8212,6 +8249,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 619e5d829d0b69e428ef151fa807162a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1771566184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771566178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7860494ae15746448b600782ddc37de3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverOnClip: {fileID: 7400000, guid: 2532ed70d0643f84f950e096137be439, type: 2}
+  hoverOffClip: {fileID: 7400000, guid: df612a559886ba14b892e076a79ae812, type: 2}
+  selectionOnClip: {fileID: 7400000, guid: 7091c7b37d46357498fc8c12ccd8f165, type: 2}
+--- !u!95 &1771566185
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771566178}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b1e172bf3922fbf429c71e7fbd505312, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1772158695
 GameObject:
   m_ObjectHideFlags: 0
