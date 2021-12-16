@@ -2117,7 +2117,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.3773585, g: 0.36489853, b: 0.36489853, a: 1}
@@ -2321,7 +2321,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.3773585, g: 0.36489853, b: 0.36489853, a: 1}
@@ -4603,7 +4603,6 @@ MonoBehaviour:
   - {fileID: 542791686}
   - {fileID: 480627367}
   - {fileID: 1200377874}
-  avatarScaleInGame: 1.6
   playerOffsetY: -84
 --- !u!114 &1742826365
 MonoBehaviour:
@@ -4861,7 +4860,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.3773585, g: 0.36489853, b: 0.36489853, a: 1}
@@ -5304,7 +5303,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.3773585, g: 0.36489853, b: 0.36489853, a: 1}

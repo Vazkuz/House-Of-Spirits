@@ -451,7 +451,13 @@ public class GameController : MonoBehaviour
                         CardDisplay.cardDisplayInstance.DrawCards(GameController.gameController.cardsToDraw, photonPlayer, GameController.gameController.currentTurn, false);
                         GameController.gameController.cardsToDraw = 0;
                         GameController.gameController.IveDrawnACard = false;
-                        youNeedToPlay13 = false;
+                        youNeedToPlay13 = false;            
+
+                        CardDisplay cardDisplay = CardDisplay.cardDisplayInstance;
+                        if(!cardDisplay.myCardsFolder.transform.GetChild(cardDisplay.myCardsFolder.transform.childCount-1).gameObject.activeInHierarchy)
+                        {
+                            cardDisplay.rightButton.gameObject.SetActive(true);
+                        }
                     }
                     else
                     {
@@ -460,11 +466,6 @@ public class GameController : MonoBehaviour
                 }
             }
             GameController.gameController.IveDrawnACard = true;
-            CardDisplay cardDisplay = CardDisplay.cardDisplayInstance;
-            if(!cardDisplay.myCardsFolder.transform.GetChild(cardDisplay.myCardsFolder.transform.childCount-1).gameObject.activeInHierarchy)
-            {
-                cardDisplay.rightButton.gameObject.SetActive(true);
-            }
         }
         else
         {

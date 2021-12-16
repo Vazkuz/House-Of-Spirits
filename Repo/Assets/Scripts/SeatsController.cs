@@ -9,7 +9,6 @@ public class SeatsController : MonoBehaviour
     public Seat[] seats;
     public static SeatsController currentSC;
     PhotonView PV;
-    [SerializeField] float avatarScaleInGame = 1.6f;
     [SerializeField] int playerOffsetY = -84;
 
     void Awake()
