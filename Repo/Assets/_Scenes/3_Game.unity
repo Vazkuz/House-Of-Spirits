@@ -417,6 +417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18fbcb7fbe562af4c9c3f386b8654be2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firstTime: 1
 --- !u!1 &358312558
 GameObject:
   m_ObjectHideFlags: 0
@@ -987,6 +988,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18fbcb7fbe562af4c9c3f386b8654be2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firstTime: 1
 --- !u!1 &480627365
 GameObject:
   m_ObjectHideFlags: 0
@@ -2068,6 +2070,8 @@ GameObject:
   - component: {fileID: 828454435}
   - component: {fileID: 828454434}
   - component: {fileID: 828454433}
+  - component: {fileID: 828454437}
+  - component: {fileID: 828454436}
   m_Layer: 5
   m_Name: Quit match Button
   m_TagString: Untagged
@@ -2188,6 +2192,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 828454431}
   m_CullTransparentMesh: 0
+--- !u!114 &828454436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828454431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7860494ae15746448b600782ddc37de3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverOnClip: {fileID: 7400000, guid: 2532ed70d0643f84f950e096137be439, type: 2}
+  hoverOffClip: {fileID: 7400000, guid: df612a559886ba14b892e076a79ae812, type: 2}
+  selectionOnClip: {fileID: 7400000, guid: 7091c7b37d46357498fc8c12ccd8f165, type: 2}
+--- !u!95 &828454437
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828454431}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b1e172bf3922fbf429c71e7fbd505312, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &834555809
 GameObject:
   m_ObjectHideFlags: 0
@@ -2236,6 +2274,8 @@ GameObject:
   - component: {fileID: 865575081}
   - component: {fileID: 865575080}
   - component: {fileID: 865575083}
+  - component: {fileID: 865575084}
+  - component: {fileID: 865575085}
   m_Layer: 5
   m_Name: PlayCard Button
   m_TagString: Untagged
@@ -2357,6 +2397,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstTime: 1
+--- !u!95 &865575084
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865575078}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b1e172bf3922fbf429c71e7fbd505312, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &865575085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865575078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7860494ae15746448b600782ddc37de3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverOnClip: {fileID: 7400000, guid: 2532ed70d0643f84f950e096137be439, type: 2}
+  hoverOffClip: {fileID: 7400000, guid: df612a559886ba14b892e076a79ae812, type: 2}
+  selectionOnClip: {fileID: 7400000, guid: 7091c7b37d46357498fc8c12ccd8f165, type: 2}
 --- !u!1 &873532542
 GameObject:
   m_ObjectHideFlags: 0
@@ -2678,6 +2752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18fbcb7fbe562af4c9c3f386b8654be2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firstTime: 1
 --- !u!1 &952536850
 GameObject:
   m_ObjectHideFlags: 0
@@ -3844,6 +3919,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18fbcb7fbe562af4c9c3f386b8654be2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firstTime: 1
 --- !u!1 &1451103659
 GameObject:
   m_ObjectHideFlags: 0
@@ -4738,6 +4814,8 @@ GameObject:
   - component: {fileID: 1942759904}
   - component: {fileID: 1942759903}
   - component: {fileID: 1942759906}
+  - component: {fileID: 1942759907}
+  - component: {fileID: 1942759908}
   m_Layer: 5
   m_Name: Pass Turn
   m_TagString: Untagged
@@ -4870,6 +4948,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50b55cd0db1056f4fa9d0bac1b724ae5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1942759907
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1942759901}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b1e172bf3922fbf429c71e7fbd505312, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1942759908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1942759901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7860494ae15746448b600782ddc37de3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverOnClip: {fileID: 7400000, guid: 2532ed70d0643f84f950e096137be439, type: 2}
+  hoverOffClip: {fileID: 7400000, guid: df612a559886ba14b892e076a79ae812, type: 2}
+  selectionOnClip: {fileID: 7400000, guid: 7091c7b37d46357498fc8c12ccd8f165, type: 2}
 --- !u!114 &1968370158 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6094001382586164816, guid: c350802ab86cee043ab75bfc10f0b74e, type: 3}
@@ -5145,6 +5257,8 @@ GameObject:
   - component: {fileID: 2049597669}
   - component: {fileID: 2049597668}
   - component: {fileID: 2049597671}
+  - component: {fileID: 2049597672}
+  - component: {fileID: 2049597673}
   m_Layer: 5
   m_Name: Draw Card
   m_TagString: Untagged
@@ -5277,6 +5391,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50b55cd0db1056f4fa9d0bac1b724ae5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &2049597672
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049597666}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b1e172bf3922fbf429c71e7fbd505312, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2049597673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049597666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7860494ae15746448b600782ddc37de3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverOnClip: {fileID: 7400000, guid: 2532ed70d0643f84f950e096137be439, type: 2}
+  hoverOffClip: {fileID: 7400000, guid: df612a559886ba14b892e076a79ae812, type: 2}
+  selectionOnClip: {fileID: 7400000, guid: 7091c7b37d46357498fc8c12ccd8f165, type: 2}
 --- !u!1 &2050811203
 GameObject:
   m_ObjectHideFlags: 0

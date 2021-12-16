@@ -47,6 +47,12 @@ public class GameSetup : MonoBehaviour
 
     public void StartGame()
     {
+        StartCoroutine(StartGameCoroutine());
+    }
+
+    IEnumerator StartGameCoroutine()
+    {
+        yield return new WaitForSeconds(0.1f);
         //Only the master client can start the game
         if (PhotonNetwork.IsMasterClient)
         {

@@ -26,6 +26,9 @@ public class GenericButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnSelect(BaseEventData eventData)
     {
-        animator.Play(selectionOnClip.name);
+        if(animator)
+        {
+            animator.Play(selectionOnClip.name);
+        }
     }
 }

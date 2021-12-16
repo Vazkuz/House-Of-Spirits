@@ -24,8 +24,15 @@ public class OptionHandler : MonoBehaviour
     
     public void OpenOptions()
     {
+        StartCoroutine(OpenOptionsCoroutine());
+
+    }
+
+    IEnumerator OpenOptionsCoroutine()
+    {
+        yield return new WaitForSeconds(0.1f);
         optionCanvas.SetActive(true);
-        if(secondBackground)
+        if (secondBackground)
         {
             secondBackground.SetActive(true);
         }
@@ -34,23 +41,22 @@ public class OptionHandler : MonoBehaviour
             turnOptions.SetActive(false);
         }
 
-        foreach(GameObject nicknameShow in GameObject.FindGameObjectsWithTag("NicknameInput"))
+        foreach (GameObject nicknameShow in GameObject.FindGameObjectsWithTag("NicknameInput"))
         {
             nicknameShow.GetComponent<NicknameInputController>().enabled = true;
         }
 
         RoomController.room.DisableAvatarsTaken();
-        if(chatController)
+        if (chatController)
         {
             chatController.gameObject.SetActive(false);
         }
 
-        if(SceneManager.GetActiveScene().buildIndex == MultiplayerSettings.multiplayerSettings.roomScene)
+        if (SceneManager.GetActiveScene().buildIndex == MultiplayerSettings.multiplayerSettings.roomScene)
         {
             StateInitialAnimation();
             AvatarPreviewController.APC.previousSelection = AvatarPreviewController.APC.currentAnimation;
         }
-
     }
 
     void StateInitialAnimation()
@@ -68,14 +74,20 @@ public class OptionHandler : MonoBehaviour
 
     public void CloseOptions()
     {
+        StartCoroutine(CloseOptionsCoroutine());
+    }
+
+    IEnumerator CloseOptionsCoroutine()
+    {
+        yield return new WaitForSeconds(0.1f);
         optionCanvas.SetActive(false);
-        if(secondBackground)
+        if (secondBackground)
         {
             secondBackground.SetActive(false);
         }
         if (turnOptions)
         {
-            foreach(PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
+            foreach (PhotonPlayer photonPlayer in FindObjectsOfType<PhotonPlayer>())
             {
                 if (PhotonNetwork.PlayerList[GameController.gameController.currentTurn] == photonPlayer.GetComponent<PhotonView>().Owner &&
                         photonPlayer.GetComponent<PhotonView>().IsMine)
@@ -85,12 +97,12 @@ public class OptionHandler : MonoBehaviour
             }
         }
 
-        foreach(GameObject nicknameShow in GameObject.FindGameObjectsWithTag("NicknameInput"))
+        foreach (GameObject nicknameShow in GameObject.FindGameObjectsWithTag("NicknameInput"))
         {
             nicknameShow.GetComponent<NicknameInputController>().enabled = false;
         }
 
-        if(chatController)
+        if (chatController)
         {
             chatController.gameObject.SetActive(true);
         }

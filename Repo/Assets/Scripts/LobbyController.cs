@@ -84,12 +84,6 @@ public class LobbyController : MonoBehaviourPunCallbacks
     //It is important to say that the player can also create the room without any password.
     public void CreateRoom()
     {
-        StartCoroutine(CreateRoomCoroutine());
-    }
-
-    IEnumerator CreateRoomCoroutine()
-    {
-        yield return new WaitForSeconds(0.1f);
         //The name of the room is taken by concatenating a random capital letter and 3 random digits.
         string roomName = (char)('A' + Random.Range(0, 26)) + Random.Range(100, 1000).ToString();
         PhotonNetwork.CreateRoom(roomName);// PhotonNetwork.CreateRoom(roomName);
@@ -126,12 +120,6 @@ public class LobbyController : MonoBehaviourPunCallbacks
     //This public method will be called by the Joinning button below the Input Fields of name and password.
     public void JoinRoomRequest()
     {
-        StartCoroutine(JoinRoomRequestCoroutine());
-    }
-
-    IEnumerator JoinRoomRequestCoroutine()
-    {
-        yield return new WaitForSeconds(0.1f);
         passwordAttempt = roomPasswordInputField.GetComponent<InputFieldController>().inputText;
         string roomName = roomNameInputField.GetComponent<InputFieldController>().inputText;
         PhotonNetwork.JoinRoom(roomName);
