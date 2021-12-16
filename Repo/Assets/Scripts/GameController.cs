@@ -265,9 +265,9 @@ public class GameController : MonoBehaviour
                     {
                         photonPlayer.LoseCardsFromHand();
                         cardOptions.SetActive(false);
-                        if(youNeedToPlay13)
+                        if (youNeedToPlay13)
                         {
-                            if(photonPlayer.myCards[cardChosenIndex].cardNumber != 13)
+                            if (photonPlayer.myCards[cardChosenIndex].cardNumber != 13)
                             {
                                 InstantlyDraw13();
                             }
@@ -277,24 +277,24 @@ public class GameController : MonoBehaviour
                             }
                             youNeedToPlay13 = false;
                         }
-                        if(photonPlayer.myCards[cardChosenIndex].cardNumber == 12)
+                        if (photonPlayer.myCards[cardChosenIndex].cardNumber == 12)
                         {
                             TogglePositivenessOfSequence();
                         }
-                        if(photonPlayer.myCards[cardChosenIndex].cardNumber == 8)
+                        if (photonPlayer.myCards[cardChosenIndex].cardNumber == 8)
                         {
-                            foreach(GameObject options8GOElement in GameController.gameController.options8G0)
+                            foreach (GameObject options8GOElement in GameController.gameController.options8G0)
                             {
-                                options8GOElement.GetComponent<Image>().color = new Color(1,1,1);
+                                options8GOElement.GetComponent<Image>().color = new Color(1, 1, 1);
                             }
                             //GameController.gameController.card8Options.SetActive(false);
                             RoomController.room.SendCardChosen8(true, SuitChosen);
                         }
-                        if(photonPlayer.myCards[cardChosenIndex].cardNumber != 2)
+                        if (photonPlayer.myCards[cardChosenIndex].cardNumber != 2)
                         {
-                            if(photonPlayer.myCards[cardChosenIndex].cardNumber == 11)
+                            if (photonPlayer.myCards[cardChosenIndex].cardNumber == 11)
                             {
-                                if(GameController.gameController.sequencePositive)
+                                if (GameController.gameController.sequencePositive)
                                 {
                                     GameController.gameController.currentTurn++;
                                 }
@@ -328,16 +328,21 @@ public class GameController : MonoBehaviour
         //     }
         // }
         Debug.Log("La carta de la izquierda es... " + CardDisplay.cardDisplayInstance.indexCardOnLeft);
+        StartCoroutine(WaitAndCheckArrow());
+    }
 
+    IEnumerator WaitAndCheckArrow()
+    {
+        yield return null;
         int cardsShown2 = 0;
-        for(int childIndex = 0; childIndex < CardDisplay.cardDisplayInstance.myCardsFolder.transform.childCount; childIndex++)
+        for (int childIndex = 0; childIndex < CardDisplay.cardDisplayInstance.myCardsFolder.transform.childCount; childIndex++)
         {
-            if(CardDisplay.cardDisplayInstance.myCardsFolder.transform.GetChild(childIndex).gameObject.activeInHierarchy)
+            if (CardDisplay.cardDisplayInstance.myCardsFolder.transform.GetChild(childIndex).gameObject.activeInHierarchy)
             {
                 cardsShown2++;
             }
         }
-        if(CardDisplay.cardDisplayInstance.rightButton.activeInHierarchy || cardsShown2 >= CardDisplay.cardDisplayInstance.maxCardsPerRow)
+        if (CardDisplay.cardDisplayInstance.rightButton.activeInHierarchy || cardsShown2 >= CardDisplay.cardDisplayInstance.maxCardsPerRow)
         {
             CardDisplay.cardDisplayInstance.rightButton.SetActive(true);
         }
