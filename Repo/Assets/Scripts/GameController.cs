@@ -67,6 +67,7 @@ public class GameController : MonoBehaviour
             gameController = this;
         }
         Application.targetFrameRate = fpsLimit;
+        DontDestroyOnLoad(this.gameObject);
 
     }
     void Start()
