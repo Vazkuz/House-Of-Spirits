@@ -329,7 +329,10 @@ public class GameController : MonoBehaviour
         //     }
         // }
         Debug.Log("La carta de la izquierda es... " + CardDisplay.cardDisplayInstance.indexCardOnLeft);
-        StartCoroutine(WaitAndCheckArrow());
+        if(RoomController.room.currentScene == MultiplayerSettings.multiplayerSettings.gameScene)
+        {
+            StartCoroutine(WaitAndCheckArrow());
+        }
     }
 
     IEnumerator WaitAndCheckArrow()
