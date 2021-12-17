@@ -3569,7 +3569,7 @@ MonoBehaviour:
   distanceBetweenCardsX: 360
   distanceBetweenCardsY: 200
   maxCardsPerRow: 5
-  cardsDrawnInitially: 1
+  cardsDrawnInitially: 8
   cardsAvailable: []
   indexCardOnLeft: 0
 --- !u!114 &1194265084
