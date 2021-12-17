@@ -86,6 +86,16 @@ public class RoomController : MonoBehaviourPunCallbacks
         }
     }
 
+    [PunRPC]
+    void RPC_ShowWhoWon(string nickName, int indexWinner)
+    {
+        RoomController.room.indexOfWinner = indexWinner;
+        RoomController.room.nickNameOfWinner = nickName;
+        RoomController.room.PlayerWon = GameObject.FindGameObjectWithTag("PlayerWinText").GetComponent<TMP_Text>();
+        PlayerWon.text = RoomController.room.nickNameOfWinner; // + "\nWins!\n" + indexWinner;
+        GameController.gameController.winAnimator.SetInteger("Winner", RoomController.room.indexOfWinner);
+    }
+
     public void PrepareSendingPlayerSequence(bool isUpdate, bool makeNextPlayerDraw, int cardsToDraw, int playerIndex)
     {
         if(!isUpdate)
@@ -499,13 +509,4 @@ public class RoomController : MonoBehaviourPunCallbacks
     {
         GameSetup.GS.GoToGameEndedScene();
     }
-    
-    [PunRPC]
-    void RPC_ShowWhoWon(string nickName, int indexWinner)
-    {
-        // RoomController.room.PlayerWon = GameObject.FindGameObjectWithTag("PlayerWinText").GetComponent<TMP_Text>();
-        // PlayerWon.text = nickName + "\nWins!\n" + indexWinner;
-        GameController.gameController.winAnimator.SetInteger("Winner", indexWinner);
-    }
-
 }

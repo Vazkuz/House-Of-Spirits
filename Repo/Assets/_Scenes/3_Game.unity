@@ -2488,7 +2488,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You need to choose a suit before playing an 8
+  m_text: You need to choose a Suyo before playing a Wiracocha
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2da98d808b2af6643a4ba1ddb84a3efc, type: 2}
   m_sharedMaterial: {fileID: 8419130492076721747, guid: 2da98d808b2af6643a4ba1ddb84a3efc, type: 2}
@@ -3569,7 +3569,7 @@ MonoBehaviour:
   distanceBetweenCardsX: 360
   distanceBetweenCardsY: 200
   maxCardsPerRow: 5
-  cardsDrawnInitially: 8
+  cardsDrawnInitially: 1
   cardsAvailable: []
   indexCardOnLeft: 0
 --- !u!114 &1194265084
@@ -3977,7 +3977,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Someone played King against you. You have to either play another King
+  m_text: 'Someone played Supay against you. You have to either play another Supay
     or draw '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2da98d808b2af6643a4ba1ddb84a3efc, type: 2}
@@ -4463,8 +4463,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You cannot play this card. Must be same suit as chosen by last player (or
-    an 8)
+  m_text: You cannot play this card. Must be same Suyo as chosen by last player (or
+    a Wiracocha)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2da98d808b2af6643a4ba1ddb84a3efc, type: 2}
   m_sharedMaterial: {fileID: 8419130492076721747, guid: 2da98d808b2af6643a4ba1ddb84a3efc, type: 2}
@@ -5547,7 +5547,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You cannot play this card. Must be same suit or number (or an 8)
+  m_text: You cannot play this card. Must be same Suyo or Spirit (or a Wiracocha)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2da98d808b2af6643a4ba1ddb84a3efc, type: 2}
   m_sharedMaterial: {fileID: 8419130492076721747, guid: 2da98d808b2af6643a4ba1ddb84a3efc, type: 2}

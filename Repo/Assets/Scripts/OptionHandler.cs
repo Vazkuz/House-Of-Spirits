@@ -15,7 +15,11 @@ public class OptionHandler : MonoBehaviour
     
     void Start()
     {
-        optionCanvas.SetActive(false);
+        if(optionCanvas)
+        {
+            optionCanvas.SetActive(false);
+        }
+    
         if(secondBackground)
         {
             secondBackground.SetActive(false);
