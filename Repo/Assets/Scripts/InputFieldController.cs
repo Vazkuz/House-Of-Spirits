@@ -9,6 +9,7 @@ public class InputFieldController : MonoBehaviour
     public string inputText;
     TMP_InputField inputField = null;
     [SerializeField] bool onlyCapitalLetters = false;
+    [SerializeField] bool isPlaceholderHideOnSelect;
 
     void Start()
     {
@@ -29,6 +30,27 @@ public class InputFieldController : MonoBehaviour
     public void ChangeInputText(string newText)
     {
         inputText = newText;
+    }
+
+    
+
+    public void OnInputFieldSelect()
+    {
+        if (this.isPlaceholderHideOnSelect == true)
+        {
+            this.inputField.placeholder.gameObject.SetActive(false);
+        }
+    }
+
+    /// <summary>
+    /// The input field deselect
+    /// </summary>
+    public void OnInputFieldDeselect()
+    {
+        if (this.isPlaceholderHideOnSelect == true)
+        {
+            this.inputField.placeholder.gameObject.SetActive(true);
+        }
     }
 
 }
