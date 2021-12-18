@@ -33,6 +33,7 @@ public class GameController : MonoBehaviour
     public int cardsToDraw = 0;
     public List<Card> cardsInGameList;
     public bool isMyTurn = false;
+    public Animator cardDrawn;
     [SerializeField] GameObject[] options8G0;
     public GameObject directionChanged;
     public int mySeat;
@@ -427,6 +428,7 @@ public class GameController : MonoBehaviour
     {
         if (!GameController.gameController.IveDrawnACard)
         {
+            cardDrawn.Play("Draw");
             int cardsShown = 0;
             for(int childIndex = 0; childIndex < CardDisplay.cardDisplayInstance.myCardsFolder.transform.childCount; childIndex++)
             {
