@@ -10,10 +10,23 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 {
     [SerializeField] RectTransform button;
     bool cardSelected = false;
+    int cardsShown;
+    void Awake()
+    {
+        cardsShown = 0;
+        for(int childIndex = 0; childIndex < CardDisplay.cardDisplayInstance.myCardsFolder.transform.childCount; childIndex++)
+        {
+            if(CardDisplay.cardDisplayInstance.myCardsFolder.transform.GetChild(childIndex).gameObject.activeInHierarchy)
+            {
+                cardsShown++;
+            }
+        }
+    }
     void Start()
     {
-        button.GetComponent<Animator>().Play("HoverOff_Card");
         button.transform.GetChild(0).transform.GetComponent<Image>().sprite = button.GetComponent<Image>().sprite;
+        // button.GetComponent<Animator>().Play("HoverOff_Card");
+        button.GetComponent<Animator>().Play("Draw_" + cardsShown);
         foreach(GameObject option8 in GameObject.FindGameObjectsWithTag("8option"))
         {
             option8.GetComponent<Image>().enabled = false;

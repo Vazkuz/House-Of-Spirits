@@ -428,7 +428,7 @@ public class GameController : MonoBehaviour
     {
         if (!GameController.gameController.IveDrawnACard)
         {
-            cardDrawn.Play("Draw");
+            // cardDrawn.Play("Draw");
             int cardsShown = 0;
             for(int childIndex = 0; childIndex < CardDisplay.cardDisplayInstance.myCardsFolder.transform.childCount; childIndex++)
             {
