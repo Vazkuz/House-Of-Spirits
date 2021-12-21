@@ -13,6 +13,7 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     int cardsShown;
     bool spaceInHand = true;
     public bool allowHover = true;
+    bool initialized = false;
     void Awake()
     {
         cardsShown = 0;
@@ -33,6 +34,7 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
     void Start()
     {
+        initialized = true;
         button.transform.GetChild(0).transform.GetComponent<Image>().sprite = button.GetComponent<Image>().sprite;
         // button.GetComponent<Animator>().Play("HoverOff_Card");
         if(spaceInHand)
@@ -49,6 +51,13 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             option8.GetComponent<Button>().enabled = false;
             // option8.GetComponent<Button>().Select();
         }
+    }
+
+    void OnEnable()
+    {
+    
+        // Only DoStuff is the GO has been initialized
+    if(initialized) button.GetComponent<Animator>().Play("Idle_Card");
     }
 
     public void OnPointerEnter(PointerEventData eventData)

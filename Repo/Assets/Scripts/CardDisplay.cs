@@ -278,7 +278,7 @@ public class CardDisplay : MonoBehaviour
                 child.gameObject.SetActive(true);
                 child.localPosition = new Vector3(-((CardDisplay.cardDisplayInstance.maxCardsPerRow / 2 - (indexCard-indexCardOnLeft)) * CardDisplay.cardDisplayInstance.distanceBetweenCardsX), 0, 0);
                 child.gameObject.GetComponent<CardController>().positionInHand = indexCard-indexCardOnLeft;
-                child.GetComponent<Animator>().Play("HoverOff_Card");
+                // child.GetComponent<Animator>().Play("HoverOff_Card");
             }
             else
             {
@@ -314,7 +314,7 @@ public class CardDisplay : MonoBehaviour
                 child.gameObject.SetActive(true);
                 child.localPosition = new Vector3(-((CardDisplay.cardDisplayInstance.maxCardsPerRow / 2 - (indexCard-indexCardOnLeft)) * CardDisplay.cardDisplayInstance.distanceBetweenCardsX), 0, 0);
                 child.gameObject.GetComponent<CardController>().positionInHand = indexCard-indexCardOnLeft;
-                child.GetComponent<Animator>().Play("HoverOff_Card");
+                // child.GetComponent<Animator>().Play("HoverOff_Card");
             }
             else
             {
