@@ -437,7 +437,7 @@ public class PhotonPlayer : MonoBehaviour
             }
             else
             {
-                child.gameObject.SetActive(false);
+                //child.gameObject.SetActive(false);
             }
         }
     }
