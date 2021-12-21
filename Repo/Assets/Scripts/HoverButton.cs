@@ -11,6 +11,7 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] RectTransform button;
     bool cardSelected = false;
     int cardsShown;
+    bool spaceInHand = true;
     void Awake()
     {
         cardsShown = 0;
@@ -21,12 +22,23 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 cardsShown++;
             }
         }
+        if(cardsShown >= CardDisplay.cardDisplayInstance.maxCardsPerRow)
+        {
+            spaceInHand = false;
+        }
     }
     void Start()
     {
         button.transform.GetChild(0).transform.GetComponent<Image>().sprite = button.GetComponent<Image>().sprite;
         // button.GetComponent<Animator>().Play("HoverOff_Card");
-        button.GetComponent<Animator>().Play("Draw_" + cardsShown);
+        if(spaceInHand)
+        {
+            button.GetComponent<Animator>().Play("Draw_" + cardsShown);
+        }
+        else
+        {
+            button.GetComponent<Animator>().Play("HoverOff_Card");
+        }
         foreach(GameObject option8 in GameObject.FindGameObjectsWithTag("8option"))
         {
             option8.GetComponent<Image>().enabled = false;
