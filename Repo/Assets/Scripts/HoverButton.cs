@@ -41,7 +41,7 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
         else
         {
-            button.GetComponent<Animator>().Play("HoverOff_Card");
+            button.GetComponent<Animator>().Play("HoverOff_Card"); // HoverOff_Card Draw_5
         }
         foreach(GameObject option8 in GameObject.FindGameObjectsWithTag("8option"))
         {

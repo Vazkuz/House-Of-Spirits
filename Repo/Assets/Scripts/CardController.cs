@@ -53,4 +53,10 @@ public class CardController : MonoBehaviour
         thisCardButton.enabled = false;
     }
 
+    public void AutoDeactivateObject()
+    {
+        this.GetComponent<Image>().enabled = true;
+        this.gameObject.SetActive(false);
+    }
+
 }

@@ -65,7 +65,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1067.5
+        value: 1787.5
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -74,7 +74,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.41666666
-        value: 1067.5
+        value: 1787.5
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -83,9 +83,9 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 360
-        inSlope: -1779.1666
-        outSlope: -1779.1666
+        value: 1080
+        inSlope: -2979.1665
+        outSlope: -2979.1665
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
@@ -278,7 +278,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1067.5
+        value: 1787.5
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -287,7 +287,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.41666666
-        value: 1067.5
+        value: 1787.5
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -296,9 +296,9 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 360
-        inSlope: -1779.1666
-        outSlope: -1779.1666
+        value: 1080
+        inSlope: -2979.1665
+        outSlope: -2979.1665
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
@@ -570,8 +570,15 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.0333333
+  - time: 1.0166667
     functionName: EnableCardHover
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.0333333
+    functionName: AutoDeactivateObject
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
