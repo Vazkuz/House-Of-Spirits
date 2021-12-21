@@ -19,7 +19,6 @@ public class CardController : MonoBehaviour
         gameController = FindObjectOfType<GameController>();
         thisCardButton = GetComponent<Button>();
         hoverButton = GetComponent<HoverButton>();
-        // thisCardButton.onClick.AddListener(TaskOnClick);
     }
 
     public void SetCardNumber(int newCardNumber)
@@ -33,15 +32,6 @@ public class CardController : MonoBehaviour
 
     void TaskOnClick()
     {
-        // foreach(Transform child in gameController.myCards.transform)
-        // {
-        //     if (child.GetComponent<CardController>() != this)
-        //     {
-        //         child.gameObject.GetComponent<Image>().color = new Color(0,0,0);
-        //     }
-        // }
-
-        // this.gameObject.GetComponent<RectTransform>().localPosition += new Vector3(0,0,0);
 
         if(cardNumber == 8)
         {
@@ -54,11 +44,13 @@ public class CardController : MonoBehaviour
     public void EnableCardHover()
     {
         hoverButton.allowHover = true;
+        thisCardButton.enabled = true;
     }
 
     public void DisableCardHover()
     {
         hoverButton.allowHover = false;
+        thisCardButton.enabled = false;
     }
 
 }

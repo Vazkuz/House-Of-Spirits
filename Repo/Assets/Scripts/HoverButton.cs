@@ -77,7 +77,7 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             GameController.gameController.positionInHandChosen = eventData.selectedObject.GetComponent<CardController>().positionInHand;
         }
 
-        if (eventData.selectedObject.GetComponent<CardController>().cardNumber == 8)
+        if (eventData.selectedObject.GetComponent<CardController>().cardNumber == 8 && allowHover)
         {
             GameController.gameController.is8Selected = true;
             foreach(GameObject option8 in GameObject.FindGameObjectsWithTag("8option"))
@@ -97,7 +97,6 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 // option8.GetComponent<Button>().Select();
             }
         }
-
     }
 
     public void OnDeselect(BaseEventData eventData)
