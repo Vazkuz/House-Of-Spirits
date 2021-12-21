@@ -142,6 +142,7 @@ public class GameController : MonoBehaviour
     public void LeaveRoom()
     {
         PhotonNetwork.Disconnect();
+        Destroy(this.gameObject);
     }
 
     public void ToggleCardOptions(bool toogleValue)
@@ -330,30 +331,31 @@ public class GameController : MonoBehaviour
         //     }
         // }
         Debug.Log("La carta de la izquierda es... " + CardDisplay.cardDisplayInstance.indexCardOnLeft);
-        if(RoomController.room.currentScene == MultiplayerSettings.multiplayerSettings.gameScene)
-        {
-            StartCoroutine(WaitAndCheckArrow());
-        }
+        StartCoroutine(WaitAndCheckArrow());
     }
 
     IEnumerator WaitAndCheckArrow()
     {
         yield return null;
-        int cardsShown2 = 0;
-        for (int childIndex = 0; childIndex < CardDisplay.cardDisplayInstance.myCardsFolder.transform.childCount; childIndex++)
+        
+        if(RoomController.room.currentScene == MultiplayerSettings.multiplayerSettings.gameScene)
         {
-            if (CardDisplay.cardDisplayInstance.myCardsFolder.transform.GetChild(childIndex).gameObject.activeInHierarchy)
+            int cardsShown2 = 0;
+            for (int childIndex = 0; childIndex < CardDisplay.cardDisplayInstance.myCardsFolder.transform.childCount; childIndex++)
             {
-                cardsShown2++;
+                if (CardDisplay.cardDisplayInstance.myCardsFolder.transform.GetChild(childIndex).gameObject.activeInHierarchy)
+                {
+                    cardsShown2++;
+                }
             }
-        }
-        if (CardDisplay.cardDisplayInstance.rightButton.activeInHierarchy || cardsShown2 >= CardDisplay.cardDisplayInstance.maxCardsPerRow)
-        {
-            CardDisplay.cardDisplayInstance.rightButton.SetActive(true);
-        }
-        else
-        {
-            CardDisplay.cardDisplayInstance.rightButton.SetActive(false);
+            if (CardDisplay.cardDisplayInstance.rightButton.activeInHierarchy || cardsShown2 >= CardDisplay.cardDisplayInstance.maxCardsPerRow)
+            {
+                CardDisplay.cardDisplayInstance.rightButton.SetActive(true);
+            }
+            else
+            {
+                CardDisplay.cardDisplayInstance.rightButton.SetActive(false);
+            }            
         }
     }
 
