@@ -597,8 +597,10 @@ GameObject:
   - component: {fileID: 2015543483}
   - component: {fileID: 2015543482}
   - component: {fileID: 2015543481}
+  - component: {fileID: 2015543487}
   - component: {fileID: 2015543485}
   - component: {fileID: 2015543484}
+  - component: {fileID: 2015543486}
   m_Layer: 5
   m_Name: Leave Button
   m_TagString: Untagged
@@ -668,19 +670,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2015543482}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
-        m_MethodName: LeaveRoom
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &2015543482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -753,3 +743,27 @@ MonoBehaviour:
   hoverOnClip: {fileID: 7400000, guid: 2532ed70d0643f84f950e096137be439, type: 2}
   hoverOffClip: {fileID: 7400000, guid: df612a559886ba14b892e076a79ae812, type: 2}
   selectionOnClip: {fileID: 7400000, guid: 7091c7b37d46357498fc8c12ccd8f165, type: 2}
+--- !u!114 &2015543486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2015543479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94054260c0806e040b1288cf099a44cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2015543487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2015543479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94054260c0806e040b1288cf099a44cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

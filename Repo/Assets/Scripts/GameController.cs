@@ -143,6 +143,7 @@ public class GameController : MonoBehaviour
     {
         PhotonNetwork.Disconnect();
         Destroy(this.gameObject);
+        Destroy(WinAnimationController.winAnimationController.gameObject);
     }
 
     public void ToggleCardOptions(bool toogleValue)
