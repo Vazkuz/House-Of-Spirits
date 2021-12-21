@@ -12,11 +12,13 @@ public class CardController : MonoBehaviour
     Button thisCardButton;
     public int positionInHand;
     GameController gameController;
+    HoverButton hoverButton;
 
     void Start()
     {
         gameController = FindObjectOfType<GameController>();
         thisCardButton = GetComponent<Button>();
+        hoverButton = GetComponent<HoverButton>();
         // thisCardButton.onClick.AddListener(TaskOnClick);
     }
 
@@ -47,6 +49,16 @@ public class CardController : MonoBehaviour
         }
 
         gameController.SetCardChosen(this.gameObject);
+    }
+
+    public void EnableCardHover()
+    {
+        hoverButton.allowHover = true;
+    }
+
+    public void DisableCardHover()
+    {
+        hoverButton.allowHover = false;
     }
 
 }

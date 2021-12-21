@@ -12,19 +12,23 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     bool cardSelected = false;
     int cardsShown;
     bool spaceInHand = true;
+    public bool allowHover = true;
     void Awake()
     {
         cardsShown = 0;
-        for(int childIndex = 0; childIndex < CardDisplay.cardDisplayInstance.myCardsFolder.transform.childCount; childIndex++)
+        if(CardDisplay.cardDisplayInstance)
         {
-            if(CardDisplay.cardDisplayInstance.myCardsFolder.transform.GetChild(childIndex).gameObject.activeInHierarchy)
+            for(int childIndex = 0; childIndex < CardDisplay.cardDisplayInstance.myCardsFolder.transform.childCount; childIndex++)
             {
-                cardsShown++;
+                if(CardDisplay.cardDisplayInstance.myCardsFolder.transform.GetChild(childIndex).gameObject.activeInHierarchy)
+                {
+                    cardsShown++;
+                }
             }
-        }
-        if(cardsShown >= CardDisplay.cardDisplayInstance.maxCardsPerRow)
-        {
-            spaceInHand = false;
+            if(cardsShown >= CardDisplay.cardDisplayInstance.maxCardsPerRow)
+            {
+                spaceInHand = false;
+            }
         }
     }
     void Start()
@@ -49,7 +53,7 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if(!cardSelected && !GameController.gameController.is8Selected)
+        if(!cardSelected && !GameController.gameController.is8Selected && allowHover)
         {
             button.GetComponent<Animator>().Play("HoverOn_Card");
         }
@@ -57,7 +61,7 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if(!cardSelected && !GameController.gameController.is8Selected)
+        if(!cardSelected && !GameController.gameController.is8Selected && allowHover)
         {
             button.GetComponent<Animator>().Play("HoverOff_Card");
         }
