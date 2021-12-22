@@ -27,7 +27,7 @@ public class PhotonPlayer : MonoBehaviour
     public List<Card> myCards = new List<Card>();
     TMP_Text numberOfCardsText;
 
-    void Start()
+    void Awake()
     {
         PV = GetComponent<PhotonView>();
         numberOfCardsText = GetComponent<TMP_Text>();
