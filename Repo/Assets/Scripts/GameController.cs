@@ -524,6 +524,10 @@ public class GameController : MonoBehaviour
         GameController.gameController.cardsToDraw = 0;
         GameController.gameController.IveDrawnACard = false;
         youNeedToPlay13 = false;
+        if(CardDisplay.cardDisplayInstance.indexCardOnLeft+CardDisplay.cardDisplayInstance.maxCardsPerRow < CardDisplay.cardDisplayInstance.myCardsFolder.transform.childCount)
+        {
+            CardDisplay.cardDisplayInstance.rightButton.gameObject.SetActive(true);
+        }
     }
 
     void TogglePositivenessOfSequence()
