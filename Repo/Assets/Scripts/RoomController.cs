@@ -455,11 +455,17 @@ public class RoomController : MonoBehaviourPunCallbacks
         GameController.gameController.sequencePositive = order;
         if(GameController.gameController.sequencePositive)
         {
-            GameController.gameController.directionChanged.SetActive(false);
+            foreach(GameObject directionChangedItem in GameController.gameController.directionChanged)
+            {
+                directionChangedItem.SetActive(false);
+            }
         }
         else
         {
-            GameController.gameController.directionChanged.SetActive(true);
+            foreach(GameObject directionChangedItem in GameController.gameController.directionChanged)
+            {
+                directionChangedItem.SetActive(true);
+            }
         }
     }
 

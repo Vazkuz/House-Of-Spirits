@@ -35,7 +35,7 @@ public class GameController : MonoBehaviour
     public bool isMyTurn = false;
     public Animator cardDrawn;
     [SerializeField] GameObject[] options8G0;
-    public GameObject directionChanged;
+    public GameObject[] directionChanged;
     public int mySeat;
     public Image gameBackground;
     public Sprite greenBackgroud;
@@ -82,7 +82,10 @@ public class GameController : MonoBehaviour
             K13Options.SetActive(false);
             //card8Options.SetActive(false);
             youNeedToChooseSuitMessage.SetActive(false);
-            directionChanged.SetActive(false);
+            foreach(GameObject directionChangedItem in directionChanged)
+            {
+                directionChangedItem.SetActive(false);
+            }
 
             GameController.gameController.allMessages.Add(alreadyDrawnCardMessage);
             GameController.gameController.allMessages.Add(cantPlayCardBecause8Message);
@@ -488,9 +491,15 @@ public class GameController : MonoBehaviour
         {
             messageGO.SetActive(false);
         }
-        message.SetActive(true);
+        if(message)
+        {
+            message.SetActive(true);
+        }
         yield return new WaitForSeconds(time);
-        message.SetActive(false);
+        if(message)
+        {
+            message.SetActive(false);
+        }
     }
 
     public void SomeoneWantsMeToDraw(bool makeNextPlayerDraw, int cardsToDraw, PhotonPlayer playerCustom, int playerIndex)
