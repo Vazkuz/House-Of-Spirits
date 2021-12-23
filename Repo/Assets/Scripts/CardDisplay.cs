@@ -151,23 +151,6 @@ public class CardDisplay : MonoBehaviour
             }
             PV.RPC("RPC_RemoveFromDeck",RpcTarget.All,cardDrawnIndex);
         }
-
-        // int cardsShown2 = 0;
-        // for(int childIndex = 0; childIndex < CardDisplay.cardDisplayInstance.myCardsFolder.transform.childCount; childIndex++)
-        // {
-        //     if(CardDisplay.cardDisplayInstance.myCardsFolder.transform.GetChild(childIndex).gameObject.activeInHierarchy)
-        //     {
-        //         cardsShown2++;
-        //     }
-        // }
-        // if(rightButton.activeInHierarchy || cardsShown2 >= CardDisplay.cardDisplayInstance.maxCardsPerRow)
-        // {
-        //     CardDisplay.cardDisplayInstance.rightButton.SetActive(true);
-        // }
-        // else
-        // {
-        //     CardDisplay.cardDisplayInstance.rightButton.SetActive(false);
-        // }
     }
 
     [PunRPC]
