@@ -14,6 +14,7 @@ TagManager:
   - GodnameShow
   - PlayerWinText
   - 8option
+  - WinCanvas
   layers:
   - Default
   - TransparentFX

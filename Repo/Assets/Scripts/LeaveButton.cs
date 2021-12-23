@@ -8,5 +8,6 @@ public class LeaveButton : MonoBehaviour, ISelectHandler
     public void OnSelect(BaseEventData eventData)
     {
         GameController.gameController.LeaveRoom();
+        Destroy(GameObject.FindGameObjectWithTag("WinCanvas"));
     }
 }
