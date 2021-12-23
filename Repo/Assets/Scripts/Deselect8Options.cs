@@ -14,6 +14,10 @@ public class Deselect8Options : MonoBehaviour, ISelectHandler,IDeselectHandler
     }
     public void OnDeselect(BaseEventData eventData)
     {
+        foreach(Deselect8Options deselect8Options in FindObjectsOfType<Deselect8Options>())
+        {
+            deselect8Options.gameObject.GetComponent<Image>().enabled = true;
+        }
         PlayAnimation("SelectionOff_Image_");
         GameController.gameController.is8Selected = false;
     }
@@ -23,6 +27,13 @@ public class Deselect8Options : MonoBehaviour, ISelectHandler,IDeselectHandler
         if(!firstTime)
         {
             PlayAnimation("StaySelected_");
+            foreach(Deselect8Options deselect8Options in FindObjectsOfType<Deselect8Options>())
+            {
+                if(deselect8Options != this)
+                {
+                    deselect8Options.gameObject.GetComponent<Image>().enabled = false;
+                }
+            }
         }
     }    
 
