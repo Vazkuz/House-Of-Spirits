@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 275936756}
   - component: {fileID: 275936758}
   m_Layer: 5
-  m_Name: DirectionChanged1
+  m_Name: DirectionChangedRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -323,7 +323,7 @@ RectTransform:
   m_GameObject: {fileID: 331745782}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 56349374}
   m_RootOrder: 3
@@ -331,7 +331,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -100, y: -337}
-  m_SizeDelta: {x: 176, y: 225}
+  m_SizeDelta: {x: 140.8, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &331745784
 MonoBehaviour:
@@ -968,7 +968,7 @@ RectTransform:
   m_GameObject: {fileID: 477122100}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 56349374}
   m_RootOrder: 0
@@ -976,7 +976,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 100, y: -337}
-  m_SizeDelta: {x: 176, y: 225}
+  m_SizeDelta: {x: 140.8, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &477122102
 MonoBehaviour:
@@ -2748,7 +2748,7 @@ RectTransform:
   m_GameObject: {fileID: 951677312}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 56349374}
   m_RootOrder: 1
@@ -2756,7 +2756,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -300.00003, y: -337}
-  m_SizeDelta: {x: 176, y: 225}
+  m_SizeDelta: {x: 140.8, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &951677314
 MonoBehaviour:
@@ -4100,7 +4100,7 @@ RectTransform:
   m_GameObject: {fileID: 1399772549}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 56349374}
   m_RootOrder: 2
@@ -4108,7 +4108,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 300, y: -337}
-  m_SizeDelta: {x: 176, y: 225}
+  m_SizeDelta: {x: 140.8, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1399772551
 MonoBehaviour:
@@ -6044,7 +6044,7 @@ GameObject:
   - component: {fileID: 2059282412}
   - component: {fileID: 2059282414}
   m_Layer: 5
-  m_Name: DirectionChanged2
+  m_Name: DirectionChangedLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6117,7 +6117,7 @@ Animator:
   m_GameObject: {fileID: 2059282410}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5d9890f72a9745348ab2b2f9fc77635f, type: 2}
+  m_Controller: {fileID: 9100000, guid: aea01a4b3d442284fba31631410d8df2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
