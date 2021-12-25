@@ -149,8 +149,19 @@ public class LobbyController : MonoBehaviourPunCallbacks
     public void QuitGame()
     {
         Application.Quit();
-    }    
-    
+    }
+
+    public void LoadTutorial()
+    {
+        StartCoroutine(LoadSceneWithLag());
+    }
+
+    IEnumerator LoadSceneWithLag()
+    {
+        yield return new WaitForSeconds(0.1f);
+        SceneManager.LoadScene(MultiplayerSettings.multiplayerSettings.tutorialScene);
+    }
+
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
         base.OnJoinRoomFailed(returnCode, message);

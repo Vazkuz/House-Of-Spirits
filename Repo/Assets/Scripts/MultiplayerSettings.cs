@@ -11,6 +11,7 @@ public class MultiplayerSettings : MonoBehaviour
     public int roomScene;
     public int gameScene;
     public int gameEndedScene;
+    public int tutorialScene;
 
     void Awake()
     {
