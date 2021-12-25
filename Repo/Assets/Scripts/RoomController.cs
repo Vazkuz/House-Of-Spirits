@@ -85,6 +85,10 @@ public class RoomController : MonoBehaviourPunCallbacks
             WinAnimationController.winAnimationController.gameObject.GetComponent<Canvas>().enabled = true;
             PV.RPC("RPC_ShowWhoWon", RpcTarget.All, RoomController.room.nickNameOfWinner, RoomController.room.indexOAvatarWinner);
         }
+        if(currentScene == MultiplayerSettings.multiplayerSettings.tutorialScene)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     [PunRPC]

@@ -27,25 +27,45 @@ public class LobbyController : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        // Connection to Photon 
-        PhotonNetwork.ConnectUsingSettings();
 
         //We'll need all buttons from Menu
         buttons = FindObjectsOfType<Button>();
-
-        //Just in case, we deactivate all non necessary buttons from the Menu
-        connectingToServersText.gameObject.SetActive(true);
-        failedToJoinRoom.gameObject.SetActive(false);
-        roomPasswordInputField.gameObject.SetActive(false);
-        roomNameInputField.gameObject.SetActive(false);
-
-        // We need to disable all buttons until we are connected to the servers.
-        foreach(Button button in buttons)
+        // Connection to Photon 
+        if(!PhotonNetwork.IsConnected)
         {
-            GameObject buttonGameObject = button.gameObject;
-            buttonGameObject.SetActive(false);
+            PhotonNetwork.ConnectUsingSettings();
+
+            //Just in case, we deactivate all non necessary buttons from the Menu
+            connectingToServersText.gameObject.SetActive(true);
+            failedToJoinRoom.gameObject.SetActive(false);
+            roomPasswordInputField.gameObject.SetActive(false);
+            roomNameInputField.gameObject.SetActive(false);
+
+            // We need to disable all buttons until we are connected to the servers.
+            foreach(Button button in buttons)
+            {
+                GameObject buttonGameObject = button.gameObject;
+                buttonGameObject.SetActive(false);
+            }
         }
-        quitButton.gameObject.SetActive(true);
+        else
+        {
+            connectingToServersText.gameObject.SetActive(false);
+            // We need to disable all buttons until we are connected to the servers.
+            foreach(Button button in buttons)
+            {
+                GameObject buttonGameObject = button.gameObject;
+                buttonGameObject.SetActive(true);
+            }
+
+            failedToJoinRoom.gameObject.SetActive(false);
+            roomPasswordInputField.gameObject.SetActive(false);
+            roomNameInputField.gameObject.SetActive(false);
+            createButton.gameObject.SetActive(false);
+            joinButton.gameObject.SetActive(false);
+            backButton.gameObject.SetActive(false);
+        }
+
     }
 
     //First things first. We need to connect the instance of the game to the Photon Cloud. 

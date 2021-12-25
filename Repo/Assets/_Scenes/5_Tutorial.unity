@@ -317,6 +317,7 @@ GameObject:
   - component: {fileID: 1561311175}
   - component: {fileID: 1561311177}
   - component: {fileID: 1561311176}
+  - component: {fileID: 1561311178}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -381,6 +382,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1561311174}
   m_CullTransparentMesh: 1
+--- !u!114 &1561311178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561311174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e81deb77297d5b746aaf08ed94e184d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tutorialBackgrounds:
+  - {fileID: 21300000, guid: 79806e2e43a44ee4c9f244f1d7a3c2fc, type: 3}
+  - {fileID: 21300000, guid: b8082fbd180e0d646af22a5afa65e9d0, type: 3}
+  - {fileID: 21300000, guid: 6ae07a7d20ed040408c84dd39f11f25b, type: 3}
+  - {fileID: 21300000, guid: 275119fe3fb13cf488eff02690406c27, type: 3}
+  - {fileID: 21300000, guid: 080b67ed10782b04e8b757263276a9fc, type: 3}
+  - {fileID: 21300000, guid: f164bf9a7832b594a89e9303cb1dfca1, type: 3}
 --- !u!1 &1870583091
 GameObject:
   m_ObjectHideFlags: 0
