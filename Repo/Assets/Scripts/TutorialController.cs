@@ -35,5 +35,10 @@ public class TutorialController : MonoBehaviour
                 imageComponent.sprite = tutorialBackgrounds[currentSprite];
             }
         }
+        else if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            print("Go to Main Menu");
+            SceneManager.LoadScene(MultiplayerSettings.multiplayerSettings.menuScene);
+        }
     }
 }
