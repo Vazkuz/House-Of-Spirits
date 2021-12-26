@@ -315,6 +315,31 @@ public class PhotonPlayer : MonoBehaviour
                 cardPlayed.GetComponent<HoverButton>().enabled = false;
                 cardPlayed.name = playerCustom.myCards[cardChosenIndex].cardNumber.ToString() + " " + playerCustom.myCards[cardChosenIndex].cardSuit.ToString();
                 Debug.Log("Player the card: " + cardPlayed.name);
+                if(playerCustom.myCards[cardChosenIndex].cardNumber == 2)
+                {
+                    print("Wawa animation");
+                }
+                else if(playerCustom.myCards[cardChosenIndex].cardNumber == 8)
+                {
+                    print("Wiracocha animation");
+                }
+                else if(playerCustom.myCards[cardChosenIndex].cardNumber == 11)
+                {
+                    print("Llama animation");
+                }
+                else if(playerCustom.myCards[cardChosenIndex].cardNumber == 12)
+                {
+                    print("SapaInka animation");
+                }
+                else if(playerCustom.myCards[cardChosenIndex].cardNumber == 13)
+                {
+                    print("Supay animation");
+                }
+                else
+                {
+                    CardAnimationsController.CAC.SetGenericAnimation();
+                }
+
                 if(playerCustom.myCards[cardChosenIndex].cardNumber != 8)
                 {
                     if(playerCustom.myCards[cardChosenIndex].cardSuit == Card.CardSuit.Green)

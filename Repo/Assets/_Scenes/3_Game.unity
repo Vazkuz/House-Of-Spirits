@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 6458993}
   - component: {fileID: 6458992}
   - component: {fileID: 6458994}
+  - component: {fileID: 6458995}
   m_Layer: 5
   m_Name: CardAnimations
   m_TagString: Untagged
@@ -218,6 +219,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6458995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6458990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec1785d01b21b9847a9b0f46cced5ef9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noAnimIndex: -1
+  genericAnimIndex: 0
 --- !u!1 &45589469
 GameObject:
   m_ObjectHideFlags: 0
