@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class TutorialController : MonoBehaviour
 {
+    [SerializeField] TextMeshProUGUI tutorialText;
     [SerializeField] Sprite[] tutorialBackgrounds;
+    [SerializeField] string[] tutorialStrings;
     Image imageComponent;
     int currentSprite;
     int totalSprites;
@@ -17,6 +20,7 @@ public class TutorialController : MonoBehaviour
         currentSprite = 0;
         totalSprites = tutorialBackgrounds.Length;
         imageComponent.sprite = tutorialBackgrounds[currentSprite];
+        tutorialText.text = tutorialStrings[currentSprite];
     }
 
     void Update()
@@ -33,9 +37,10 @@ public class TutorialController : MonoBehaviour
             {
                 print("Change tutorial");
                 imageComponent.sprite = tutorialBackgrounds[currentSprite];
+                tutorialText.text = tutorialStrings[currentSprite];
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Escape))
+        else if (Input.GetKeyDown(KeyCode.Backspace))
         {
             print("Go to Main Menu");
             SceneManager.LoadScene(MultiplayerSettings.multiplayerSettings.menuScene);
