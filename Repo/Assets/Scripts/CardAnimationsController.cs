@@ -6,12 +6,15 @@ public class CardAnimationsController : MonoBehaviour
 {
     public static CardAnimationsController CAC;
     [SerializeField] int noAnimIndex = -1;
-    [SerializeField] int genericAnimIndex = 0;
+    public int genericAnimIndex = 0;
+    public int sapaInkaAnimIndex = 12;
+    public int wawaAnimIndex = 2;
+    public int wiracochaAnimIndex = 8;
     Animator animator;
     
     void Awake()
     {
-        CAC = this;
+        CAC = this; //SapaInka_Card
     }
 
     void Start()
@@ -20,15 +23,15 @@ public class CardAnimationsController : MonoBehaviour
         animator.SetInteger("index", noAnimIndex);
     }
 
+    public void SetAnimation(int animationIndex)
+    {
+        animator.SetInteger("index", animationIndex);
+        StartCoroutine(BackToNoAmination());
+    }
+
     IEnumerator BackToNoAmination()
     {
         yield return null;
         animator.SetInteger("index", noAnimIndex);
-    }
-
-    public void SetGenericAnimation()
-    {
-        animator.SetInteger("index", genericAnimIndex);
-        StartCoroutine(BackToNoAmination());
     }
 }

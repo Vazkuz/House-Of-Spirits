@@ -318,10 +318,12 @@ public class PhotonPlayer : MonoBehaviour
                 if(playerCustom.myCards[cardChosenIndex].cardNumber == 2)
                 {
                     print("Wawa animation");
+                    CardAnimationsController.CAC.SetAnimation(CardAnimationsController.CAC.wawaAnimIndex);
                 }
                 else if(playerCustom.myCards[cardChosenIndex].cardNumber == 8)
                 {
                     print("Wiracocha animation");
+                    CardAnimationsController.CAC.SetAnimation(CardAnimationsController.CAC.wiracochaAnimIndex);
                 }
                 else if(playerCustom.myCards[cardChosenIndex].cardNumber == 11)
                 {
@@ -330,6 +332,7 @@ public class PhotonPlayer : MonoBehaviour
                 else if(playerCustom.myCards[cardChosenIndex].cardNumber == 12)
                 {
                     print("SapaInka animation");
+                    CardAnimationsController.CAC.SetAnimation(CardAnimationsController.CAC.sapaInkaAnimIndex);
                 }
                 else if(playerCustom.myCards[cardChosenIndex].cardNumber == 13)
                 {
@@ -337,7 +340,8 @@ public class PhotonPlayer : MonoBehaviour
                 }
                 else
                 {
-                    CardAnimationsController.CAC.SetGenericAnimation();
+                    print("Generic animation");
+                    CardAnimationsController.CAC.SetAnimation(CardAnimationsController.CAC.genericAnimIndex);
                 }
 
                 if(playerCustom.myCards[cardChosenIndex].cardNumber != 8)
