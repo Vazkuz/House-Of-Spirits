@@ -179,7 +179,7 @@ public class LobbyController : MonoBehaviourPunCallbacks
     IEnumerator LoadSceneWithLag()
     {
         yield return new WaitForSeconds(0.1f);
-        SceneManager.LoadScene(MultiplayerSettings.multiplayerSettings.tutorialScene);
+        SceneManager.LoadScene(MultiplayerSettings.multiplayerSettings.storyScene);
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)

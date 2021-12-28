@@ -1,49 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using TMPro;
 
 public class TutorialController : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI tutorialText;
-    [SerializeField] Sprite[] tutorialBackgrounds;
-    [SerializeField] string[] tutorialStrings;
-    Image imageComponent;
-    int currentSprite;
-    int totalSprites;
-
+    // Start is called before the first frame update
     void Start()
     {
-        imageComponent = this.gameObject.GetComponent<Image>();
-        currentSprite = 0;
-        totalSprites = tutorialBackgrounds.Length;
-        imageComponent.sprite = tutorialBackgrounds[currentSprite];
-        tutorialText.text = tutorialStrings[currentSprite];
+        
     }
 
+    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            currentSprite++;
-            if(currentSprite >= totalSprites)
-            {
-                print("Go to Main Menu");
-                SceneManager.LoadScene(MultiplayerSettings.multiplayerSettings.menuScene);
-            }
-            else
-            {
-                print("Change tutorial");
-                imageComponent.sprite = tutorialBackgrounds[currentSprite];
-                tutorialText.text = tutorialStrings[currentSprite];
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.Backspace))
-        {
-            print("Go to Main Menu");
-            SceneManager.LoadScene(MultiplayerSettings.multiplayerSettings.menuScene);
-        }
+        
     }
 }
