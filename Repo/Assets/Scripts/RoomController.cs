@@ -504,15 +504,10 @@ public class RoomController : MonoBehaviourPunCallbacks
                 GameController.gameController.cardSuitChosen = Card.CardSuit.Purple;
                 GameController.gameController.gameBackground.sprite = GameController.gameController.purpleBackgroud;
             }
-            GameController.gameController.suitChosenGo[suitChosen-1].SetActive(true);
         }
         else
         {
             GameController.gameController.ivePlayed8 = false;
-            foreach(GameObject suitChosenGoElement in GameController.gameController.suitChosenGo)
-            {
-                suitChosenGoElement.SetActive(false);
-            }
         }
     }
 

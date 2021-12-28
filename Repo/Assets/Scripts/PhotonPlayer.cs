@@ -315,6 +315,7 @@ public class PhotonPlayer : MonoBehaviour
                 cardPlayed.GetComponent<HoverButton>().enabled = false;
                 cardPlayed.name = playerCustom.myCards[cardChosenIndex].cardNumber.ToString() + " " + playerCustom.myCards[cardChosenIndex].cardSuit.ToString();
                 Debug.Log("Player the card: " + cardPlayed.name);
+
                 if(playerCustom.myCards[cardChosenIndex].cardNumber == 2)
                 {
                     print("Wawa animation");
@@ -328,6 +329,7 @@ public class PhotonPlayer : MonoBehaviour
                 else if(playerCustom.myCards[cardChosenIndex].cardNumber == 11)
                 {
                     print("Llama animation");
+                    CardAnimationsController.CAC.SetAnimation(CardAnimationsController.CAC.llamaAnimIndex);
                 }
                 else if(playerCustom.myCards[cardChosenIndex].cardNumber == 12)
                 {
@@ -337,6 +339,7 @@ public class PhotonPlayer : MonoBehaviour
                 else if(playerCustom.myCards[cardChosenIndex].cardNumber == 13)
                 {
                     print("Supay animation");
+                    CardAnimationsController.CAC.SetAnimation(CardAnimationsController.CAC.supayAnimIndex);
                 }
                 else
                 {
@@ -346,6 +349,8 @@ public class PhotonPlayer : MonoBehaviour
 
                 if(playerCustom.myCards[cardChosenIndex].cardNumber != 8)
                 {
+                    CardAnimationsController.CAC.cardSuit = playerCustom.myCards[cardChosenIndex].cardSuit;
+                    
                     if(playerCustom.myCards[cardChosenIndex].cardSuit == Card.CardSuit.Green)
                     {
                         GameController.gameController.gameBackground.sprite = GameController.gameController.greenBackgroud;
@@ -365,6 +370,7 @@ public class PhotonPlayer : MonoBehaviour
                 }
                 else
                 {
+                    CardAnimationsController.CAC.cardSuit = Card.CardSuit.NoColor;
                     if(GameController.gameController.SuitChosen == 1)
                     {
                         GameController.gameController.gameBackground.sprite = GameController.gameController.orangeBackgroud;

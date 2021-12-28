@@ -19,7 +19,6 @@ public class GameController : MonoBehaviour
     public GameObject cardChosen;
     public int positionInHandChosen;
     public GameObject playButton;
-    public GameObject[] suitChosenGo;
     public int SuitChosen;
     public int currentTurn = 0;
     public bool sequencePositive = true;
@@ -94,11 +93,6 @@ public class GameController : MonoBehaviour
             GameController.gameController.allMessages.Add(cantPassTurnMessage);
             GameController.gameController.allMessages.Add(kingPlayedAgainstYouMessage.gameObject);
             GameController.gameController.allMessages.Add(noCardChosen);
-
-            foreach(GameObject suitChosenGoElement in suitChosenGo)
-            {
-                suitChosenGoElement.SetActive(false);
-            }
 
             alreadyDrawnCardMessage.SetActive(false);
             cantPlayCardMessage.SetActive(false);
@@ -212,10 +206,6 @@ public class GameController : MonoBehaviour
                                 PlayCardFromHand();
                                 RoomController.room.SendCardChosen8(false, 0);
                                 ivePlayed8 = false;
-                                foreach(GameObject suitChosenGoElement in suitChosenGo)
-                                {
-                                    suitChosenGoElement.SetActive(false);
-                                }
                             }
                         }
                         else
