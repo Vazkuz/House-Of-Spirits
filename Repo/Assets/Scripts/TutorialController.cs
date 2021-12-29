@@ -1,17 +1,14 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityObject = UnityEngine.Object;
 
 public class TutorialController : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+{    
+    [SerializeField] GameObject[] tutorialBackgrounds;
 
-    // Update is called once per frame
-    void Update()
+    public void ChangeScreen()
     {
         
     }

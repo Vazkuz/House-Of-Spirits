@@ -27,7 +27,6 @@ public class LoadingController : MonoBehaviour
     IEnumerator StopLoading()
     {
         yield return new WaitForSeconds(timeOfLoading);
-        print("Qué fueee");
         loadingBackground.SetActive(false);
         loadingAnimation.SetActive(false);
         loadingText.SetActive(false);
