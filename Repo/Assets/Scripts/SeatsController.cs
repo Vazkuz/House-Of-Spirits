@@ -77,7 +77,7 @@ public class SeatsController : MonoBehaviour
             if (PhotonNetwork.IsMasterClient)
             {
                 int initial = (seats.Length - PhotonNetwork.CurrentRoom.PlayerCount - 1)/2;
-                int final = initial + PhotonNetwork.CurrentRoom.PlayerCount;
+                int final = initial + PhotonNetwork.CurrentRoom.PlayerCount - 1;
                 int seatChosen = Random.Range(initial, final);
 
                 for (int playerIndex = 0; playerIndex < PhotonNetwork.PlayerList.Length; playerIndex++)
