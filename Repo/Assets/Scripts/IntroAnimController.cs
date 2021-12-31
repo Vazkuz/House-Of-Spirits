@@ -20,7 +20,7 @@ public class IntroAnimController : MonoBehaviour
         {
             mainCanvas.enabled = false;
             videoPlayer = this.GetComponent<VideoPlayer>();
-            loadingPrefab.SetActive(false);
+            // loadingPrefab.SetActive(false);
             videoPlayer.source = VideoSource.Url;
             string filePath = System.IO.Path.Combine(Application.streamingAssetsPath, folderName + System.IO.Path.DirectorySeparatorChar + fileName + fileFormat);
             videoPlayer.url = filePath;
@@ -39,7 +39,7 @@ public class IntroAnimController : MonoBehaviour
         if (Input.anyKeyDown && !(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2)))
         {
             StopIntro();
-            loadingPrefab.SetActive(true);
+            // loadingPrefab.SetActive(true);
         }
     }
 

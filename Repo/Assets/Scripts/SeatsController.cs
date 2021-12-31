@@ -35,6 +35,7 @@ public class SeatsController : MonoBehaviour
 
     IEnumerator HandleSeatsCoroutine()
     {
+        print("Número de asientos: " + seats.Length);
         Debug.Log("Número de jugadores: " + PhotonNetwork.CurrentRoom.PlayerCount);    
         if(PhotonNetwork.CurrentRoom.PlayerCount % 2 == 0)
         {
@@ -54,9 +55,9 @@ public class SeatsController : MonoBehaviour
                             if(playerIndex > 0)
                             {
                                 seatChosen++;
-                                if(seatChosen >= seats.Length)
+                                if(seatChosen > final)
                                 {
-                                    seatChosen = 0;
+                                    seatChosen = initial;
                                 }
                             }
                             Debug.Log("El jugador " + PhotonNetwork.PlayerList[playerIndex].NickName + " ocupará el sitio " + seatChosen);
@@ -88,7 +89,7 @@ public class SeatsController : MonoBehaviour
                             if(playerIndex > 0)
                             {
                                 seatChosen++;
-                                if(seatChosen >= final - 1)
+                                if(seatChosen > final)
                                 {
                                     seatChosen = initial;
                                 }
