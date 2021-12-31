@@ -13,6 +13,7 @@ public class MultiplayerSettings : MonoBehaviour
     public int gameEndedScene;
     public int storyScene = 4;
     public int tutorialScene = 5;
+    public bool firstTime = true;
 
     void Awake()
     {
