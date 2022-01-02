@@ -3324,10 +3324,10 @@ MonoBehaviour:
   - The Wawa, a little child too afraid to be on her own, cannot be thrown alone.
     One must throw another card with that card.
   - The Llama, a friendly auquenid that makes the next player to be skipped.
-  - The Supay, a naughty demon. He forces the next player to draw 3 cards (unless
-    they play another Supay)
   - The Inka, the mighty king of the Inka Empire, whose death provokes great commotion
     in the House of Spirits, making the order of the game reverse.
+  - The Supay, a naughty demon. He forces the next player to draw 3 cards (unless
+    they play another Supay)
 --- !u!212 &1793623944
 SpriteRenderer:
   m_ObjectHideFlags: 0
