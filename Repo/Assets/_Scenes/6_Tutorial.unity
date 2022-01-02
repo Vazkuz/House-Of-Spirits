@@ -224,6 +224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightController: 0
+  scriptText: {fileID: 0}
   lightPositions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
@@ -593,6 +594,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightController: 0
+  scriptText: {fileID: 0}
   lightPositions: []
   scripts: []
 --- !u!1 &190674366
@@ -1028,6 +1030,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightController: 0
+  scriptText: {fileID: 0}
   lightPositions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
@@ -2695,6 +2698,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightController: 0
+  scriptText: {fileID: 0}
   lightPositions: []
   scripts: []
 --- !u!1 &1675063888
@@ -3013,6 +3017,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightController: 0
+  scriptText: {fileID: 0}
   lightPositions: []
   scripts: []
 --- !u!1 &1776869678
@@ -3309,6 +3314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightController: 1
+  scriptText: {fileID: 1469236908}
   lightPositions:
   - {x: -6, y: 1, z: 0}
   - {x: -2, y: 1, z: 0}

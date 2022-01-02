@@ -27,7 +27,7 @@ public class TutorialElementEditor : Editor {
         }
         else
         {
-            DrawPropertiesExcluding(serializedObject, "lightPositions", "scripts");
+            DrawPropertiesExcluding(serializedObject, "lightPositions", "scripts", "scriptText");
         }
         serializedObject.ApplyModifiedProperties();
     }
