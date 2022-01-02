@@ -1939,7 +1939,7 @@ MonoBehaviour:
   gameScene: 2
   gameEndedScene: 3
   storyScene: 4
-  tutorialScene: 4
+  tutorialScene: 5
   firstTime: 1
 --- !u!1 &1475756406
 GameObject:

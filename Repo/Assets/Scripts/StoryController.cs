@@ -23,27 +23,26 @@ public class StoryController : MonoBehaviour
         tutorialText.text = tutorialStrings[currentSprite];
     }
 
-    void Update()
+    public void ChangeStoryIlustration()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            currentSprite++;
-            if(currentSprite >= totalSprites)
-            {
-                print("Go to Main Menu");
-                SceneManager.LoadScene(MultiplayerSettings.multiplayerSettings.tutorialScene);
-            }
-            else
-            {
-                print("Change tutorial");
-                imageComponent.sprite = tutorialBackgrounds[currentSprite];
-                tutorialText.text = tutorialStrings[currentSprite];
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.Backspace))
+        currentSprite++;
+        if(currentSprite >= totalSprites)
         {
             print("Go to Main Menu");
-            SceneManager.LoadScene(MultiplayerSettings.multiplayerSettings.menuScene);
+            SceneManager.LoadScene(MultiplayerSettings.multiplayerSettings.tutorialScene);
+        }
+        else
+        {
+            print("Change tutorial");
+            imageComponent.sprite = tutorialBackgrounds[currentSprite];
+            tutorialText.text = tutorialStrings[currentSprite];
         }
     }
+
+    public void QuitTutorial()
+    {
+        print("Go to Main Menu");
+        SceneManager.LoadScene(MultiplayerSettings.multiplayerSettings.menuScene);
+    }
+
 }
