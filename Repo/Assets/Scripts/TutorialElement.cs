@@ -6,7 +6,7 @@ using TMPro;
 public class TutorialElement : MonoBehaviour
 {
     public bool lightController = false;
-    public TMP_Text scriptText; 
+    public TMP_Text scriptText;
     public Vector3[] lightPositions;
     public string[] scripts;
     // Start is called before the first frame update

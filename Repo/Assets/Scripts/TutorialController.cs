@@ -112,7 +112,7 @@ public class TutorialController : MonoBehaviour
 
     void ChangeScreenScripts(TutorialElement tutorialElement, int screenIndex)
     {
-        tutorialElement.scriptText.text = tutorialElement.scripts[screenIndex];
+        tutorialElement.scriptText.text = tutorialElement.scripts[screenIndex].Replace("\\n", "\n");
     }
     
     void ToggleLighting(bool lightsOn)
