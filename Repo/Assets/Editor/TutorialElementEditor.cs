@@ -27,7 +27,8 @@ public class TutorialElementEditor : Editor {
         }
         else
         {
-            DrawPropertiesExcluding(serializedObject, "lightPositions", "scripts", "scriptText");
+            DrawPropertiesExcluding(serializedObject, "lightPositions", "scripts", "scriptText", "globalLightIntensity", 
+                                                    "pointLightIntensity", "pointLightInnerRadius", "pointLightOuterRadius");
         }
         serializedObject.ApplyModifiedProperties();
     }

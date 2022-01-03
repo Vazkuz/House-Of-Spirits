@@ -9,6 +9,12 @@ public class TutorialElement : MonoBehaviour
     public TMP_Text scriptText;
     public Vector3[] lightPositions;
     public string[] scripts;
+
+    [Header("Light Controlling")]
+    [Range(0,2)] public float globalLightIntensity = 0.3f;
+    [Range(0,2)] public float pointLightIntensity = 0.8f;
+    [Range(0,5)] public float pointLightInnerRadius = 1.9f;
+    [Range(0,5)] public float pointLightOuterRadius = 2f;
     // Start is called before the first frame update
     void OnEnable()
     {

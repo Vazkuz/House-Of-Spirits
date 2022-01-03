@@ -10,13 +10,13 @@ public class TutorialController : MonoBehaviour
 {    
     [SerializeField] TutorialElement[] tutorialBackgrounds;
     
+
     [Header("Light Controlling")]
     [SerializeField] Light2D pointLight;
     [SerializeField] Light2D globalLight;
-    [SerializeField, Range(0,2)] float globalLightIntensity = 0.3f;
-    [SerializeField, Range(0,2)] float pointLightIntensity = 0.8f;
-    [SerializeField, Range(0,5)] float pointLightInnerRadius = 1.9f;
-    [SerializeField, Range(0,5)] float pointLightOuterRadius = 2f;
+
+
+    [Header("Screen Controlling")]
     [SerializeField] int currentBackground = 0;
     [SerializeField] int currentLightsIndex = 0;
 
@@ -121,12 +121,12 @@ public class TutorialController : MonoBehaviour
         {
             print("Turn lights on");
             //Set up Point Light (intensity, radius, etc.)
-            pointLight.intensity = pointLightIntensity;
-            pointLight.pointLightInnerRadius = pointLightInnerRadius;
-            pointLight.pointLightOuterRadius = pointLightOuterRadius;
+            pointLight.intensity = tutorialBackgrounds[currentBackground].pointLightIntensity;
+            pointLight.pointLightInnerRadius = tutorialBackgrounds[currentBackground].pointLightInnerRadius;
+            pointLight.pointLightOuterRadius = tutorialBackgrounds[currentBackground].pointLightOuterRadius;
 
             //Set up Global Light
-            globalLight.intensity = globalLightIntensity;
+            globalLight.intensity = tutorialBackgrounds[currentBackground].globalLightIntensity;
         }
         else
         {
