@@ -23,12 +23,19 @@ public class TutorialElementEditor : Editor {
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.EndHorizontal();
             }
-            DrawDefaultInspector();
+            if(te.scriptPosController)
+            {
+                DrawDefaultInspector();
+            }
+            else
+            {
+                DrawPropertiesExcluding(serializedObject, "scriptPositions");
+            }
         }
         else
         {
             DrawPropertiesExcluding(serializedObject, "lightPositions", "scripts", "scriptText", "globalLightIntensity", 
-                                                    "pointLightIntensity", "pointLightInnerRadius", "pointLightOuterRadius");
+                                                    "pointLightIntensity", "pointLightInnerRadius", "pointLightOuterRadius", "scriptPositions");
         }
         serializedObject.ApplyModifiedProperties();
     }

@@ -91,6 +91,8 @@ public class TutorialController : MonoBehaviour
             else
             {
                 ToggleLighting(true);
+                ChangeScreenLights(tutorialBackgrounds[currentBackground], currentLightsIndex);
+                ChangeScreenScripts(tutorialBackgrounds[currentBackground], currentLightsIndex);
             }
             
             if(currentBackground >= tutorialBackgrounds.Length)
@@ -107,12 +109,17 @@ public class TutorialController : MonoBehaviour
 
     void ChangeScreenLights(TutorialElement tutorialElement, int screenIndex)
     {
+        print("New light position");
         pointLight.gameObject.transform.position = tutorialElement.lightPositions[screenIndex];
     }
 
     void ChangeScreenScripts(TutorialElement tutorialElement, int screenIndex)
     {
         tutorialElement.scriptText.text = tutorialElement.scripts[screenIndex].Replace("\\n", "\n");
+        if(tutorialElement.scriptPosController)
+        {
+            tutorialElement.scriptText.transform.position = tutorialElement.scriptPositions[screenIndex];
+        }
     }
     
     void ToggleLighting(bool lightsOn)

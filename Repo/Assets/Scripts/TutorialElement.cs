@@ -6,9 +6,11 @@ using TMPro;
 public class TutorialElement : MonoBehaviour
 {
     public bool lightController = false;
+    public bool scriptPosController = false;
     public TMP_Text scriptText;
     public Vector3[] lightPositions;
     public string[] scripts;
+    public Vector3[] scriptPositions;
 
     [Header("Light Controlling")]
     [Range(0,2)] public float globalLightIntensity = 0.3f;
@@ -21,6 +23,10 @@ public class TutorialElement : MonoBehaviour
         if(lightPositions.Length != scripts.Length)
         {
             Debug.LogError("The light positions and scripts must be arrays of the same size.");
+        }
+        else if(scriptPosController && (lightPositions.Length != scriptPositions.Length))
+        {
+            Debug.LogError("The script and light positions must be arrays of the same size.");
         }
     }
 
