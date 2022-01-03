@@ -98,7 +98,7 @@ public class TutorialController : MonoBehaviour
             if(currentBackground >= tutorialBackgrounds.Length)
             {
                 print("Tutorial has ended.");
-                SceneManager.LoadScene(MultiplayerSettings.multiplayerSettings.menuScene);
+                QuitTutorial();
             }
             else
             {
@@ -120,6 +120,11 @@ public class TutorialController : MonoBehaviour
         {
             tutorialElement.scriptText.transform.position = tutorialElement.scriptPositions[screenIndex];
         }
+    }
+
+    public void QuitTutorial()
+    {
+        SceneManager.LoadScene(MultiplayerSettings.multiplayerSettings.menuScene);
     }
     
     void ToggleLighting(bool lightsOn)
