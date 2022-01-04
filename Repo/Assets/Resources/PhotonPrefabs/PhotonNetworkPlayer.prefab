@@ -96,6 +96,7 @@ MonoBehaviour:
   myAvatar: {fileID: 0}
   mySelectedCharacter: 0
   myPositionInGrid: 0
+  myRealSeat: 0
   IWon: 0
   myCards: []
 --- !u!114 &5761233510948091652

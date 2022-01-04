@@ -23,6 +23,7 @@ public class PhotonPlayer : MonoBehaviour
     public GameObject myAvatar;
     public int mySelectedCharacter;
     public int myPositionInGrid;
+    public int myRealSeat;
     public bool IWon = false;
     public List<Card> myCards = new List<Card>();
     TMP_Text numberOfCardsText;

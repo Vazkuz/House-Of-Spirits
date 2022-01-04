@@ -113,6 +113,7 @@ public class SeatsController : MonoBehaviour
             characterType.ChangeImageInButtonAvatar(characterType.spriteInGame);
             if(player.GetComponent<PhotonView>().Owner == PhotonNetwork.PlayerList[playerOwner])
             {
+                player.myRealSeat = seatChosenSent;
                 SeatsController seatsController = FindObjectOfType<SeatsController>();
                 player.transform.SetParent(seatsController.seats[seatChosenSent].transform);
                 player.GetComponent<RectTransform>().localPosition = new Vector3(0, playerOffsetY, 0);

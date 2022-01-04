@@ -151,6 +151,14 @@ public class CardDisplay : MonoBehaviour
             }
             PV.RPC("RPC_RemoveFromDeck",RpcTarget.All,cardDrawnIndex);
         }
+        print("I'll send this seat: " + photonPlayer.myRealSeat);
+        PV.RPC("RPC_DrawAnimation", RpcTarget.Others, playerIndex, photonPlayer.myRealSeat);
+    }
+
+    [PunRPC]
+    void RPC_DrawAnimation(int playerIndex, int playerRealSeat)
+    {
+        print("Player " + playerIndex + " has drawn a card in position " + playerRealSeat);
     }
 
     [PunRPC]
