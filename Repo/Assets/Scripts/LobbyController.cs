@@ -17,7 +17,9 @@ public class LobbyController : MonoBehaviourPunCallbacks
     [SerializeField] Button quitButton;
     [SerializeField] TMP_Text connectingToServersText;
     [SerializeField] TMP_Text failedToJoinRoom;
+    [SerializeField] TMP_Text noNameRoomGiven;
     [SerializeField] float failedRoomConnectionTextTime = 2f;
+    [SerializeField] float noNameRoomGivenTextTime = 2f;
     Button[] buttons;
 
     private void Awake() 
@@ -38,6 +40,7 @@ public class LobbyController : MonoBehaviourPunCallbacks
             //Just in case, we deactivate all non necessary buttons from the Menu
             connectingToServersText.gameObject.SetActive(true);
             failedToJoinRoom.gameObject.SetActive(false);
+            noNameRoomGiven.gameObject.SetActive(false);
             roomPasswordInputField.gameObject.SetActive(false);
             roomNameInputField.gameObject.SetActive(false);
 
@@ -142,7 +145,15 @@ public class LobbyController : MonoBehaviourPunCallbacks
     {
         passwordAttempt = roomPasswordInputField.GetComponent<InputFieldController>().inputText;
         string roomName = roomNameInputField.GetComponent<InputFieldController>().inputText;
-        PhotonNetwork.JoinRoom(roomName);
+        if(roomName == "")
+        {
+            print("The player hasn't give a room name");
+            StartCoroutine(NoNameRoomFailMessage());
+        }
+        else
+        {
+            PhotonNetwork.JoinRoom(roomName);
+        }
     }
 
     //Just a method to activate main menu buttons while deactivating the rest of the UI elements.
@@ -194,5 +205,11 @@ public class LobbyController : MonoBehaviourPunCallbacks
         failedToJoinRoom.gameObject.SetActive(true);
         yield return new WaitForSeconds(failedRoomConnectionTextTime);
         failedToJoinRoom.gameObject.SetActive(false);
+    }
+    IEnumerator NoNameRoomFailMessage()
+    {
+        noNameRoomGiven.gameObject.SetActive(true);
+        yield return new WaitForSeconds(failedRoomConnectionTextTime);
+        noNameRoomGiven.gameObject.SetActive(false);
     }
 }
