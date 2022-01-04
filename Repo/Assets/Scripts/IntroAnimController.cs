@@ -12,12 +12,15 @@ public class IntroAnimController : MonoBehaviour
     [SerializeField] string folderName = "Videos";
     [SerializeField] string fileName = "";
     [SerializeField] string fileFormat = ".mp4";
+    [SerializeField] GameObject background;
     VideoPlayer videoPlayer;
+    Animator animator;
 
     void Start()
     {
         if(MultiplayerSettings.multiplayerSettings.firstTime)
         {
+            animator = gameObject.GetComponent<Animator>();
             mainCanvas.enabled = false;
             videoPlayer = this.GetComponent<VideoPlayer>();
             // loadingPrefab.SetActive(false);
@@ -25,8 +28,6 @@ public class IntroAnimController : MonoBehaviour
             string filePath = System.IO.Path.Combine(Application.streamingAssetsPath, folderName + System.IO.Path.DirectorySeparatorChar + fileName + fileFormat);
             videoPlayer.url = filePath;
             videoPlayer.loopPointReached += EndReached;
-
-            MultiplayerSettings.multiplayerSettings.firstTime = false;
         }
         else
         {
@@ -49,6 +50,8 @@ public class IntroAnimController : MonoBehaviour
         videoPlayer.targetCamera = null;
         videoPlayer.gameObject.SetActive(false);
         mainCanvas.enabled = true;
+        background.GetComponent<MainMenuInit>().StartInitializationBackground();
+        MultiplayerSettings.multiplayerSettings.firstTime = false;
     }
 
     void EndReached(UnityEngine.Video.VideoPlayer vp)
@@ -59,8 +62,8 @@ public class IntroAnimController : MonoBehaviour
 
     IEnumerator WaitAndEnableCanvas()
     {
+        animator.SetBool("FadeOut", true);
         yield return new WaitForSeconds(waitTimeToOpenCanvas);
         StopIntro();
-        // mainCanvas.enabled = true;
     }
 }

@@ -1266,6 +1266,9 @@ MonoBehaviour:
   - The spirits have been caged in them, and to help Wiracocha\nliberate them you
     must cast special spells in the arena.
   avoidFade: 0300000007000000
+  buttons:
+  - {fileID: 744112863}
+  - {fileID: 881741221}
 --- !u!95 &1561311179
 Animator:
   serializedVersion: 3

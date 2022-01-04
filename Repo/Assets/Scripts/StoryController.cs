@@ -19,6 +19,7 @@ public class StoryController : MonoBehaviour
     int totalSprites;
     bool firstTime = true;
     Animator animator;
+    [SerializeField] Button[] buttons;
 
     void Start()
     {
@@ -37,7 +38,7 @@ public class StoryController : MonoBehaviour
         currentSprite++;
         tutorialText.text = null;
         tutorialShadowText.text = null;
-        if(!ArrayUtility.Contains(avoidFade, currentSprite))
+        if(!Contains(avoidFade, currentSprite))
         {
             animator.SetInteger("Fade", -1);
         }
@@ -54,6 +55,11 @@ public class StoryController : MonoBehaviour
             if (currentSprite >= totalSprites)
             {
                 print("Go to Main Menu");
+
+                foreach(Button button in buttons)
+                {
+                    button.gameObject.SetActive(false);
+                }
                 SceneManager.LoadScene(MultiplayerSettings.multiplayerSettings.tutorialScene);
             }
             else
@@ -80,6 +86,26 @@ public class StoryController : MonoBehaviour
     {
         print("Go to Main Menu");
         SceneManager.LoadScene(MultiplayerSettings.multiplayerSettings.menuScene);
+    }
+
+    bool Contains(int[] array, int element)
+    {
+        int coincidences = 0;
+        foreach(int arrayElement in array)
+        {
+            if(element == arrayElement)
+            {
+                coincidences++;
+            }
+        }
+        if(coincidences > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
 }

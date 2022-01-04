@@ -1,14 +1,18 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using UnityObject = UnityEngine.Object;
 
 public class TutorialController : MonoBehaviour
 {    
     [SerializeField] TutorialElement[] tutorialBackgrounds;
+
+    [SerializeField] Button[] buttons;
     
 
     [Header("Light Controlling")]
@@ -23,6 +27,7 @@ public class TutorialController : MonoBehaviour
 
     [Header("Fade Controlling")]
     [SerializeField] Canvas mainCanvas;
+    [SerializeField] float initialBlackTime = 2f;
     Animator canvasAnimator;
     bool firstTime = true;
     void Awake()
@@ -33,13 +38,34 @@ public class TutorialController : MonoBehaviour
     }
 
     void Start()
+    {        
+        for (int backgroundIndex = 0; backgroundIndex < tutorialBackgrounds.Length; backgroundIndex++)
+        {
+            tutorialBackgrounds[backgroundIndex].gameObject.SetActive(false);
+        }
+
+        foreach(Button button in buttons)
+        {
+            button.gameObject.SetActive(false);
+        }
+
+        StartCoroutine(WaitAndActivateTutorial());
+    }
+
+    IEnumerator WaitAndActivateTutorial()
     {
+        yield return new WaitForSeconds(initialBlackTime);
 
         SetBackgroundActive();
 
         if (!tutorialBackgrounds[currentBackground].lightController)
         {
             ToggleLighting(false);
+        }
+
+        foreach(Button button in buttons)
+        {
+            button.gameObject.SetActive(true);
         }
     }
 
