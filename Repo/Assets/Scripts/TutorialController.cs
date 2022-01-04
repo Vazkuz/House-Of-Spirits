@@ -20,8 +20,21 @@ public class TutorialController : MonoBehaviour
     [SerializeField] int currentBackground = 0;
     [SerializeField] int currentLightsIndex = 0;
 
+
+    [Header("Fade Controlling")]
+    [SerializeField] Canvas mainCanvas;
+    Animator canvasAnimator;
+    bool firstTime = true;
+    void Awake()
+    {
+        canvasAnimator = mainCanvas.gameObject.GetComponent<Animator>();
+
+        // canvasAnimator.SetInteger("Fade", 1);
+    }
+
     void Start()
     {
+
         SetBackgroundActive();
 
         if (!tutorialBackgrounds[currentBackground].lightController)
