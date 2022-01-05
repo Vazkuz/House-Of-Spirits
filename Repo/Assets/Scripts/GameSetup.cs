@@ -10,7 +10,9 @@ public class GameSetup : MonoBehaviour
     public bool hasStartedLeaving;
     PhotonView PV;
     public TMP_Text roomNameTMP;
+    public TMP_Text roomNameShadowTMP;
     public TMP_Text roomPasswordTMP;
+    public TMP_Text roomPasswordShadowTMP;
 
     public Transform[] spawnPoints;
 
@@ -18,8 +20,18 @@ public class GameSetup : MonoBehaviour
     {
         PV = GetComponent<PhotonView>();
         roomNameTMP.text = "Room name: " + PhotonNetwork.CurrentRoom.Name;
+        roomNameShadowTMP.text = "Room name: " + PhotonNetwork.CurrentRoom.Name;
         yield return new WaitForSeconds(0.5f);
-        roomPasswordTMP.text = "Room password: " + RoomController.room.roomPassword;
+        if(RoomController.room.roomPassword == "")
+        {
+            roomPasswordTMP.text = "";
+            roomPasswordShadowTMP.text = "";
+        }
+        else
+        {
+            roomPasswordTMP.text = "Room password: " + RoomController.room.roomPassword;
+            roomPasswordShadowTMP.text = "Room password: " + RoomController.room.roomPassword;
+        }
     }
 
     void OnEnable() 
