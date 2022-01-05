@@ -15,10 +15,9 @@ public class SpiritsFade : MonoBehaviour
     {
         thisAnimator.SetBool("FadeIn", false);
     }
-
-    public void ShowEverything()
+    public void StartGameCredits()
     {
-        background.ShowEverything();
+        background.StartGameCreditsFadeIn();
     }
 
 }

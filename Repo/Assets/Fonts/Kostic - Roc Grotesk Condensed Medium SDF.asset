@@ -1097,6 +1097,34 @@ MonoBehaviour:
       m_Height: 61
     m_Scale: 1
     m_AtlasIndex: 0
+  - m_Index: 108
+    m_Metrics:
+      m_Width: 33.84375
+      m_Height: 59.21875
+      m_HorizontalBearingX: 3.328125
+      m_HorizontalBearingY: 59.21875
+      m_HorizontalAdvance: 39.6875
+    m_GlyphRect:
+      m_X: 227
+      m_Y: 614
+      m_Width: 35
+      m_Height: 60
+    m_Scale: 1
+    m_AtlasIndex: 0
+  - m_Index: 126
+    m_Metrics:
+      m_Width: 40.140625
+      m_Height: 59.21875
+      m_HorizontalBearingX: 1.34375
+      m_HorizontalBearingY: 59.21875
+      m_HorizontalAdvance: 42.84375
+    m_GlyphRect:
+      m_X: 243
+      m_Y: 693
+      m_Width: 41
+      m_Height: 60
+    m_Scale: 1
+    m_AtlasIndex: 0
   m_CharacterTable:
   - m_ElementType: 1
     m_Unicode: 8230
@@ -1385,6 +1413,14 @@ MonoBehaviour:
   - m_ElementType: 1
     m_Unicode: 56
     m_GlyphIndex: 91
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 68
+    m_GlyphIndex: 108
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 86
+    m_GlyphIndex: 126
     m_Scale: 1
   m_AtlasTextures:
   - {fileID: -7108263349277456564}
@@ -1676,6 +1712,14 @@ MonoBehaviour:
     m_Y: 428
     m_Width: 52
     m_Height: 80
+  - m_X: 217
+    m_Y: 604
+    m_Width: 54
+    m_Height: 79
+  - m_X: 233
+    m_Y: 683
+    m_Width: 60
+    m_Height: 79
   m_FreeGlyphRects:
   - m_X: 112
     m_Y: 27
@@ -1873,22 +1917,6 @@ MonoBehaviour:
     m_Y: 524
     m_Width: 4
     m_Height: 17
-  - m_X: 217
-    m_Y: 604
-    m_Width: 806
-    m_Height: 97
-  - m_X: 233
-    m_Y: 604
-    m_Width: 790
-    m_Height: 176
-  - m_X: 250
-    m_Y: 604
-    m_Width: 773
-    m_Height: 255
-  - m_X: 267
-    m_Y: 604
-    m_Width: 756
-    m_Height: 334
   - m_X: 224
     m_Y: 428
     m_Width: 41
@@ -1904,7 +1932,31 @@ MonoBehaviour:
   - m_X: 274
     m_Y: 508
     m_Width: 749
+    m_Height: 175
+  - m_X: 293
+    m_Y: 508
+    m_Width: 730
     m_Height: 430
+  - m_X: 217
+    m_Y: 683
+    m_Width: 16
+    m_Height: 18
+  - m_X: 233
+    m_Y: 762
+    m_Width: 790
+    m_Height: 18
+  - m_X: 250
+    m_Y: 762
+    m_Width: 773
+    m_Height: 97
+  - m_X: 267
+    m_Y: 762
+    m_Width: 756
+    m_Height: 176
+  - m_X: 271
+    m_Y: 604
+    m_Width: 752
+    m_Height: 79
   m_fontInfo:
     Name: 
     PointSize: 0
@@ -1993,7 +2045,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Kostic - Roc Grotesk Condensed Medium Atlas Material
   m_Shader: {fileID: 4800000, guid: 68e6db2ebdc24f95958faec2be5558d6, type: 3}
-  m_ShaderKeywords: 
+  m_ShaderKeywords: UNDERLAY_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -2021,8 +2073,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _OutlineTex:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Scale: {x: 0, y: 5}
+        m_Offset: {x: 5, y: 5}
     m_Floats:
     - _Ambient: 0.5
     - _Bevel: 0.5
@@ -2054,7 +2106,7 @@ Material:
     - _Reflectivity: 10
     - _ScaleRatioA: 0.9
     - _ScaleRatioB: 0.73125
-    - _ScaleRatioC: 0.73125
+    - _ScaleRatioC: 0.5523036
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0
@@ -2068,9 +2120,9 @@ Material:
     - _TextureHeight: 1024
     - _TextureWidth: 1024
     - _UnderlayDilate: 0
-    - _UnderlayOffsetX: 0
-    - _UnderlayOffsetY: 0
-    - _UnderlaySoftness: 0
+    - _UnderlayOffsetX: 1
+    - _UnderlayOffsetY: -1
+    - _UnderlaySoftness: 0.324
     - _VertexOffsetX: 0
     - _VertexOffsetY: 0
     - _WeightBold: 0.75
@@ -2085,5 +2137,5 @@ Material:
     - _ReflectFaceColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectOutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
-    - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+    - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_BuildTextureStacks: []

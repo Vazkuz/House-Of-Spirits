@@ -71,6 +71,9 @@ MonoBehaviour:
   - UpdatePositionsInNetwork
   - RPC_DrawAnimation
   - RPC_UpdateCardsIHave
+  - DestroySpaceship
+  - Fire
+  - RespawnSpaceship
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

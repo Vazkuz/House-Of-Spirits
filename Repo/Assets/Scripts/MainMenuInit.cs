@@ -10,21 +10,25 @@ public class MainMenuInit : MonoBehaviour
     [SerializeField] GameObject mainBackground;
     [SerializeField] GameObject logo;
     [SerializeField] GameObject spirits;
+    [SerializeField] GameObject gameCredits;
     [SerializeField] GameObject connectingToServersText;
     Animator backgroundAnimator;
     Animator logoAnimator;
     Animator spiritsAnimator;
+    Animator gameCreditsAnimator;
     
     void Start()
     {
         backgroundAnimator = this.gameObject.GetComponent<Animator>();
         logoAnimator = logo.GetComponent<Animator>();
         spiritsAnimator = spirits.GetComponent<Animator>();
+        gameCreditsAnimator = gameCredits.GetComponent<Animator>();
         if(!MultiplayerSettings.multiplayerSettings.firstTime)
         {
             backgroundAnimator.SetBool("FirstTime", false);
             logoAnimator.SetBool("FirstTime", false);
             spiritsAnimator.SetBool("FirstTime", false);
+            gameCreditsAnimator.SetBool("FirstTime", false);
         }
     }
     
@@ -65,5 +69,11 @@ public class MainMenuInit : MonoBehaviour
     {
         spirits.SetActive(true);
         spiritsAnimator.SetBool("FadeIn", true);
+    }
+
+    public void StartGameCreditsFadeIn()
+    {
+        gameCredits.SetActive(true);
+        gameCreditsAnimator.SetBool("FadeIn", true);
     }
 }
