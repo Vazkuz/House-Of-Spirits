@@ -2599,7 +2599,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Designe & developed by <font=\"KBold\">Daniel Madalengoitia \n@notyouraveragephysicist</font>\n\nArt
+  m_text: "Designed & developed by <font=\"KBold\">Daniel Madalengoitia \n@notyouraveragephysicist</font>\n\nArt
     by <font=\"KBold\">Dad\xE1 Studio\n@dadastudio.pe</font>\n\nLogo designed by
     <font=\"KBold\">Andrea Wilson \n@andrea.wilson.d</font>"
   m_isRightToLeft: 0
