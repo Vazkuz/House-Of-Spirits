@@ -160,7 +160,19 @@ public class CardDisplay : MonoBehaviour
     void RPC_DrawAnimation(int playerIndex, int playerRealSeat)
     {
         print("Player " + playerIndex + " has drawn a card in position " + playerRealSeat);
-        reverseCard.Play("AnotherPlayerDraw_" + playerRealSeat);
+        int animationIndex;
+        if(PhotonNetwork.CountOfPlayers % 2 == 0)
+        {
+            animationIndex = playerRealSeat;
+            print("We will play Par_AnotherPlayerDraw_" + animationIndex);
+            reverseCard.Play("Par_AnotherPlayerDraw_" + animationIndex);
+        }
+        else
+        {
+            animationIndex = playerRealSeat+1;
+            print("We will play Par_AnotherPlayerDraw_" + animationIndex);
+            reverseCard.Play("Impar_AnotherPlayerDraw_" + animationIndex);
+        }
 
     }
 
