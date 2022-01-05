@@ -2599,9 +2599,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Design & development by <font=\"KBold\">Daniel Madalengoitia \n@notyouraveragephysicist</font>\n\nArt
-    by <font=\"KBold\">Dad\xE1 Studio\n@dadastudio.pe</font>\n\nLogo design by <font=\"KBold\">Andrea
-    Wilson \n@andrea.wilson.d</font>"
+  m_text: "Designe & developed by <font=\"KBold\">Daniel Madalengoitia \n@notyouraveragephysicist</font>\n\nArt
+    by <font=\"KBold\">Dad\xE1 Studio\n@dadastudio.pe</font>\n\nLogo designed by
+    <font=\"KBold\">Andrea Wilson \n@andrea.wilson.d</font>"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff266c1cf862f3545937f71a81e4d1f0, type: 2}
   m_sharedMaterial: {fileID: 671994267360197070, guid: ff266c1cf862f3545937f71a81e4d1f0, type: 2}
