@@ -62,6 +62,7 @@ public class LobbyController : MonoBehaviourPunCallbacks
             }
 
             failedToJoinRoom.gameObject.SetActive(false);
+            noNameRoomGiven.gameObject.SetActive(false);
             roomPasswordInputField.gameObject.SetActive(false);
             roomNameInputField.gameObject.SetActive(false);
             createButton.gameObject.SetActive(false);
