@@ -148,12 +148,15 @@ public class CardDisplay : MonoBehaviour
                         cardsShown++;
                     }
                 }
-                PV.RPC("SetupDrawnCard", RpcTarget.All,playerIndex, cardsShown);//photonPlayer.cardsIHave-1);
+                PV.RPC("SetupDrawnCard", RpcTarget.All,playerIndex, cardsShown);
             }
             PV.RPC("RPC_RemoveFromDeck",RpcTarget.All,cardDrawnIndex);
         }
         print("I'll send this seat: " + photonPlayer.myRealSeat);
-        PV.RPC("RPC_DrawAnimation", RpcTarget.Others, playerIndex, photonPlayer.myRealSeat);
+        if(!firstDraw)
+        {
+            PV.RPC("RPC_DrawAnimation", RpcTarget.Others, playerIndex, photonPlayer.myRealSeat);
+        }
     }
 
     [PunRPC]
