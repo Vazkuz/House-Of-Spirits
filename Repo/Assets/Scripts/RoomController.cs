@@ -257,7 +257,16 @@ public class RoomController : MonoBehaviourPunCallbacks
     {
         roomOptions = new RoomOptions();
         roomOptions.CustomRoomProperties = new Hashtable();
-        GameSetup.GS.roomPasswordTMP.text = "Room password: " + roomPassword;
+        if(roomPassword != "")
+        {
+            GameSetup.GS.roomPasswordTMP.text = "Room password: " + roomPassword;
+            GameSetup.GS.roomPasswordShadowTMP.text = "Room password: " + roomPassword;
+        }
+        else
+        {
+            GameSetup.GS.roomPasswordTMP.text = "";
+            GameSetup.GS.roomPasswordShadowTMP.text = "";
+        }
         roomOptions.CustomRoomProperties.Add("pwd", roomPassword);
         PhotonNetwork.CurrentRoom.SetCustomProperties(roomOptions.CustomRoomProperties);
         roomOptions.PlayerTtl = 1;
