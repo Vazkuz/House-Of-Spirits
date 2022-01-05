@@ -58,7 +58,7 @@ public class PUN2_Chat : MonoBehaviourPun
         if (!isChatting)
         {
             GUI.color = new Color(1,0,0);
-            GUI.skin.label.fontSize = 14;
+            GUI.skin.label.fontSize = 16;
             GUI.Label(new Rect(5, Screen.height - 25, 200, 25), "<b>Press 'T' to chat</b>");
         }
         else
