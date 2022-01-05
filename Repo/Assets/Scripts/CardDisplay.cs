@@ -20,6 +20,7 @@ public class CardDisplay : MonoBehaviour
     public List<Card> cardsAvailable;
     // List<Card> myCards = new List<Card>();
     private PhotonView PV;
+    public Animator reverseCard;
 
     // Instance
     public static CardDisplay cardDisplayInstance;
@@ -159,6 +160,8 @@ public class CardDisplay : MonoBehaviour
     void RPC_DrawAnimation(int playerIndex, int playerRealSeat)
     {
         print("Player " + playerIndex + " has drawn a card in position " + playerRealSeat);
+        reverseCard.Play("AnotherPlayerDraw_" + playerRealSeat);
+
     }
 
     [PunRPC]
