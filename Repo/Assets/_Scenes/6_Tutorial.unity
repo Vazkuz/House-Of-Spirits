@@ -2599,8 +2599,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Design & development by Daniel Madalengoitia \n@notyouraveragephysicist\n\nArt
-    by Dad\xE1 Studio\n@dadastudio.pe\n\nLogo design by Andrea Wilson \n@andrea.wilson.d"
+  m_text: "Design & development by <font=\"KBold\">Daniel Madalengoitia \n@notyouraveragephysicist</font>\n\nArt
+    by <font=\"KBold\">Dad\xE1 Studio\n@dadastudio.pe</font>\n\nLogo design by <font=\"KBold\">Andrea
+    Wilson \n@andrea.wilson.d</font>"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff266c1cf862f3545937f71a81e4d1f0, type: 2}
   m_sharedMaterial: {fileID: 671994267360197070, guid: ff266c1cf862f3545937f71a81e4d1f0, type: 2}
@@ -4741,7 +4742,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &394001360
 MonoBehaviour:
   m_ObjectHideFlags: 0

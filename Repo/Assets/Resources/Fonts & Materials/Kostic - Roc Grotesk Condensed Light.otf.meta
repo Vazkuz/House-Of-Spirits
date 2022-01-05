@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 8dd47bf11030ccb41bbd91c2285b3280
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Roc Grotesk
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 8097e4e0e7575c54695c1d22bfe0c048, type: 3}
+  - {fileID: 12800000, guid: ae6b93bbe62e2b04a934dab6510ea597, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
