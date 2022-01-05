@@ -216,7 +216,7 @@ public class RoomController : MonoBehaviourPunCallbacks
         // We try using the password the client gave to "enter" the room. If the password is not the one chose by the master client, we kick the player.
         kickedWrongPassword = false;
         StartCoroutine(TryPasswordGivenByClient(newPlayer));
-        if(PhotonNetwork.CurrentRoom.PlayerCount >= 8)
+        if(PhotonNetwork.CurrentRoom.PlayerCount >= MultiplayerSettings.multiplayerSettings.maxPlayers)
         {
             PhotonNetwork.CurrentRoom.IsOpen = false;
         }
