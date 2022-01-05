@@ -167,3 +167,4 @@ MonoBehaviour:
   notSelected: {fileID: 0}
   selectedByOther: {fileID: 0}
   selectedByMe: {fileID: 0}
+  cardsIHave: 0

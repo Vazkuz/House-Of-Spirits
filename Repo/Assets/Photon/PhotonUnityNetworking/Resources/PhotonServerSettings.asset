@@ -70,6 +70,7 @@ MonoBehaviour:
   - UpdateGameWinnerNickName
   - UpdatePositionsInNetwork
   - RPC_DrawAnimation
+  - RPC_UpdateCardsIHave
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

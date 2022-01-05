@@ -15,6 +15,7 @@ public class PhotonPlayer : MonoBehaviour
     [SerializeField] float nicknameOffsetY;
     [SerializeField] GameObject cardPrefab;
     [SerializeField] float avatarScale = 1.7f;
+    public string nickname;
     public int cardsIHave;
     public GameObject[] allCharacters;
     // public string[] avatarNames;
@@ -38,6 +39,7 @@ public class PhotonPlayer : MonoBehaviour
             if (!PlayerPrefs.HasKey("MY_NICKNAME"))
             {
                 PlayerPrefs.SetString("MY_NICKNAME", "Player");
+                nickname = "Player";
             }
             foreach (Player player in PhotonNetwork.PlayerList)
             {
@@ -46,15 +48,7 @@ public class PhotonPlayer : MonoBehaviour
                     player.NickName = PlayerPrefs.GetString("MY_NICKNAME");
                 }
             }
-
-
-            // //Check if player has selected a color before. If not, default color will be white (identified with number 0)
-            // if (PlayerPrefs.HasKey("MY_CHARACTER"))
-            // {
-            //     GetComponent<PhotonPlayer>().mySelectedCharacter = PlayerPrefs.GetInt("MY_CHARACTER");
-            // }
-            // else
-            // {
+            
             StartCoroutine(SetInitialAvatarLag());
         }
     }
@@ -267,11 +261,20 @@ public class PhotonPlayer : MonoBehaviour
     public void AddCardToHand()
     {
         cardsIHave++;
+        gameObject.transform.GetChild(0).GetComponent<CharacterType>().cardsIHave = cardsIHave;
+        PV.RPC("RPC_UpdateCardsIHave", RpcTarget.Others, myRealSeat, cardsIHave);
     }
 
+    [PunRPC]
+    void RPC_UpdateCardsIHave(int seatOfPlayer, int cardsPlayerHas)
+    {
+        SeatsController.currentSC.seats[seatOfPlayer].transform.GetChild(0).transform.GetChild(0).GetComponent<CharacterType>().cardsIHave = cardsPlayerHas;
+    }
     public void LoseCardsFromHand()
     {
         cardsIHave--;
+        gameObject.transform.GetChild(0).GetComponent<CharacterType>().cardsIHave = cardsIHave;
+        PV.RPC("RPC_UpdateCardsIHave", RpcTarget.Others, myRealSeat, cardsIHave);
     }
 
     public int GetNumberOfCards()
@@ -477,4 +480,5 @@ public class PhotonPlayer : MonoBehaviour
             }
         }
     }
+
 }

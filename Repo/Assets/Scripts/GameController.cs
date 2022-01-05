@@ -53,6 +53,9 @@ public class GameController : MonoBehaviour
     [SerializeField] GameObject cantPassTurnMessage;
     [SerializeField] TMP_Text kingPlayedAgainstYouMessage;
     [SerializeField] GameObject noCardChosen;
+    public Image numberOfCardsOfPlayer_bg;
+    public GameObject numberOfCardsOfPlayer;
+    public GameObject numberOfCardsOfPlayerShadow;
 
     [Header("Win screen")]
     
@@ -93,6 +96,7 @@ public class GameController : MonoBehaviour
             GameController.gameController.allMessages.Add(cantPassTurnMessage);
             GameController.gameController.allMessages.Add(kingPlayedAgainstYouMessage.gameObject);
             GameController.gameController.allMessages.Add(noCardChosen);
+            GameController.gameController.allMessages.Add(numberOfCardsOfPlayer);
 
             alreadyDrawnCardMessage.SetActive(false);
             cantPlayCardMessage.SetActive(false);
@@ -100,6 +104,8 @@ public class GameController : MonoBehaviour
             cantPassTurnMessage.SetActive(false);
             kingPlayedAgainstYouMessage.gameObject.SetActive(false);
             noCardChosen.SetActive(false);
+            numberOfCardsOfPlayer.SetActive(false);
+            numberOfCardsOfPlayer_bg.enabled = false;
         }
     }
 
@@ -204,6 +210,7 @@ public class GameController : MonoBehaviour
                             else
                             {
                                 PlayCardFromHand();
+                                GameController.gameController.cardSuitChosen = Card.CardSuit.NoColor;
                                 RoomController.room.SendCardChosen8(false, 0);
                                 ivePlayed8 = false;
                             }
@@ -286,6 +293,7 @@ public class GameController : MonoBehaviour
                             }
                             //GameController.gameController.card8Options.SetActive(false);
                             RoomController.room.SendCardChosen8(true, SuitChosen);
+                            GameController.gameController.cardSuitChosen = Card.CardSuit.NoColor;
                         }
                         if (photonPlayer.myCards[cardChosenIndex].cardNumber != 2)
                         {
@@ -472,6 +480,44 @@ public class GameController : MonoBehaviour
         else
         {
             StartCoroutine(ShowInfoMessage(alreadyDrawnCardMessage, 3f));
+        }
+    }
+
+    public void ShowNumberOfCardsOfPlayer()
+    {
+        StartCoroutine(IEnumerator_ShowNumberOfCards(3f));
+    }
+
+    IEnumerator IEnumerator_ShowNumberOfCards(float time)
+    {
+        foreach(GameObject messageGO in GameController.gameController.allMessages)
+        {
+            messageGO.SetActive(false);
+        }
+        if(numberOfCardsOfPlayer)
+        {
+            numberOfCardsOfPlayer.SetActive(true);
+        }
+        if(numberOfCardsOfPlayerShadow)
+        {
+            numberOfCardsOfPlayerShadow.SetActive(true);
+        }
+        if(numberOfCardsOfPlayer_bg)
+        {
+            numberOfCardsOfPlayer_bg.enabled = true;
+        }
+        yield return new WaitForSeconds(time);
+        if(numberOfCardsOfPlayer)
+        {
+            numberOfCardsOfPlayer.SetActive(false);
+        }
+        if(numberOfCardsOfPlayerShadow)
+        {
+            numberOfCardsOfPlayerShadow.SetActive(false);
+        }
+        if(numberOfCardsOfPlayer_bg)
+        {
+            numberOfCardsOfPlayer_bg.enabled = false;
         }
     }
 

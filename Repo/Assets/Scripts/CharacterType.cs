@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CharacterType : MonoBehaviour
+public class CharacterType : MonoBehaviour, ISelectHandler
 {
     public int characterIndex;
     public string characterName;
@@ -15,26 +17,10 @@ public class CharacterType : MonoBehaviour
     public Sprite notSelected;
     public Sprite selectedByOther;
     public Sprite selectedByMe;
-    // [SerializeField] GameObject playerUIIdentifier;
-    // [SerializeField] float coinScaleX = 1.2f;
-    // [SerializeField] float coinScaleY = 1f;
-    // [SerializeField] float coinPosX = 163f;
-    // [SerializeField] float coinPosY = -110f;
+    public int cardsIHave;
 
-
-    // Start is called before the first frame update
     void Start()
     {
-        // if(transform.parent.GetComponent<PhotonPlayer>())
-        // {
-        //     if(transform.parent.GetComponent<PhotonView>().IsMine)
-        //     {
-        //         // GameObject coinID = Instantiate(playerUIIdentifier, transform);
-        //         // coinID.transform.SetParent(transform, true);
-        //         // coinID.transform.localScale = new Vector3(coinScaleX, coinScaleY, 1);
-        //         // coinID.transform.localPosition = new Vector3(coinPosX, coinPosY, coinID.transform.localPosition.z);
-        //     }
-        // }
     }
 
     public void ChangeImageInButtonAvatar(Sprite whichTypeOfSelection)
@@ -42,4 +28,19 @@ public class CharacterType : MonoBehaviour
         this.GetComponent<Image>().sprite = whichTypeOfSelection;
     }
 
+    void ShowNumberOfCards()
+    {
+        if(RoomController.room.currentScene == MultiplayerSettings.multiplayerSettings.gameScene)
+        {
+            string textForPlayer = "That player has " + cardsIHave + " cards";
+            GameController.gameController.numberOfCardsOfPlayer.GetComponent<TMP_Text>().text = textForPlayer;
+            GameController.gameController.numberOfCardsOfPlayerShadow.GetComponent<TMP_Text>().text = textForPlayer;
+            GameController.gameController.ShowNumberOfCardsOfPlayer();
+        }
+    }
+
+    public void OnSelect(BaseEventData eventData)
+    {
+        ShowNumberOfCards();
+    }
 }
