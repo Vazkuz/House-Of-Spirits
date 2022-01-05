@@ -10517,9 +10517,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 425, y: 0}
-  m_SizeDelta: {x: 850, y: 50}
-  m_Pivot: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1066278234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10540,7 +10540,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "So that's it! \nLets go back and start to play!"
+  m_text: "And that's it! \nLets go back and start playing!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff266c1cf862f3545937f71a81e4d1f0, type: 2}
   m_sharedMaterial: {fileID: 671994267360197070, guid: ff266c1cf862f3545937f71a81e4d1f0, type: 2}
@@ -10567,8 +10567,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 100
+  m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -12803,6 +12803,7 @@ MonoBehaviour:
   - {x: 2.58, y: 4.05, z: 0}
   - {x: 5.23, y: 4.05, z: 0}
   - {x: -0.07, y: 4.05, z: 0}
+  - {x: -0.07, y: 4.05, z: 0}
   scripts:
   - What else? Am I forgeting something?
   - Oh that's right! These are you and your oponents.
@@ -12810,6 +12811,7 @@ MonoBehaviour:
   - Oh that's right! These are you and your oponents.
   - Oh that's right! These are you and your oponents.
   - If you see the background like this it means\nthat it is that player's turn
+  - And if you press on anyone's picture, you'll\nsee how many cards they have left
   scriptPositions:
   - {x: 679, y: 313, z: 0}
   - {x: 824, y: 313, z: 0}
@@ -16185,9 +16187,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 430, y: -5}
-  m_SizeDelta: {x: 850, y: 50}
-  m_Pivot: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 7, y: -7}
+  m_SizeDelta: {x: 1200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1589759688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16208,7 +16210,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "So that's it! \nLets go back and start to play!"
+  m_text: "And that's it! \nLets go back and start playing!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff266c1cf862f3545937f71a81e4d1f0, type: 2}
   m_sharedMaterial: {fileID: 671994267360197070, guid: ff266c1cf862f3545937f71a81e4d1f0, type: 2}
@@ -16217,8 +16219,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 1275068416
-  m_fontColor: {r: 0, g: 0, b: 0, a: 0.29803923}
+    rgba: 1711276032
+  m_fontColor: {r: 0, g: 0, b: 0, a: 0.4}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -16235,8 +16237,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 100
+  m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -16707,7 +16709,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1610789080
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -18965,7 +18967,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1885859954
 MonoBehaviour:
   m_ObjectHideFlags: 0

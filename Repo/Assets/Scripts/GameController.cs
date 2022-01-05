@@ -293,7 +293,7 @@ public class GameController : MonoBehaviour
                             }
                             //GameController.gameController.card8Options.SetActive(false);
                             RoomController.room.SendCardChosen8(true, SuitChosen);
-                            GameController.gameController.cardSuitChosen = Card.CardSuit.NoColor;
+                            // GameController.gameController.cardSuitChosen = Card.CardSuit.NoColor;
                         }
                         if (photonPlayer.myCards[cardChosenIndex].cardNumber != 2)
                         {
