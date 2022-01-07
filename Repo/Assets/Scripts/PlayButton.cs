@@ -8,12 +8,28 @@ public class PlayButton : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
     [SerializeField] bool firstTime = true;
     Deselect8Options[] options8;
+    Image thisImage;
+    void Awake()
+    {
+        thisImage = gameObject.GetComponent<Image>();
+    }
     void Start()
     {
         options8 = FindObjectsOfType<Deselect8Options>();
         this.GetComponent<Button>().Select();
         firstTime = false;
     }
+
+    public void EnableImage()
+    {
+        thisImage.enabled = true;
+    }
+
+    public void DisableImage()
+    {
+        thisImage.enabled = false;
+    }
+
     public void OnDeselect(BaseEventData eventData)
     {
         GameController.gameController.ClearCardChosen();
@@ -24,22 +40,7 @@ public class PlayButton : MonoBehaviour, ISelectHandler, IDeselectHandler
         if(!firstTime)
         {
             Debug.Log("Starting play");
-            // int numberOfOptionsSelected = 0;
-            // if(GameController.gameController.cardChosen.GetComponent<Card>().cardNumber == 8)
-            // {
-            //     foreach(Deselect8Options option8 in options8)
-            //     {
-            //         if(EventSystem.current.currentSelectedGameObject == option8.GetComponent<Button>()) numberOfOptionsSelected++;
-            //     }
-            //     if(numberOfOptionsSelected <= 0)
-            //     {
-            //         print("No has seleccionado nada");
-            //     }
-            //     else
-            //     {
-            //         print("sí seleccionaste");
-            //     }
-            // }
+            
             //Play card
             GameController.gameController.AttemptToPlayCard();
             //delete cardChosen

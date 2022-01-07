@@ -239,6 +239,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c0f4f04bbd9d56f40817f6a2804251a5, type: 3}
   - {fileID: 21300000, guid: 944f1969b8e0084458d1ae4ad2dae069, type: 3}
   cardSuit: 0
+  playButton: {fileID: 865575083}
   noAnimIndex: -1
   genericAnimIndex: 0
   wawaAnimIndex: 2

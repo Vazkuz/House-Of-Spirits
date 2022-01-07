@@ -9,6 +9,7 @@ public class CardAnimationsController : MonoBehaviour
     public Image emptyCard;
     public Sprite[] emptyCardSprites;
     public Card.CardSuit cardSuit;
+    [SerializeField] PlayButton playButton;
 
     [SerializeField] int noAnimIndex = -1;
     public int genericAnimIndex = 0;
@@ -29,6 +30,16 @@ public class CardAnimationsController : MonoBehaviour
         animator = GetComponent<Animator>();
         animator.SetInteger("index", noAnimIndex);
         emptyCard.enabled = false;
+    }
+
+    public void EnablePlayButton()
+    {
+        playButton.EnableImage();
+    }
+
+    public void DisablePlayButton()
+    {
+        playButton.DisableImage();
     }
 
     public void SetAnimation(int animationIndex)
