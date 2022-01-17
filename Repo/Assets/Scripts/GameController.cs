@@ -542,7 +542,7 @@ public class GameController : MonoBehaviour
     {
         if(!youNeedToPlay13)
         {
-            kingPlayedAgainstYouMessage.text = "Someone played King against you. You have to either play another King or draw " 
+            kingPlayedAgainstYouMessage.text = "Someone played Supay against you. You have to either play another Supay or draw " 
                                                 + GameController.gameController.cardsToDraw + " cards.";
             K13Options.SetActive(true);
             StartCoroutine(ShowInfoMessage(kingPlayedAgainstYouMessage.gameObject, 5f));

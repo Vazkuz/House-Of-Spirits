@@ -3517,8 +3517,8 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   scripts:
-  - Now that you know the spirits, lets check how to use them in the game!
-  - This is the arena you'll see in the game.\nLets dive into its parts!
+  - Now that you know the Spirits, let's check out how to play!
+  - This is the arena you'll see in the game.\nLet's dive into its parts!
   scriptPositions: []
   globalLightIntensity: 0.3
   pointLightIntensity: 0
@@ -8936,9 +8936,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Last (but not least): Wiracocha.
 
-    The almighty creator of everything
-    and everyone is the only that enables players to change between Suyus without
-    limitations.'
+    The almighty creator of everything,
+    he is the only that enables players to change between Suyus as they will.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff266c1cf862f3545937f71a81e4d1f0, type: 2}
   m_sharedMaterial: {fileID: 671994267360197070, guid: ff266c1cf862f3545937f71a81e4d1f0, type: 2}
@@ -9978,7 +9977,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Now that you know the Spirits, lets check how to use them in the game!
+  m_text: TEXT TEXT TEXT
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff266c1cf862f3545937f71a81e4d1f0, type: 2}
   m_sharedMaterial: {fileID: 671994267360197070, guid: ff266c1cf862f3545937f71a81e4d1f0, type: 2}
@@ -10509,7 +10508,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "And that's it! \nLets go back and start playing!"
+  m_text: "And that's it! \nLet's go back and start playing!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff266c1cf862f3545937f71a81e4d1f0, type: 2}
   m_sharedMaterial: {fileID: 671994267360197070, guid: ff266c1cf862f3545937f71a81e4d1f0, type: 2}
@@ -12641,7 +12640,7 @@ MonoBehaviour:
   - Oh that's right! These are you and your oponents.
   - Oh that's right! These are you and your oponents.
   - Oh that's right! These are you and your oponents.
-  - If you see the background like this it means\nthat it is that player's turn
+  - The purple color shows it is that player's turn.
   - And if you press on anyone's picture, you'll\nsee how many cards they have left
   scriptPositions:
   - {x: 679, y: 313, z: 0}
@@ -12829,7 +12828,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "But in order to do so, you need to follow some rules: \nFirst, you can
     only play a card if the suyu (color) of it is the same as the suyu (color) of
-    the last card that was played..."
+    the last card in the arena..."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff266c1cf862f3545937f71a81e4d1f0, type: 2}
   m_sharedMaterial: {fileID: 671994267360197070, guid: ff266c1cf862f3545937f71a81e4d1f0, type: 2}
@@ -14793,8 +14792,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: But there's more... there are some spirits that cast special spells. Lets
-    see them...
+  m_text: But there's more... there are some spirits that cast special spells. Let's
+    take a look at them...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff266c1cf862f3545937f71a81e4d1f0, type: 2}
   m_sharedMaterial: {fileID: 671994267360197070, guid: ff266c1cf862f3545937f71a81e4d1f0, type: 2}
@@ -17699,9 +17698,9 @@ MonoBehaviour:
   scripts:
   - The Wawa, a little child too afraid to be on her own.\nOne must throw another
     card when playing this spirit.
-  - The Llama, a friendly auquenid.\nShe makes the next player to be skipped.
-  - The Inka, the mighty king of the Empire.\nHis presence provokes the order of
-    the game to reverse.
+  - The Llama, a friendly auquenid.\nShe makes the next player skip a turn.
+  - The Inka, the mighty king of the Empire.\nHis presence reverses the direction
+    of the game.
   - The Supay, a naughty demon.\nHe forces the next player to draw 3 cards\n(unless
     they play another Supay)
   scriptPositions: []
@@ -20732,8 +20731,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ... Or, you can also play a card of the same spirit of the last card that
-    was played...
+  m_text: ... Or, you can also play a card of the same spirit of the card in the
+    arena...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff266c1cf862f3545937f71a81e4d1f0, type: 2}
   m_sharedMaterial: {fileID: 671994267360197070, guid: ff266c1cf862f3545937f71a81e4d1f0, type: 2}
